@@ -9,7 +9,7 @@ package com.mycompany.poo2;
  *
  * @author Pedro
  */
-public class POO2 {
+public class Simulador {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
