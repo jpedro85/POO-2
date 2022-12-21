@@ -8,6 +8,44 @@ package com.mycompany.poo2;
  *
  * @author Pedro
  */
-public class Cliente {
-    
+public class Cliente extends Pessoa {
+
+    private static int numeroClientes;
+    private int numeroVisitas;
+    private double saldo;
+    private int generosidade;
+    private int interece;
+
+    public Cliente(String nome, int nif, int idade, double saldo, int generosidade, int interece) {
+        super(nome, nif, idade);
+        this.saldo = saldo;
+        this.generosidade = generosidade;
+        this.interece = interece;
+    }
+
+    public static int getQuantidade() {
+        return numeroClientes;
+    }
+
+    public static void eleminar() {
+        numeroClientes -= 1;
+    }
+
+    public int getNumeroVisitas() {
+        return numeroVisitas;
+    }
+
+    public double pagar(double preco) {
+        return saldo - preco;
+    }
+    //oferecerDinheiro por fazer 
+
+    @Override
+    public String toString() {
+        String text;
+        text = "O Cliente tem:";
+        text += super.toString() + "\n";
+        text += "com saldo: " + saldo + " generosidade: " + generosidade + "e interece: " + interece;
+        return text;
+    }
 }
