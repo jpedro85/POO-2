@@ -43,7 +43,7 @@ public class Cliente extends Pessoa {
     @Override
     public String toString() {
         String text;
-        text = "O Cliente tem:";
+        text = "O Cliente tem: ";
         text += super.toString() + "\n";
         text += "com saldo: " + saldo + " generosidade: " + generosidade + "e interece: " + interece;
         return text;
