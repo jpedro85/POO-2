@@ -63,7 +63,7 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Apetite:"+ this.getApetite() +")" ;
+        return "GeneRepoducao(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Apetite:"+ this.getApetite() +")" ;
     }
 
 }

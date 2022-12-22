@@ -64,7 +64,7 @@ public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLong
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Anos:"+ this.getAnos()+")" ;
+        return "GeneLongividade(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Anos:"+ this.getAnos()+")" ;
     }
 
 }

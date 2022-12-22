@@ -9,7 +9,7 @@ package com.mycompany.poo2;
  * @author Francisco MSI
  */
 
-public abstract class Gene extends Gravavel{ 
+public abstract class Gene implements Gravavel{ 
     
     private static int lastId = 0;
     private int id;
