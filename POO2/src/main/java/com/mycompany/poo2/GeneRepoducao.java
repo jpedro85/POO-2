@@ -17,11 +17,13 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
     public GeneRepoducao(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneRepoducao");
         this.apetite = Integer.parseInt(fstr.getAtributo("Apetite") );
+        addInstance(this);
     }
 
     public GeneRepoducao(int apetite, String nome) {
         super(nome);
         this.apetite = apetite;
+        addInstance(this);
     }
 
     public int getApetite() {
@@ -51,7 +53,7 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString("GeneEspecie",4);
+        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );

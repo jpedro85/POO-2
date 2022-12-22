@@ -18,11 +18,13 @@ public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbient
     public GeneAmbiente(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"GeneAmbiente");
         this.ambiente = fstr.getAtributo("Ambiente");
+        addInstance(this);
     }
 
     public GeneAmbiente(Ambiente ambiente, String nome) {
         super(nome);
         this.ambiente = ambiente.toString() ;
+        addInstance(this);
     }
 
     public String getAmbiente() {
@@ -52,7 +54,7 @@ public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbient
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString("GeneEspecie",4);
+        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );

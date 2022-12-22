@@ -21,7 +21,7 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
         super(nome);
         this.valor = valor;
         this.tipo = tipo.toString();
-       
+        addInstance(this);
     }
      
     public GeneEspecifico(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
@@ -29,6 +29,7 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
         super(fstr , "GeneEspecifico");
         this.valor = fstr.getAtributo("Valor");
         this.tipo = fstr.getAtributo("Tipo");
+        addInstance(this);
     }
     
     @Override
@@ -57,7 +58,7 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString("GeneEspecie",4);
+        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );
