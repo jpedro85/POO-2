@@ -78,9 +78,9 @@ public class FormatedString {
         for (Map.Entry<String, String> entry : this.atributos.entrySet()) {
 
             if (count == this.atributos.size()) {
-                temp += entry.getKey() + ":" + entry.getValue() + ";";
-            } else {
                 temp += entry.getKey() + ":" + entry.getValue() + ")";
+            } else {
+                temp += entry.getKey() + ":" + entry.getValue() + ";";
             }
 
             count++;

@@ -23,13 +23,25 @@ public class Veterinario extends Empregado {
 
     //criar horario
     //gethorario
+    @Override
     public void trabalhar() {
-
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
     public void eleminar() {
         super.eleminar();
         numeroVeterinarios--;
+    }
+
+    @Override
+    public Horario createHorario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Horario getHorario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

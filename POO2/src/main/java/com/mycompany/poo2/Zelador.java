@@ -21,8 +21,20 @@ public class Zelador extends Empregado {
         return numeroZeladores;
     }
 
-    public void trabalhar() {
+    @Override
+    public Horario createHorario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
+    @Override
+    public Horario getHorario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    //arranjar
+    //limpar
+    @Override
+    public void trabalhar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
