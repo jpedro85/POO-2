@@ -9,7 +9,9 @@ package com.mycompany.poo2;
  * @author Pedro
  */
 public class Tratador extends Empregado{
+    
     private static int numeroTratadores;
+    
     public Tratador(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade, salarioBase, bonusTarefa, experiencia, maxTarefas, totalTarefas);
         numeroTratadores++;

@@ -10,14 +10,14 @@ package com.mycompany.poo2;
  */
 public class Veterinario extends Empregado {
 
-    private int numeroVeterinarios;
+    private static int numeroVeterinarios;
 
     public Veterinario(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade, salarioBase, bonusTarefa, experiencia, maxTarefas, totalTarefas);
         numeroVeterinarios++;
     }
 
-    public int getNumeroVeterinarios() {
+    public static int getQuantidade() {
         return numeroVeterinarios;
     }
 

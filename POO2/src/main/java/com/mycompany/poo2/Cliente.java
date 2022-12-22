@@ -21,6 +21,11 @@ public class Cliente extends Pessoa {
         this.saldo = saldo;
         this.generosidade = generosidade;
         this.interece = interece;
+        numeroClientes++;
+    }
+
+    public double getSaldo() {
+        return saldo;
     }
 
     public static int getQuantidade() {
@@ -37,7 +42,8 @@ public class Cliente extends Pessoa {
     }
 
     public double pagar(double preco) {
-        return saldo - preco;
+        this.saldo=saldo-preco;
+        return saldo;
     }
     //oferecerDinheiro por fazer 
 
@@ -46,7 +52,7 @@ public class Cliente extends Pessoa {
         String text;
         text = "O Cliente tem: ";
         text += super.toString() + "\n";
-        text += "com saldo: " + saldo + " generosidade: " + generosidade + "e interece: " + interece;
+        text += "com saldo: " + saldo + " generosidade: " + generosidade + " e interece: " + interece;
         return text;
     }
 }
