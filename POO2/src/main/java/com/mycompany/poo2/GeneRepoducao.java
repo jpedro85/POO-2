@@ -54,8 +54,8 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
-        fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Apetite",  this.getApetite());
         return fsrt;
@@ -65,7 +65,7 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Apetite:"+ this.getApetite() +")" ;
+        return "GeneRepoducao(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Apetite:"+ this.getApetite() +")" ;
     }
 
 }

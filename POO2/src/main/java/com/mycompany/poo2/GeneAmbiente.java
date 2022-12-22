@@ -55,8 +55,8 @@ public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbient
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
-        fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Ambiente",  this.getAmbiente());
         return fsrt;
@@ -66,7 +66,7 @@ public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbient
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Ambiente:"+ this.getAmbiente() +")" ;
+        return "GeneAmbiente(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Ambiente:"+ this.getAmbiente() +")" ;
     }
 
 }

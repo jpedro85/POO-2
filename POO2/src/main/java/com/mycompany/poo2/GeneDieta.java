@@ -16,7 +16,7 @@ public class GeneDieta extends GeneCaraterisca implements Registo<GeneDieta>{
     private static ArrayList<GeneDieta> allInstancesCreated = new ArrayList<>(200);
 
     public GeneDieta(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
-        super(fstr , "GeneRepoducao");
+        super(fstr , "GeneDieta");
         this.dieta = fstr.getAtributo("Dieta") ;
         addInstance(this);
     }
@@ -55,8 +55,8 @@ public class GeneDieta extends GeneCaraterisca implements Registo<GeneDieta>{
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
-        fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Dieta",  this.getDiteta());
         return fsrt;
@@ -66,6 +66,6 @@ public class GeneDieta extends GeneCaraterisca implements Registo<GeneDieta>{
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Dieta:"+ this.getDiteta()+")" ;
+        return "GeneDieta(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Dieta:"+ this.getDiteta()+")" ;
     }
 }

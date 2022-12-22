@@ -53,8 +53,8 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
-        fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Valor",  this.getValor());
         return fsrt;
