@@ -34,7 +34,7 @@ public abstract class Pessoa {
     }
 
     public static void eleminar() {
-        numeroPessoas -= 1;
+        numeroPessoas --;
     }
 
     @Override

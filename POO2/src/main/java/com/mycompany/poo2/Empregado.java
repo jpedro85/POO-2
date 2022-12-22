@@ -58,7 +58,7 @@ public abstract class Empregado extends Pessoa{
     }
     
     public static void eleminar() {
-        numeroEmpregados -= 1;
+        numeroEmpregados --;
     }
     
     @Override 
