@@ -27,7 +27,7 @@ public abstract class Gene implements Gravavel{
     
     public Gene( FormatedString fstr , String className) throws RepresentacaoInvalidaDoTipo {
         
-        if( fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt representa um : " + className );
+        if( fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + className );
         
         this.nome = fstr.getAtributo("Nome");
         this.geracao = Integer.parseInt( fstr.getAtributo("Geracao") );
