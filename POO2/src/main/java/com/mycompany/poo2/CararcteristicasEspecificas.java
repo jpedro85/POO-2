@@ -10,7 +10,7 @@ package com.mycompany.poo2;
  */
 public enum CararcteristicasEspecificas {
     
-    a("a");
+    OLHOS("olhos");
     
     private String name;
     

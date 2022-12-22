@@ -55,8 +55,8 @@ public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
-        fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Sexo",  this.getSexo() );
         return fsrt;
@@ -66,7 +66,7 @@ public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Sexo:"+ this.getSexo()+")" ;
+        return "GeneSexo(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Sexo:"+ this.getSexo()+")" ;
     }
 
 }

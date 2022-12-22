@@ -58,9 +58,9 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
-        fsrt.addAtributo("Nome", this.getNome());
+        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),5);
         fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Valor",  this.getValor());
         fsrt.addAtributo("Tipo",  this.getTipo());
@@ -71,6 +71,6 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Valor:"+ this.valor + ",Tipo:"+ this.tipo + ")" ;
+        return "GeneEspecifico(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Valor:"+ this.valor + ",Tipo:"+ this.tipo + ")" ;
     }
 }

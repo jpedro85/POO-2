@@ -9,7 +9,7 @@ package com.mycompany.poo2;
  * @author Francisco MSI
  */
 
-public abstract class Gene extends Gravavel{ 
+public abstract class Gene implements Gravavel{ 
     
     private static int lastId = 0;
     private int id;
@@ -25,9 +25,9 @@ public abstract class Gene extends Gravavel{
         
     }
     
-    public <T>Gene( FormatedString fstr , String className) throws RepresentacaoInvalidaDoTipo {
+    public Gene( FormatedString fstr , String className) throws RepresentacaoInvalidaDoTipo {
         
-        if( fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um :" + className );
+        if( fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt representa um : " + className );
         
         this.nome = fstr.getAtributo("Nome");
         this.geracao = Integer.parseInt( fstr.getAtributo("Geracao") );
