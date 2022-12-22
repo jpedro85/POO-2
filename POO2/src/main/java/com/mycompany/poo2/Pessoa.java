@@ -33,8 +33,9 @@ public abstract class Pessoa {
         return numeroPessoas;
     }
 
-    public static void eleminar() {
+    public static Pessoa eleminar(Pessoa ppl) {
         numeroPessoas -= 1;
+        return null;
     }
 
     @Override
