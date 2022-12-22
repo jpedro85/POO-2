@@ -12,7 +12,6 @@ package com.mycompany.poo2;
 public abstract class Gene extends Gravavel{ 
     
     private static int lastId = 0;
-    private static int numeroGenes = 0;
     private int id;
     private String nome;
     private int geracao;
@@ -23,11 +22,12 @@ public abstract class Gene extends Gravavel{
         this.nome = nome;
         this.geracao = 0;
         this.id = ++lastId;
-        numeroGenes++;
         
     }
     
-    public Gene( FormatedString fstr ){
+    public <T>Gene( FormatedString fstr , String className) throws RepresentacaoInvalidaDoTipo {
+        
+        if( fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um :" + className );
         
         this.nome = fstr.getAtributo("Nome");
         this.geracao = Integer.parseInt( fstr.getAtributo("Geracao") );
@@ -35,14 +35,9 @@ public abstract class Gene extends Gravavel{
                 
         if(this.id > lastId)
             lastId = this.id;
-        
-        numeroGenes++;
+
     }
-                
-    public static void eleminar(){
-        numeroGenes--;
-    }
-            
+                        
     public int getId() {
         return this.id;
     }

@@ -9,6 +9,17 @@ package com.mycompany.poo2;
  * @author Pedro
  */
 public enum Sexo {
-    MACHO,
-    FEMEA;
+    MACHO("macho"),
+    FEMEA("femea");
+    
+    private String nome;
+    
+    private Sexo(String nome){
+        this.nome = nome;
+    }
+    
+    @Override
+    public String toString(){
+        return nome;
+    }
 }

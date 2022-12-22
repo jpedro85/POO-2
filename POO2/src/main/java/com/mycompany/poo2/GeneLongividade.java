@@ -4,16 +4,20 @@
  */
 package com.mycompany.poo2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro
  */
-public class GeneLongividade extends GeneCaraterisca {
+public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLongividade>{
 
     private int anos;
+    private static ArrayList<GeneLongividade> allInstancesCreated = new ArrayList<>(200);
 
-    public GeneLongividade(FormatedString fstr) {
-        super(fstr);
+    public GeneLongividade(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        super(fstr,"GeneLongividade");
+        this.anos = Integer.parseInt( fstr.getAtributo("Anos"));
     }
 
     public GeneLongividade(int anos, String nome) {
@@ -24,15 +28,43 @@ public class GeneLongividade extends GeneCaraterisca {
     public int getAnos() {
         return anos;
     }
-
+    
+    @Override
+    public ArrayList<GeneLongividade> getAllInstances(){
+        return allInstancesCreated; 
+    }
+    
+    @Override
+    public void addInstance( GeneLongividade instance ){  
+        allInstancesCreated.add(instance);
+    }
+   
+    @Override
+    public void removeInstance( GeneLongividade instance ){
+        allInstancesCreated.remove(instance);   
+    }
+    
     @Override
     public void mutar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public FormatedString toFormatedString() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public FormatedString toFormatedString(){
+        
+        FormatedString fsrt = new FormatedString("GeneEspecie",4);
+        fsrt.addAtributo("Nome", this.getNome() );
+        fsrt.addAtributo("Id",  this.getId() );
+        fsrt.addAtributo("Geracao",  this.getGeracao() );
+        fsrt.addAtributo("Anos",  this.getAnos() );
+        return fsrt;
+        
+    }
+    
+    @Override
+    public String toString(){
+
+        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Anos:"+ this.getAnos()+")" ;
     }
 
 }

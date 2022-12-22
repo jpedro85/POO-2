@@ -22,7 +22,7 @@ public class FormatedString {
         this.atributos = new HashMap<>(numeroCampos);
     }
 
-    public FormatedString(String str) throws Exception {
+    public FormatedString(String str) throws RepresentacaoInvalidaDoTipo {
         
         try{
             int end = str.lastIndexOf('(');
@@ -48,7 +48,7 @@ public class FormatedString {
             }
         } catch(Exception e) {
             
-            throw new Exception("A string " + str + " não está fromatada corretamente." );
+            throw new RepresentacaoInvalidaDoTipo("A string " + str + " não está fromatada corretamente." );
             
         }
         
@@ -64,6 +64,10 @@ public class FormatedString {
 
     public String getAtributo(String nomeCampo) {
         return this.atributos.get(nomeCampo);
+    }
+    
+    public String getTipo(){
+        return this.tipo;
     }
 
     public String getString() {
@@ -105,19 +109,19 @@ public class FormatedString {
         return temp;
     }
 
-    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray) throws Exception{
+    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray) throws RepresentacaoInvalidaDoTipo{
 
         ArrayList<Tipo> novoArray = new ArrayList<>();
         return convert(instaceClass, strArray, novoArray);
     }
 
-    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray, int capadidaeinitial) throws Exception{
+    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray, int capadidaeinitial) throws RepresentacaoInvalidaDoTipo{
 
         ArrayList<Tipo> novoArray = new ArrayList<>(capadidaeinitial);
         return convert(instaceClass, strArray, novoArray);
     }
 
-    private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> instaceClass, String strArray, ArrayList<Tipo> array) throws Exception{
+    private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> instaceClass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
 
         //format "[Object(campo:valor),Object(campo:valor),Object(campo:valor),Object(campo:valor),Object(campo:valor)]"
         int end = strArray.indexOf(',');//verificar
@@ -142,7 +146,7 @@ public class FormatedString {
 
     }
 
-    private static Object novaInstancia(String classname, FormatedString fstr) {
+    private static Object novaInstancia(String classname, FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
 
         switch (classname) {
             case "GeneEspecie":

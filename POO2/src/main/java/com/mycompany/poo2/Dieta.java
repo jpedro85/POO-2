@@ -8,13 +8,13 @@ package com.mycompany.poo2;
  *
  * @author Francisco MSI
  */
-public enum Ambiente {
+public enum Dieta {
     
-    DESETICO("deserto"),ROCHOSO("rochoso"),SAVANA("savana"),SELVA("selva");
+    VEGETARIANO("vegetariano"),CARNIVORO("carnivoro"),OMNIVORO("omnivoro");
     
     private String nome;
     
-    private Ambiente(String nome){
+    private Dieta(String nome){
         this.nome = nome;
     }
     

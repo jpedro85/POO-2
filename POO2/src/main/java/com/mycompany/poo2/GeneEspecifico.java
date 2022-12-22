@@ -15,21 +15,20 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
     
     private String valor;
     private String tipo; 
-    private static int numeroGeneEspecie = 0;
     private static ArrayList<GeneEspecifico> allInstancesCreated = new ArrayList<>(200);
     
     public GeneEspecifico(String valor, String nome , CararcteristicasEspecificas tipo) {
         super(nome);
         this.valor = valor;
         this.tipo = tipo.toString();
-        numeroGeneEspecie++;
+       
     }
      
-    public GeneEspecifico(FormatedString fstr){
-        super(fstr);
+    public GeneEspecifico(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
+        super(fstr , "GeneEspecifico");
         this.valor = fstr.getAtributo("Valor");
         this.tipo = fstr.getAtributo("Tipo");
-        numeroGeneEspecie++;
     }
     
     @Override

@@ -10,8 +10,8 @@ package com.mycompany.poo2;
  */
 public abstract class GeneCaraterisca extends Gene {
 
-    public GeneCaraterisca(FormatedString fstr) {
-        super(fstr);
+    public GeneCaraterisca(FormatedString fstr , String classname) throws RepresentacaoInvalidaDoTipo {
+        super(fstr ,classname);
     }
 
     public GeneCaraterisca(String nome) {

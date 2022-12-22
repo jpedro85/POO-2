@@ -14,19 +14,18 @@ import java.util.ArrayList;
 public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
     
     private String valor;
-    private static int numeroGeneEspecie = 0;
     private static ArrayList<GeneEspecie> allInstancesCreated = new ArrayList<>(200);
     
     public GeneEspecie(String valor, String nome) {
         super(nome);
         this.valor = valor;
-        numeroGeneEspecie++;
     }
      
-    public GeneEspecie(FormatedString fstr){
-        super(fstr);
+    public GeneEspecie(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
+        super( fstr , "GeneEspecie" );
         this.valor = fstr.getAtributo("Valor");
-        numeroGeneEspecie++;
+        
     }
     
     @Override
