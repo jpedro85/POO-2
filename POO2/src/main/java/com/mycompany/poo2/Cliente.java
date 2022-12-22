@@ -27,7 +27,8 @@ public class Cliente extends Pessoa {
         return numeroClientes;
     }
 
-    public static void eleminar() {
+    public void eleminar() {
+        super.eleminar();
         numeroClientes --;
     }
 

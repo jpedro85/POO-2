@@ -33,7 +33,7 @@ public abstract class Pessoa {
         return numeroPessoas;
     }
 
-    public static void eleminar() {
+    public void eleminar() {
         numeroPessoas --;
     }
 

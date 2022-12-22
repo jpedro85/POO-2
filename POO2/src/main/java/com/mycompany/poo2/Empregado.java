@@ -57,7 +57,8 @@ public abstract class Empregado extends Pessoa{
         return numeroEmpregados;
     }
     
-    public static void eleminar() {
+    public void eleminar(){
+        super.eleminar();
         numeroEmpregados --;
     }
     
