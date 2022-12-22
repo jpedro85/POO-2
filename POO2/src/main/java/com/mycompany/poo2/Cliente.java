@@ -21,6 +21,7 @@ public class Cliente extends Pessoa {
         this.saldo = saldo;
         this.generosidade = generosidade;
         this.interece = interece;
+        numeroClientes++;
     }
 
     public static int getQuantidade() {
@@ -35,7 +36,7 @@ public class Cliente extends Pessoa {
     public int getNumeroVisitas() {
         return numeroVisitas;
     }
-
+    
     public double pagar(double preco) {
         return saldo - preco;
     }

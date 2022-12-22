@@ -19,6 +19,7 @@ public abstract class Pessoa {
         this.nome = nome;
         this.nif = nif;
         this.idade = idade;
+        numeroPessoas++;
     }
 
     public String getNome() {

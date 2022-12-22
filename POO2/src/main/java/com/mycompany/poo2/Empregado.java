@@ -24,6 +24,7 @@ public abstract class Empregado extends Pessoa{
         this.experiencia=experiencia;
         this.maxTarefas=maxTarefas;
         this.totalTarefas=totalTarefas;
+        numeroEmpregados++;
     }
 
     public double getSalarioBase() {
