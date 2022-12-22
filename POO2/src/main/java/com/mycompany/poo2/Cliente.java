@@ -27,9 +27,9 @@ public class Cliente extends Pessoa {
         return numeroClientes;
     }
 
-    public static Cliente eleminar(Cliente cl) {
-        numeroClientes -= 1;
-        return null;
+    public void eleminar() {
+        super.eleminar();
+        numeroClientes--;
     }
 
     public int getNumeroVisitas() {

@@ -8,27 +8,28 @@ package com.mycompany.poo2;
  *
  * @author Pedro
  */
-public class Zelador extends Empregado {
+public class Veterinario extends Empregado {
 
-    private static int numeroZeladores;
+    private int numeroVeterinarios;
 
-    public Zelador(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
+    public Veterinario(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade, salarioBase, bonusTarefa, experiencia, maxTarefas, totalTarefas);
-        numeroZeladores++;
+        numeroVeterinarios++;
     }
 
-    public static int getQuantidade() {
-        return numeroZeladores;
+    public int getNumeroVeterinarios() {
+        return numeroVeterinarios;
     }
 
+    //criar horario
+    //gethorario
     public void trabalhar() {
 
     }
 
-    @Override
     public void eleminar() {
         super.eleminar();
-        numeroZeladores--;
+        numeroVeterinarios--;
     }
 
 }
