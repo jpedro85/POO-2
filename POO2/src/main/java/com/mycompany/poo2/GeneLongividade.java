@@ -18,11 +18,13 @@ public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLong
     public GeneLongividade(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"GeneLongividade");
         this.anos = Integer.parseInt( fstr.getAtributo("Anos"));
+        addInstance(this);
     }
 
     public GeneLongividade(int anos, String nome) {
         super(nome);
         this.anos = anos;
+        addInstance(this);
     }
 
     public int getAnos() {
@@ -52,7 +54,7 @@ public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLong
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString("GeneEspecie",4);
+        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );

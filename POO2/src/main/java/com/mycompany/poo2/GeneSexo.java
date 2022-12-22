@@ -18,11 +18,13 @@ public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
     public GeneSexo(Sexo sexo, String nome) {
         super(nome);
         this.sexo = sexo.toString();
+        addInstance(this);
     }
 
     public GeneSexo(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneSexo");
         this.sexo = fstr.getAtributo("Sexo");
+        addInstance(this);
     }
 
     public String getSexo() {
@@ -52,7 +54,7 @@ public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString("GeneEspecie",4);
+        FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );
