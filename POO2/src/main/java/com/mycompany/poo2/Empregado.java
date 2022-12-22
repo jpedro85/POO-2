@@ -15,6 +15,7 @@ public abstract class Empregado extends Pessoa{
     private int experiencia;
     private int maxTarefas;
     private int totalTarefas;
+    private int tarefasMes;
     //add horario 
     
     public Empregado(String nome,int nif,int idade,double salarioBase,int bonusTarefa,int experiencia,int maxTarefas,int totalTarefas){
@@ -24,7 +25,6 @@ public abstract class Empregado extends Pessoa{
         this.experiencia=experiencia;
         this.maxTarefas=maxTarefas;
         this.totalTarefas=totalTarefas;
-        numeroEmpregados++;
     }
 
     public double getSalarioBase() {
@@ -47,6 +47,15 @@ public abstract class Empregado extends Pessoa{
         return maxTarefas;
     }
 
+    public int getTarefasMes() {
+        return tarefasMes;
+    }
+
+    public void setTarefasMes(int tarefasMes) {
+        this.tarefasMes = tarefasMes;
+    }
+    
+    
     public void setMaxTarefas(int maxTarefas) {
         this.maxTarefas = maxTarefas;
     }
@@ -54,13 +63,16 @@ public abstract class Empregado extends Pessoa{
     //add getHorario
     //add trabalhar
     
+    public double getSalario() {
+        return salarioBase+salarioBase*bonusTarefa*maxTarefas/100;
+    }
     public static int getQuantidade(){
         return numeroEmpregados;
     }
     
-    public void eleminar(){
+    public void eleminar() {
         super.eleminar();
-        numeroEmpregados --;
+        numeroEmpregados--;
     }
     
     @Override 

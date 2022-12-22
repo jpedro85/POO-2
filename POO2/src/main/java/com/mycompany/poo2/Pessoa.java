@@ -19,7 +19,6 @@ public abstract class Pessoa {
         this.nome = nome;
         this.nif = nif;
         this.idade = idade;
-        numeroPessoas++;
     }
 
     public String getNome() {
@@ -35,7 +34,7 @@ public abstract class Pessoa {
     }
 
     public void eleminar() {
-        numeroPessoas --;
+        numeroPessoas--;
     }
 
     @Override

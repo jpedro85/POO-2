@@ -8,46 +8,57 @@ package com.mycompany.poo2;
  *
  * @author Pedro
  */
-public class Cliente extends Pessoa {
+public abstract class Pessoa {
 
-    private static int numeroClientes;
-    private int numeroVisitas;
-    private double saldo;
-    private int generosidade;
-    private int interece;
+    private static int numeroPessoas;
+    private String nome;
+    private int nif;
+    private int idade;
 
-    public Cliente(String nome, int nif, int idade, double saldo, int generosidade, int interece) {
-        super(nome, nif, idade);
-        this.saldo = saldo;
-        this.generosidade = generosidade;
-        this.interece = interece;
-        numeroClientes++;
+    public Pessoa(String nome, int nif, int idade) {
+        this.nome = nome;
+        this.nif = nif;
+        this.idade = idade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getNif() {
+        return nif;
     }
 
     public static int getQuantidade() {
-        return numeroClientes;
+        return numeroPessoas;
     }
 
     public void eleminar() {
-        super.eleminar();
-        numeroClientes --;
+        numeroPessoas--;
     }
-
-    public int getNumeroVisitas() {
-        return numeroVisitas;
-    }
-    
-    public double pagar(double preco) {
-        return saldo - preco;
-    }
-    //oferecerDinheiro por fazer 
 
     @Override
     public String toString() {
-        String text;
-        text = "O Cliente tem: ";
-        text += super.toString() + "\n";
-        text += "com saldo: " + saldo + " generosidade: " + generosidade + "e interece: " + interece;
+        String text = "";
+        text += "Nome: " + nome + " NIF: " + nif;
         return text;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Pessoa p = (Pessoa) obj;
+
+        return (nome.equals(p.getNome())) && (nif == p.getNif());
     }
 }
