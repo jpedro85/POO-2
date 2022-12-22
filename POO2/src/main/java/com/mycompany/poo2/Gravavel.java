@@ -8,8 +8,8 @@ package com.mycompany.poo2;
  *
  * @author Francisco MSI
  */
-public interface Gravavel {
+public abstract class Gravavel {
     
-    FormatedString toFormatedString();
+    public abstract FormatedString toFormatedString();
     
 }

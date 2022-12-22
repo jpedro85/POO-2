@@ -9,7 +9,7 @@ package com.mycompany.poo2;
  * @author Francisco MSI
  */
 
-public abstract class Gene implements Gravavel{ 
+public abstract class Gene extends Gravavel{ 
     
     private static int lastId = 0;
     private static int numeroGenes = 0;
@@ -38,8 +38,7 @@ public abstract class Gene implements Gravavel{
         
         numeroGenes++;
     }
-     
-             
+                
     public static void eleminar(){
         numeroGenes--;
     }
@@ -59,7 +58,7 @@ public abstract class Gene implements Gravavel{
     @Override
     public String toString(){
 
-        return "Gene(Id:" + this.id + ";Nome:" + this.nome + ";Geracao:" + this.geracao + ")" ;
+        return "Gene(Id:" + this.id + ";Nome:" + this.nome + ";Geracao:" + this.geracao + ")"  ;
     }
     
     @Override
