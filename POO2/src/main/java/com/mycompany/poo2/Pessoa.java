@@ -29,7 +29,7 @@ public abstract class Pessoa implements Gravavel {
         }
 
         this.nome = fstr.getAtributo("Nome");
-        this.nif = Integer.parseInt(fstr.getAtributo("Nif"));
+        this.nif = Integer.parseInt(fstr.getAtributo("Nif",className));
         this.idade = Integer.parseInt(fstr.getAtributo("Idade"));
 
         numeroPessoas++;
@@ -60,6 +60,7 @@ public abstract class Pessoa implements Gravavel {
         return "Nome: " + nome + " NIF: " + nif + " Idade:"+this.idade;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
