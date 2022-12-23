@@ -12,6 +12,11 @@ public class Veterinario extends Empregado {
 
     private int numeroVeterinarios;
 
+    public Veterinario(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        super(fstr,"Veterinario");
+        numeroVeterinarios++;
+    }
+
     public Veterinario(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade, salarioBase, bonusTarefa, experiencia, maxTarefas, totalTarefas);
         numeroVeterinarios++;
@@ -42,6 +47,23 @@ public class Veterinario extends Empregado {
     @Override
     public Horario getHorario() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public FormatedString toFormatedString() {
+
+        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 8);
+        fstr.addAtributo("Nome", this.getNome());
+        fstr.addAtributo("Nif", this.getNif());
+        fstr.addAtributo("Idade", this.getIdade());
+        fstr.addAtributo("SalarioBase", this.getSalarioBase());
+        fstr.addAtributo("BonusTarefa", this.getBonusTarefa());
+        fstr.addAtributo("Experiencia", this.getExperiencia());
+        fstr.addAtributo("MaxTarefas", this.getMaxTarefas());
+        fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
+        fstr.addAtributo("TarefasMes", this.getTarefasMes());
+
+        return fstr;
     }
 
 }

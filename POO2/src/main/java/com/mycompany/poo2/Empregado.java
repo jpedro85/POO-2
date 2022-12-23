@@ -19,6 +19,18 @@ public abstract class Empregado extends Pessoa {
     private int tarefasMes;
     private Horario horario;
 
+    public Empregado(FormatedString fstr, String className) throws RepresentacaoInvalidaDoTipo {
+        super(fstr, className);
+        this.salarioBase = Double.parseDouble(fstr.getAtributo("SalarioBase"));
+        this.bonusTarefa = Integer.parseInt(fstr.getAtributo("BonusTarefa"));
+        this.experiencia = Integer.parseInt(fstr.getAtributo("Experiencia"));
+        this.maxTarefas = Integer.parseInt(fstr.getAtributo("MaxTarefas"));
+        this.totalTarefas = Integer.parseInt(fstr.getAtributo("TotalTarefas"));
+        this.tarefasMes = Integer.parseInt(fstr.getAtributo("TarefasMes"));
+
+        numeroEmpregados++;
+    }
+
     public Empregado(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade);
         this.salarioBase = salarioBase;
@@ -52,6 +64,18 @@ public abstract class Empregado extends Pessoa {
         return tarefasMes;
     }
 
+    public static int getNumeroEmpregados() {
+        return numeroEmpregados;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public int getTotalTarefas() {
+        return totalTarefas;
+    }
+
     public void setTarefasMes(int tarefasMes) {
         this.tarefasMes = tarefasMes;
     }
@@ -82,10 +106,6 @@ public abstract class Empregado extends Pessoa {
 
     @Override
     public String toString() {
-        String text;
-        text = "O Empregado tem: ";
-        text += super.toString() + "\n";
-        text += "Salario: " + salarioBase + " Tarefas bonus: " + bonusTarefa + " experiencia: " + experiencia + " maximo Tarefas: " + maxTarefas + " total de Tarefas: " + totalTarefas;
-        return text;
+        return "O Empregado tem:\n\t" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas;
     }
 }
