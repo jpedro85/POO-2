@@ -4,8 +4,8 @@
  */
 package com.mycompany.poo2;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -15,11 +15,11 @@ import java.util.Map;
 public class FormatedString {
 
     private String tipo;
-    private HashMap<String, String> atributos;
+    private LinkedHashMap<String, String> atributos;
 
     public FormatedString(String tipo, int numeroCampos) {
         this.tipo = tipo;
-        this.atributos = new HashMap<>(numeroCampos);
+        this.atributos = new LinkedHashMap<String, String>(numeroCampos);
     }
 
     public FormatedString(String str) throws RepresentacaoInvalidaDoTipo {
@@ -75,7 +75,8 @@ public class FormatedString {
         String temp = this.tipo + '(';
 
         int count = 1;
-        for (Map.Entry<String, String> entry : this.atributos.entrySet()) {
+        
+        for (Map.Entry<String, String> entry : this.atributos.entrySet() ) {
 
             if (count == this.atributos.size()) {
                 temp += entry.getKey() + ":" + entry.getValue() + ")";
@@ -84,7 +85,7 @@ public class FormatedString {
             }
 
             count++;
-
+           
         }
 
         return temp;
