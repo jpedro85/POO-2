@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class Instalacao {
     private int numeroInstalacoes;
+    private int id;
     private static int lastId;
     private String nome;
     private int capacidade;
@@ -21,9 +22,9 @@ public class Instalacao {
     private int tempoMedioManutencao;
     private int sujidade;
     private int condicao;
-  //  private Map<String,ArrayList<Animal>> animais;
+    private Map<String,ArrayList<Animal>> animais;
 
- /*   public Instalacao(int numeroInstalacoes, String nome, int capacidade, int vacancia, double custoManutencao, int tempoMedioManutencao, int sujidade, int condicao, Map<String, ArrayList<Animal>> animais) {
+    public Instalacao(int numeroInstalacoes, String nome, int capacidade, int vacancia, double custoManutencao, int tempoMedioManutencao, int sujidade, int condicao, Map<String, ArrayList<Animal>> animais) {
         this.numeroInstalacoes = numeroInstalacoes;
         this.nome = nome;
         this.capacidade = capacidade;
@@ -32,8 +33,32 @@ public class Instalacao {
         this.tempoMedioManutencao = tempoMedioManutencao;
         this.sujidade = sujidade;
         this.condicao = condicao;
-       // this.animais = animais;
-    }*/
+        this.animais = animais;
+    }
+
+    public int getNumeroInstalacoes() {
+        return numeroInstalacoes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getVacancia() {
+        return vacancia;
+    }
+
+    public int getSujidade() {
+        return sujidade;
+    }
+
+    public int getCondicao() {
+        return condicao;
+    }
 
     public static int getLastId() {
         return lastId;
@@ -43,9 +68,9 @@ public class Instalacao {
         return capacidade;
     }
 
-   // public Map<String, ArrayList<Animal>> getAnimais() {
-       // return animais;
-//    }
+    public Map<String, ArrayList<Animal>> getAnimais() {
+        return animais;
+    }
 
     public double getCustoManutencao() {
         return custoManutencao;
@@ -78,15 +103,43 @@ public class Instalacao {
         else return false;
     }
     
-  /*  public boolean temAnimaisDoentes(){
+    public boolean temAnimaisDoentes(){
         if(animais.containsKey("doente"))return true;
         else return false;
-    }*/
+    }
     
     public void desgaste(){
         condicao++;
         sujidade--;
     }
     
+    public String toString(){
+        String text="";
+        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+vacancia+" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+tempoMedioManutencao+"\n Animais:\n";
+        for (Animal animal:animais.get("Doentes")) {
+            text+= animal+"\n";
+        }
+        for (Animal animal:animais.get("Saudaveis")) {
+            text+= animal+"\n";
+        }
+        return text;
+    }
     
+     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Instalacao i = (Instalacao) obj;
+
+        return (nome.equals(i.getNome())) && (id == i.getId());
+    }
 }
