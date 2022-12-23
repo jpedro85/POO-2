@@ -18,10 +18,10 @@ public class Cliente extends Pessoa {
     
     public Cliente(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr, "Cliente");
-        this.generosidade = Integer.parseInt(fstr.getAtributo("Generosidade"));
-        this.interece = Integer.parseInt(fstr.getAtributo("Interece"));
-        this.numeroVisitas = Integer.parseInt(fstr.getAtributo("NumeroVisitas"));
-        this.saldo = Double.parseDouble(fstr.getAtributo("Saldo"));
+        this.generosidade = Integer.parseInt(fstr.getAtributo("Generosidade","Cliente"));
+        this.interece = Integer.parseInt(fstr.getAtributo("Interece","Cliente"));
+        this.numeroVisitas = Integer.parseInt(fstr.getAtributo("NumeroVisitas","Cliente"));
+        this.saldo = Double.parseDouble(fstr.getAtributo("Saldo","Cliente"));
         numeroClientes++;
     }
     

@@ -68,7 +68,7 @@ public class GeneSexo extends Gene implements Registo<GeneSexo>{
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneSexo gene = (GeneSexo)obj;      
+        final GeneSexo gene = (GeneSexo)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getSexo().equals(gene.getSexo())) ;
     }
     

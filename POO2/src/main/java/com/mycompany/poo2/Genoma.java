@@ -60,7 +60,7 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         this.repoducao = new GeneRepoducao( new FormatedString(fstr.getAtributo("GeneRepoducao","Genoma")) );
         this.ambiete = new GeneAmbiente( new FormatedString(fstr.getAtributo("GeneAmbiente","Genoma")) );
         this.especie = new Especie( new FormatedString(fstr.getAtributo("Especie","Genoma")) );
-        this.especificos = FormatedString.converterFormatedArray("Especificos", fstr.getAtributo("Especificos", "Genoma"));
+        this.especificos = FormatedString.converterFormatedArray(GeneEspecifico.class, fstr.getAtributo("Especificos", "Genoma"));
 
     }
     
@@ -147,7 +147,7 @@ public class Genoma implements Gravavel,Registo<Genoma>{
     @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fstr = new FormatedString("Genoma",4);
+        FormatedString fstr = new FormatedString("Genoma",8);
         fstr.addAtributo("GeneSexo", this.sexo.toFormatedString() );
         fstr.addAtributo("GeneDieta", this.dieta.toFormatedString() );
         fstr.addAtributo("GeneAtratividade", this.atratividade.toFormatedString() );
@@ -165,14 +165,14 @@ public class Genoma implements Gravavel,Registo<Genoma>{
     public String toString(){
         
         String temp = "Genoma(Genes:\n";
-        temp += this.sexo + "\n";
-        temp += this.dieta + "\n";
-        temp += this.atratividade + "\n";
-        temp += this.logitividade + "\n";
-        temp += this.repoducao + "\n";
-        temp += this.ambiete + "\n";
-        temp += this.especie + "\n";
-        temp += this.especificos + ")";
+        temp += "\t" + this.sexo + "\n";
+        temp += "\t" + this.dieta + "\n";
+        temp += "\t" + this.atratividade + "\n";
+        temp += "\t" + this.logitividade + "\n";
+        temp += "\t" + this.repoducao + "\n";
+        temp += "\t" + this.ambiete + "\n";
+        temp += "\t" + this.especie + "\n";
+        temp += "\t" + this.especificos + ")";
         
         return temp;
     }

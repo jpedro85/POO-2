@@ -55,7 +55,7 @@ public abstract class GeneMutavel extends Gene{
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneMutavel gene = (GeneMutavel)obj;      
+        final GeneMutavel gene = (GeneMutavel)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) ;
     }
        
