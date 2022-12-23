@@ -10,21 +10,24 @@ import java.util.ArrayList;
  *
  * @author Pedro
  */
-public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLongividade>{
+public class GeneLongividade extends GeneMutavel implements Registo<GeneLongividade>{
 
     private int anos;
     private static ArrayList<GeneLongividade> allInstancesCreated = new ArrayList<>(200);
 
     public GeneLongividade(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"GeneLongividade");
-        this.anos = Integer.parseInt( fstr.getAtributo("Anos"));
-        addInstance(this);
+        this.anos = Integer.parseInt( fstr.getAtributo("Anos","GeneLongividade") );
     }
 
+    public GeneLongividade(int anos, String nome , int geracao) {
+        super(nome,geracao);
+        this.anos = anos;
+    }
+    
     public GeneLongividade(int anos, String nome) {
         super(nome);
         this.anos = anos;
-        addInstance(this);
     }
 
     public int getAnos() {
@@ -48,7 +51,24 @@ public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLong
     
     @Override
     public void mutar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        if( Gerador.gerarProbabilidate() <= 10 ){
+            
+            if (Gerador.gerarProbabilidate() < 30) {
+                this.anos += Gerador.gerarNumero(1,10 );
+            }else{
+                
+                int temp = Gerador.gerarNumero(1, 5);
+                if( this.anos - temp > 0){
+                    this.anos -= temp;
+                }else{
+                    this.anos = 0;
+                }
+                
+            } 
+                
+            super.mutar();  
+        }
     }
 
     @Override
@@ -68,5 +88,21 @@ public class GeneLongividade extends GeneCaraterisca implements Registo<GeneLong
 
         return "GeneLongividade(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Anos:"+ this.getAnos()+")" ;
     }
-
+    
+    @Override
+    public boolean equals(Object obj) {
+                
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneLongividade gene = (GeneLongividade)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAnos()== gene.getAnos()) ;
+    }
+    
+    @Override
+    public GeneLongividade clone(){
+        
+        return new GeneLongividade(this.getAnos(),this.getNome(),this.getGeracao());
+    }
 }

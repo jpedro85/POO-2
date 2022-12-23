@@ -9,21 +9,24 @@ import java.util.ArrayList;
  *
  * @author Pedro
  */
-public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepoducao>{
+public class GeneRepoducao extends GeneMutavel implements Registo<GeneRepoducao>{
 
     private int apetite;
     private static ArrayList<GeneRepoducao> allInstancesCreated = new ArrayList<>(200);
 
     public GeneRepoducao(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneRepoducao");
-        this.apetite = Integer.parseInt(fstr.getAtributo("Apetite") );
-        addInstance(this);
+        this.apetite = Integer.parseInt(fstr.getAtributo("Apetite","GeneRepoducao") );
     }
 
-    public GeneRepoducao(int apetite, String nome) {
+    public GeneRepoducao(int apetite, String nome , int geracao) {
+        super(nome,geracao);
+        this.apetite = apetite;
+    }
+    
+    public GeneRepoducao(int apetite, String nome ) {
         super(nome);
         this.apetite = apetite;
-        addInstance(this);
     }
 
     public int getApetite() {
@@ -47,7 +50,22 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
 
     @Override
     public void mutar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        if( Gerador.gerarProbabilidate() <= 10 ){
+            
+            if (Gerador.gerarProbabilidate() < 50) {
+                this.apetite += Gerador.gerarNumero(1,10 );
+            }else{
+                
+                int temp = Gerador.gerarNumero(1, 10);
+                if( this.apetite - temp > 0){
+                    this.apetite -= temp;
+                }else
+                    this.apetite = 1;
+            } 
+                
+            super.mutar();  
+        }
     }
 
     @Override
@@ -67,5 +85,21 @@ public class GeneRepoducao extends GeneCaraterisca implements Registo<GeneRepodu
 
         return "GeneRepoducao(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Apetite:"+ this.getApetite() +")" ;
     }
-
+    
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneRepoducao gene = (GeneRepoducao)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getApetite() == gene.getApetite()) ;
+    }
+    
+    @Override
+    public GeneRepoducao clone(){
+             
+        return new GeneRepoducao(this.getApetite(),this.getNome(),this.getGeracao());
+    }
 }

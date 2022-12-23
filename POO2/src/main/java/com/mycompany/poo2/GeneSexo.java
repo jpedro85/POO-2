@@ -10,21 +10,19 @@ import java.util.ArrayList;
  *
  * @author Pedro
  */
-public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
+public class GeneSexo extends Gene implements Registo<GeneSexo>{
 
     private String sexo;
     private static ArrayList<GeneSexo> allInstancesCreated = new ArrayList<>(200);
 
-    public GeneSexo(Sexo sexo, String nome) {
+    public GeneSexo(Sexo sexo, String nome ) {
         super(nome);
         this.sexo = sexo.toString();
-        addInstance(this);
     }
 
     public GeneSexo(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneSexo");
-        this.sexo = fstr.getAtributo("Sexo");
-        addInstance(this);
+        this.sexo = fstr.getAtributo("Sexo","GeneSexo");
     }
 
     public String getSexo() {
@@ -47,17 +45,11 @@ public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
     }
 
     @Override
-    public void mutar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Nome", this.getNome() );
-        fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Sexo",  this.getSexo() );
         return fsrt;
         
@@ -66,7 +58,33 @@ public class GeneSexo extends GeneCaraterisca implements Registo<GeneSexo>{
     @Override
     public String toString(){
 
-        return "GeneSexo(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Sexo:"+ this.getSexo()+")" ;
+        return "GeneSexo(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Sexo:"+ this.getSexo()+")" ;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+                
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneSexo gene = (GeneSexo)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.getSexo().equals(gene.getSexo())) ;
+    }
+    
+    public GeneSexo clone(){
+        
+        Sexo temp = Sexo.FEMEA ;
+        
+        for(Sexo amb: Sexo.values() ){
+            
+            if( amb.toString().equals(this.getSexo())){
+                temp = amb; 
+            }
+               
+        }
+        
+        return new GeneSexo(temp,this.getNome());
     }
 
 }

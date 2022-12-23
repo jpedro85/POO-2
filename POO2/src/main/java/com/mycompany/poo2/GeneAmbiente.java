@@ -10,21 +10,24 @@ import java.util.ArrayList;
  *
  * @author Pedro
  */
-public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbiente>{
+public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
 
     private String ambiente;
     private static ArrayList<GeneAmbiente> allInstancesCreated = new ArrayList<>(200);
 
     public GeneAmbiente(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"GeneAmbiente");
-        this.ambiente = fstr.getAtributo("Ambiente");
-        addInstance(this);
+        this.ambiente = fstr.getAtributo("Ambiente","GeneAmbiente");
     }
 
-    public GeneAmbiente(Ambiente ambiente, String nome) {
+    public GeneAmbiente(Ambiente ambiente, String nome , int geracao) {
+        super(nome,geracao);
+        this.ambiente = ambiente.toString() ;
+    }
+    
+    public GeneAmbiente(Ambiente ambiente, String nome ) {
         super(nome);
         this.ambiente = ambiente.toString() ;
-        addInstance(this);
     }
 
     public String getAmbiente() {
@@ -48,7 +51,17 @@ public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbient
     
     @Override
     public void mutar() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+                
+        if( Gerador.gerarProbabilidate() == 1){
+            
+            int ordinal = Gerador.gerarOrdinal(Ambiente.values().length );
+            
+            if ( !this.ambiente.equals( Ambiente.values()[ordinal].toString() ) ){
+                super.mutar();
+                this.ambiente =  Ambiente.values()[ordinal].toString() ;
+            }    
+            
+        }
     }
    
     @Override
@@ -68,5 +81,31 @@ public class GeneAmbiente extends GeneCaraterisca implements Registo<GeneAmbient
 
         return "GeneAmbiente(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Ambiente:"+ this.getAmbiente() +")" ;
     }
-
+    
+    @Override
+    public boolean equals(Object obj) {
+                
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneAmbiente gene = (GeneAmbiente)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAmbiente().equals(gene.getAmbiente() )) ;
+    }
+    
+    @Override
+    public GeneAmbiente clone(){
+        
+        Ambiente temp = Ambiente.ROCHOSO ;
+        
+        for(Ambiente amb: Ambiente.values() ){
+            
+            if( amb.toString().equals(this.getAmbiente())){
+                temp = amb; 
+            }
+               
+        }
+        
+        return new GeneAmbiente(temp,this.getNome(),this.getGeracao());
+    }
 }
