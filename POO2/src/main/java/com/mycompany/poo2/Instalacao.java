@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class Instalacao {
     private int numeroInstalacoes;
+    private int id;
     private static int lastId;
     private String nome;
     private int capacidade;
@@ -33,6 +34,30 @@ public class Instalacao {
         this.sujidade = sujidade;
         this.condicao = condicao;
         this.animais = animais;
+    }
+
+    public int getNumeroInstalacoes() {
+        return numeroInstalacoes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getVacancia() {
+        return vacancia;
+    }
+
+    public int getSujidade() {
+        return sujidade;
+    }
+
+    public int getCondicao() {
+        return condicao;
     }
 
     public static int getLastId() {
@@ -88,5 +113,33 @@ public class Instalacao {
         sujidade--;
     }
     
+    public String toString(){
+        String text="";
+        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+vacancia+" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+tempoMedioManutencao+"\n Animais:\n";
+        for (Animal animal:animais.get("Doentes")) {
+            text+= animal+"\n";
+        }
+        for (Animal animal:animais.get("Saudaveis")) {
+            text+= animal+"\n";
+        }
+        return text;
+    }
     
+     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Instalacao i = (Instalacao) obj;
+
+        return (nome.equals(i.getNome())) && (id == i.getId());
+    }
 }
