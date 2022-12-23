@@ -19,5 +19,5 @@ public interface Registo<T> {
     void addInstance( T instance );
     
     void removeInstance( T instance );
-       
+ 
 }

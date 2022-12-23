@@ -27,10 +27,9 @@ public abstract class Empregado extends Pessoa {
         this.maxTarefas = Integer.parseInt(fstr.getAtributo("MaxTarefas",className));
         this.totalTarefas = Integer.parseInt(fstr.getAtributo("TotalTarefas",className));
         this.tarefasMes = Integer.parseInt(fstr.getAtributo("TarefasMes",className));
-
         numeroEmpregados++;
     }
-
+    
     public Empregado(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade);
         this.salarioBase = salarioBase;
@@ -38,6 +37,17 @@ public abstract class Empregado extends Pessoa {
         this.experiencia = experiencia;
         this.maxTarefas = maxTarefas;
         this.totalTarefas = totalTarefas;
+        numeroEmpregados++;
+    }
+
+    public Empregado(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas) {
+        super(nome, nif, idade);
+        this.salarioBase = salarioBase;
+        this.bonusTarefa = bonusTarefa;
+        this.experiencia = experiencia;
+        this.maxTarefas = maxTarefas;
+        this.totalTarefas = 0;
+        numeroEmpregados++;
     }
 
     public double getSalarioBase() {

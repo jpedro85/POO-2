@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Zelador extends Empregado implements Registo<Zelador>{
 
     private static int numeroZeladores;
+    private static ArrayList<Zelador> allInstancesCreated = new ArrayList<>(200);
 
     public Zelador(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Zelador");
@@ -54,7 +55,7 @@ public class Zelador extends Empregado implements Registo<Zelador>{
     @Override
     public FormatedString toFormatedString() {
 
-        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 8);
+        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 9);
         fstr.addAtributo("Nome", this.getNome());
         fstr.addAtributo("Nif", this.getNif());
         fstr.addAtributo("Idade", this.getIdade());
@@ -70,17 +71,17 @@ public class Zelador extends Empregado implements Registo<Zelador>{
 
     @Override
     public ArrayList<Zelador> getAllInstances() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return allInstancesCreated;
     }
 
     @Override
     public void addInstance(Zelador instance) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        allInstancesCreated.add(instance);
     }
 
     @Override
     public void removeInstance(Zelador instance) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        allInstancesCreated.remove(instance);
     }
 
 }

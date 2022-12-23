@@ -5,6 +5,7 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -42,10 +43,7 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         this.ambiete = ambiete.clone();
         this.especie = especie;
         this.especificos = new ArrayList<>(genesEspecificos.length );
-        
-        for (GeneEspecifico gene : genesEspecificos ) {
-            this.especificos.add(gene);
-        }
+        this.especificos.addAll(Arrays.asList(genesEspecificos));
     }
     
     public Genoma(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
@@ -68,7 +66,7 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         return this.especie;
     }
     
-    public ArrayList<GeneEspecie> getGeneEspecies(){
+    public ArrayList<GeneEspecie> getGenesEspecies(){
         return this.especie.getGenes();
     }
 

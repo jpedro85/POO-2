@@ -19,12 +19,12 @@ public class FormatedString {
 
     public FormatedString(String tipo, int numeroCampos) {
         this.tipo = tipo;
-        this.atributos = new LinkedHashMap<String, String>(numeroCampos);
+        this.atributos = new LinkedHashMap<>(numeroCampos);
     }
 
     public FormatedString(String str) throws RepresentacaoInvalidaDoTipo {
         
-        this.atributos = new LinkedHashMap<String, String>();
+        this.atributos = new LinkedHashMap<>();
         
         try{
             
@@ -49,7 +49,7 @@ public class FormatedString {
                 }   
                 valor = str.substring(0,end);
 
-                this.addAtributo(campo, valor);
+                addAtributo(campo, valor);
             }
             
         } catch(Exception e ) {
@@ -126,7 +126,7 @@ public class FormatedString {
         for (Map.Entry<String, String> entry : this.atributos.entrySet() ) {
 
             if (count == this.atributos.size()) {
-                temp += entry.getKey() + ":" + entry.getValue() + ")";
+                temp += entry.getKey() + ":" + entry.getValue() + ";)";
             } else {
                 temp += entry.getKey() + ":" + entry.getValue() + ";";
             }

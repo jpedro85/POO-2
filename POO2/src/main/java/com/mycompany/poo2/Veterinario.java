@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Veterinario extends Empregado implements Registo<Veterinario>{
 
     private static int numeroVeterinarios;
+    private static ArrayList<Veterinario> allInstancesCreated = new ArrayList<>(200);
 
     public Veterinario(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Veterinario");
@@ -54,7 +55,7 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
     @Override
     public FormatedString toFormatedString() {
 
-        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 8);
+        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 9);
         fstr.addAtributo("Nome", this.getNome());
         fstr.addAtributo("Nif", this.getNif());
         fstr.addAtributo("Idade", this.getIdade());
@@ -70,17 +71,17 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
 
     @Override
     public ArrayList<Veterinario> getAllInstances() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return allInstancesCreated;
     }
 
     @Override
     public void addInstance(Veterinario instance) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        allInstancesCreated.add(instance);
     }
 
     @Override
     public void removeInstance(Veterinario instance) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        allInstancesCreated.remove(instance);
     }
 
 }
