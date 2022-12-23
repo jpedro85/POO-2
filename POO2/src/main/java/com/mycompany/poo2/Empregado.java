@@ -8,7 +8,8 @@ package com.mycompany.poo2;
  *
  * @author Pedro
  */
-public abstract class Empregado extends Pessoa{ 
+public abstract class Empregado extends Pessoa {
+
     private static int numeroEmpregados;
     private double salarioBase;
     private int bonusTarefa;
@@ -16,15 +17,27 @@ public abstract class Empregado extends Pessoa{
     private int maxTarefas;
     private int totalTarefas;
     private int tarefasMes;
-    //add horario 
-    
-    public Empregado(String nome,int nif,int idade,double salarioBase,int bonusTarefa,int experiencia,int maxTarefas,int totalTarefas){
-        super(nome,nif,idade);
-        this.salarioBase=salarioBase;
-        this.bonusTarefa=bonusTarefa;
-        this.experiencia=experiencia;
-        this.maxTarefas=maxTarefas;
-        this.totalTarefas=totalTarefas;
+    private Horario horario;
+
+    public Empregado(FormatedString fstr, String className) throws RepresentacaoInvalidaDoTipo {
+        super(fstr, className);
+        this.salarioBase = Double.parseDouble(fstr.getAtributo("SalarioBase"));
+        this.bonusTarefa = Integer.parseInt(fstr.getAtributo("BonusTarefa"));
+        this.experiencia = Integer.parseInt(fstr.getAtributo("Experiencia"));
+        this.maxTarefas = Integer.parseInt(fstr.getAtributo("MaxTarefas"));
+        this.totalTarefas = Integer.parseInt(fstr.getAtributo("TotalTarefas"));
+        this.tarefasMes = Integer.parseInt(fstr.getAtributo("TarefasMes"));
+
+        numeroEmpregados++;
+    }
+
+    public Empregado(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
+        super(nome, nif, idade);
+        this.salarioBase = salarioBase;
+        this.bonusTarefa = bonusTarefa;
+        this.experiencia = experiencia;
+        this.maxTarefas = maxTarefas;
+        this.totalTarefas = totalTarefas;
     }
 
     public double getSalarioBase() {
@@ -51,36 +64,48 @@ public abstract class Empregado extends Pessoa{
         return tarefasMes;
     }
 
+    public static int getNumeroEmpregados() {
+        return numeroEmpregados;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public int getTotalTarefas() {
+        return totalTarefas;
+    }
+
     public void setTarefasMes(int tarefasMes) {
         this.tarefasMes = tarefasMes;
     }
-    
-    
+
     public void setMaxTarefas(int maxTarefas) {
         this.maxTarefas = maxTarefas;
     }
-    //add criar horario
-    //add getHorario
-    //add trabalhar
-    
+
+    public abstract Horario createHorario();
+
+    public abstract Horario getHorario();
+
+    public abstract void trabalhar();
+
     public double getSalario() {
-        return salarioBase+salarioBase*bonusTarefa*maxTarefas/100;
+        return salarioBase + salarioBase * bonusTarefa * maxTarefas / 100;
     }
-    public static int getQuantidade(){
+
+    public static int getQuantidade() {
         return numeroEmpregados;
     }
-    
+
+    @Override
     public void eleminar() {
         super.eleminar();
         numeroEmpregados--;
     }
-    
-    @Override 
-    public String toString(){
-        String text;
-        text = "O Empregado tem: ";
-        text += super.toString() + "\n";
-        text += "Salario: " + salarioBase + " Tarefas bonus: " + bonusTarefa + " experiencia: " + experiencia+" maximo Tarefas: "+ maxTarefas+" total de Tarefas: "+totalTarefas;
-        return text;
+
+    @Override
+    public String toString() {
+        return "O Empregado tem:\n\t" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas;
     }
 }

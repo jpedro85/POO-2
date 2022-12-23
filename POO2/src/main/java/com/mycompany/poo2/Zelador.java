@@ -12,6 +12,11 @@ public class Zelador extends Empregado {
 
     private static int numeroZeladores;
 
+    public Zelador(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        super(fstr,"Zelador");
+        numeroZeladores++;
+    }
+
     public Zelador(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade, salarioBase, bonusTarefa, experiencia, maxTarefas, totalTarefas);
         numeroZeladores++;
@@ -21,14 +26,44 @@ public class Zelador extends Empregado {
         return numeroZeladores;
     }
 
-    public void trabalhar() {
+    @Override
+    public Horario createHorario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
+    @Override
+    public Horario getHorario() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //arranjar
+    //limpar
+    @Override
+    public void trabalhar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void eleminar() {
         super.eleminar();
         numeroZeladores--;
+    }
+
+    @Override
+    public FormatedString toFormatedString() {
+
+        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 8);
+        fstr.addAtributo("Nome", this.getNome());
+        fstr.addAtributo("Nif", this.getNif());
+        fstr.addAtributo("Idade", this.getIdade());
+        fstr.addAtributo("SalarioBase", this.getSalarioBase());
+        fstr.addAtributo("BonusTarefa", this.getBonusTarefa());
+        fstr.addAtributo("Experiencia", this.getExperiencia());
+        fstr.addAtributo("MaxTarefas", this.getMaxTarefas());
+        fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
+        fstr.addAtributo("TarefasMes", this.getTarefasMes());
+
+        return fstr;
     }
 
 }
