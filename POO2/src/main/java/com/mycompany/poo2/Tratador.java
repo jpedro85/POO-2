@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Tratador extends Empregado implements Registo<Tratador>{
 
     private static int numeroTratadores;
+    private static ArrayList<Tratador> allInstancesCreated = new ArrayList<>(200);
 
     public Tratador(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Tratador");
@@ -48,7 +49,7 @@ public class Tratador extends Empregado implements Registo<Tratador>{
     @Override
     public FormatedString toFormatedString() {
 
-        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 8);
+        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 9);
         fstr.addAtributo("Nome", this.getNome());
         fstr.addAtributo("Nif", this.getNif());
         fstr.addAtributo("Idade", this.getIdade());
@@ -69,17 +70,17 @@ public class Tratador extends Empregado implements Registo<Tratador>{
 
     @Override
     public ArrayList<Tratador> getAllInstances() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return allInstancesCreated;
     }
 
     @Override
-    public void addInstance(Tratador instance) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addInstance( Tratador instance ){  
+        allInstancesCreated.add(instance);
     }
-
+   
     @Override
-    public void removeInstance(Tratador instance) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void removeInstance( Tratador instance ){
+        allInstancesCreated.remove(instance);   
     }
 
 }
