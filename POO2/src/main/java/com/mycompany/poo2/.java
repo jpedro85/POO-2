@@ -25,7 +25,7 @@ public abstract class Pessoa implements Gravavel {
     public Pessoa(FormatedString fstr, String className) throws RepresentacaoInvalidaDoTipo {
 
         if (!fstr.getTipo().equals(className)) {
-            throw new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um :" + className);
+            throw new RepresentacaoInvalidaDoTipo("FormatedString + "+ fstr +" não representa um :" + className);
         }
 
         this.nome = fstr.getAtributo("Nome",className);
@@ -57,11 +57,11 @@ public abstract class Pessoa implements Gravavel {
 
     @Override
     public String toString() {
-        return "Nome: " + nome + " NIF: " + nif + " Idade:"+this.idade;
+        return "Pessoa(Nome: " + nome + " NIF: " + nif + " Idade:"+this.idade+")";
     }
 
-    @Override
     public boolean equals(Object obj) {
+        
         if (this == obj) {
             return true;
         }
@@ -74,8 +74,7 @@ public abstract class Pessoa implements Gravavel {
             return false;
         }
 
-        Pessoa p = (Pessoa) obj;
-
+        final Pessoa p = (Pessoa) obj;
         return (nome.equals(p.getNome())) && (nif == p.getNif());
     }
 }

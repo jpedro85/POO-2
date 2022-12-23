@@ -77,7 +77,7 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneEspecifico gene = (GeneEspecifico)obj;      
+        final GeneEspecifico gene = (GeneEspecifico)obj;      
         return (this.getNome().equals(gene.getNome() )) && (gene.getTipo().equals(gene.getTipo())) && (this.getValor().equals(gene.getValor())) ;
     }
     

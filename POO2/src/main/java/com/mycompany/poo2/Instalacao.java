@@ -21,9 +21,9 @@ public class Instalacao {
     private int tempoMedioManutencao;
     private int sujidade;
     private int condicao;
-    private Map<String,ArrayList<Animal>> animais;
+  //  private Map<String,ArrayList<Animal>> animais;
 
-    public Instalacao(int numeroInstalacoes, String nome, int capacidade, int vacancia, double custoManutencao, int tempoMedioManutencao, int sujidade, int condicao, Map<String, ArrayList<Animal>> animais) {
+ /*   public Instalacao(int numeroInstalacoes, String nome, int capacidade, int vacancia, double custoManutencao, int tempoMedioManutencao, int sujidade, int condicao, Map<String, ArrayList<Animal>> animais) {
         this.numeroInstalacoes = numeroInstalacoes;
         this.nome = nome;
         this.capacidade = capacidade;
@@ -32,8 +32,8 @@ public class Instalacao {
         this.tempoMedioManutencao = tempoMedioManutencao;
         this.sujidade = sujidade;
         this.condicao = condicao;
-        this.animais = animais;
-    }
+       // this.animais = animais;
+    }*/
 
     public static int getLastId() {
         return lastId;
@@ -43,9 +43,9 @@ public class Instalacao {
         return capacidade;
     }
 
-    public Map<String, ArrayList<Animal>> getAnimais() {
-        return animais;
-    }
+   // public Map<String, ArrayList<Animal>> getAnimais() {
+       // return animais;
+//    }
 
     public double getCustoManutencao() {
         return custoManutencao;
@@ -78,10 +78,10 @@ public class Instalacao {
         else return false;
     }
     
-    public boolean temAnimaisDoentes(){
+  /*  public boolean temAnimaisDoentes(){
         if(animais.containsKey("doente"))return true;
         else return false;
-    }
+    }*/
     
     public void desgaste(){
         condicao++;

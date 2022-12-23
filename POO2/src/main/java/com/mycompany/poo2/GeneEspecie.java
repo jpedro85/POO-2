@@ -69,7 +69,7 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneEspecie gene = (GeneEspecie)obj;      
+        final GeneEspecie gene = (GeneEspecie)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getValor().equals(gene.getValor()));
     }
     

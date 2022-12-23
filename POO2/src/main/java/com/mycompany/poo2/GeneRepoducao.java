@@ -93,7 +93,7 @@ public class GeneRepoducao extends GeneMutavel implements Registo<GeneRepoducao>
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneRepoducao gene = (GeneRepoducao)obj;      
+        final GeneRepoducao gene = (GeneRepoducao)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getApetite() == gene.getApetite()) ;
     }
     

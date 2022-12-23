@@ -96,7 +96,7 @@ public class GeneLongividade extends GeneMutavel implements Registo<GeneLongivid
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneLongividade gene = (GeneLongividade)obj;      
+        final GeneLongividade gene = (GeneLongividade)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAnos()== gene.getAnos()) ;
     }
     

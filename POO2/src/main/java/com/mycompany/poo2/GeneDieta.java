@@ -68,7 +68,7 @@ public class GeneDieta extends Gene implements Registo<GeneDieta>{
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneDieta gene = (GeneDieta)obj;      
+        final GeneDieta gene = (GeneDieta)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.dieta.equals(gene.getDiteta())) ;
     }
     

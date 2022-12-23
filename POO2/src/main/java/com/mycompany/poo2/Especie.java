@@ -29,6 +29,16 @@ public class Especie implements Gravavel {
         this.nome = nome;
         this.genes = genes;
     }
+    
+    public Especie(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
+        if ( !fstr.getTipo().equals("Especie") ) 
+            throw new RepresentacaoInvalidaDoTipo("A FormatedString : " + fstr + " não representa uma Especie.");
+        
+        this.nome = fstr.getAtributo("Nome","Especie");
+        this.genes = FormatedString.converterFormatedArray(GeneEspecie.class, fstr.getAtributo("Genes", "Especie"));
+
+    }
 
     public String getNome() {
         return nome;
@@ -48,7 +58,12 @@ public class Especie implements Gravavel {
 
     @Override
     public FormatedString toFormatedString() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        FormatedString fstr = new FormatedString("Especie",2);
+        fstr.addAtributo("Nome", this.nome);
+        fstr.addAtributo("Genes", FormatedString.formatArray(this.genes));
+        
+        return fstr;
     }
 
     @Override
@@ -60,5 +75,15 @@ public class Especie implements Gravavel {
         }
         return info;
     }
-
+    
+    public boolean equals(Object obj){
+        
+        if (this == obj) return true;
+        if (this == null) return false;
+        if (this.getClass() != obj.getClass() ) return false;
+        
+        final Especie esp = (Especie)obj;
+        return (this.nome.equals(esp.getNome())) && (this.genes.equals(esp.getGenes() ));
+    
+    }
 }

@@ -93,7 +93,7 @@ public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtrativ
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneAtratividade gene = (GeneAtratividade)obj;      
+        final GeneAtratividade gene = (GeneAtratividade)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAtratividade()== gene.getAtratividade()) ;
     }
     

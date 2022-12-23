@@ -89,7 +89,7 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
         if (obj == null) return false;
         if ( getClass() != obj.getClass() ) return false;
         
-        GeneAmbiente gene = (GeneAmbiente)obj;      
+        final GeneAmbiente gene = (GeneAmbiente)obj;      
         return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAmbiente().equals(gene.getAmbiente() )) ;
     }
     

@@ -76,7 +76,7 @@ public class FormatedString {
         
         String temp = this.atributos.get(nomeCampo);
         if(temp == null)
-            throw new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + className );
+            throw new RepresentacaoInvalidaDoTipo("O atributo " + nomeCampo + "não está representado na FormaatedString. Não representa um : " + className );
         else
             return temp;
     }
@@ -103,16 +103,17 @@ public class FormatedString {
         return temp;
     }
 
-    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray) throws RepresentacaoInvalidaDoTipo{
+    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> cclass, String strArray) throws RepresentacaoInvalidaDoTipo{
 
         ArrayList<Tipo> novoArray = new ArrayList<>();
-        return convert(instaceClass, strArray, novoArray);
+        return convert(cclass, strArray, novoArray);
     }
 
-    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray, int capadidaeinitial) throws RepresentacaoInvalidaDoTipo{
+    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> cclass, String strArray, int capadidaeinitial) throws RepresentacaoInvalidaDoTipo{
 
         ArrayList<Tipo> novoArray = new ArrayList<>(capadidaeinitial);
-        return convert(instaceClass, strArray, novoArray);
+        return convert(cclass, strArray, novoArray);
+        
     }
     
     @Override
@@ -138,12 +139,13 @@ public class FormatedString {
 
     }
 
-    private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> instaceClass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
+    private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> cclass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
 
         //format "[Object(campo:valor),Object(campo:valor),Object(campo:valor),Object(campo:valor),Object(campo:valor)]"
+        
         int end = strArray.indexOf(',');//verificar
         FormatedString fstr = new FormatedString(strArray.substring(1, end));
-        array.add((Tipo) novaInstancia(instaceClass.getSimpleName(), fstr));
+        array.add((Tipo) novaInstancia(cclass, fstr));
         strArray = strArray.substring(end + 1);
 
         while (true) {
@@ -154,7 +156,7 @@ public class FormatedString {
             }
 
             fstr = new FormatedString(strArray.substring(1, end));
-            array.add((Tipo) novaInstancia(instaceClass.getSimpleName(), fstr));
+            array.add((Tipo) novaInstancia(cclass, fstr));
             strArray = strArray.substring(end + 1);
 
         }
@@ -163,18 +165,31 @@ public class FormatedString {
 
     }
 
-    private static Object novaInstancia(String classname, FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
+    private static <Tipo> Object novaInstancia(Class<Tipo> cclass , FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
 
-        switch (classname) {
-            case "GeneEspecie":
+        switch (cclass.getSimpleName()) {
+
+            case "GeneAtratividade":
+                return new GeneAtratividade(fstr);
+            case "GeneAmbiente":
+                return new GeneAmbiente(fstr);
+            case "GeneRepoducao" :
+                return new GeneRepoducao(fstr);
+            case "GeneLongividade":
+                return new GeneLongividade(fstr);
+            case "GeneEspecie" :
                 return new GeneEspecie(fstr);
-            case "G":
-                return new GeneEspecie(fstr);
-            case "H":
-                return new GeneEspecie(fstr);
+            case "GeneEspecifico":  
+                return new GeneEspecifico(fstr);
+            case "GeneDieta":
+                return new GeneDieta(fstr);
+            case "GeneSexo":
+                return new GeneSexo(fstr);
+                
             default:
                 throw new AssertionError();
         }
+
 
     }
     
