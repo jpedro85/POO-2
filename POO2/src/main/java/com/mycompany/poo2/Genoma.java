@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Pedro
  */
 public class Genoma implements Gravavel,Registo<Genoma>{
-    //add especie
+
     private GeneSexo sexo;
     private GeneDieta dieta;
     private GeneAtratividade atratividade;
@@ -19,19 +19,58 @@ public class Genoma implements Gravavel,Registo<Genoma>{
     private GeneRepoducao repoducao;
     private GeneAmbiente ambiete;
     private ArrayList<GeneEspecifico> especificos;
+    private Especie especie;
     private static ArrayList<Genoma> allInstancesCreated = new ArrayList<>(200);
-    
-    public Genoma(GeneSexo sexo, GeneDieta dieta, GeneAtratividade atratividade, GeneLongividade logitividade, GeneRepoducao repoducao, GeneAmbiente ambiete, ArrayList<GeneEspecifico> especificos) {
-        this.sexo = sexo;
-        this.dieta = dieta;
-        this.atratividade = atratividade;
-        this.logitividade = logitividade;
-        this.repoducao = repoducao;
-        this.ambiete = ambiete;
+
+    public Genoma(Especie especie ,GeneSexo sexo, GeneDieta dieta, GeneAtratividade atratividade, GeneLongividade logitividade, GeneRepoducao repoducao, GeneAmbiente ambiete, ArrayList<GeneEspecifico> especificos) {
+        this.sexo = sexo.clone();
+        this.dieta = dieta.clone();
+        this.atratividade = atratividade.clone();
+        this.logitividade = logitividade.clone();
+        this.repoducao = repoducao.clone();
+        this.ambiete = ambiete.clone();
+        this.especie = especie;
         this.especificos = especificos;
     }
     
-    //add getEspecie e getGeneEspecies
+    public Genoma(Especie especie ,GeneSexo sexo, GeneDieta dieta, GeneAtratividade atratividade, GeneLongividade logitividade, GeneRepoducao repoducao, GeneAmbiente ambiete, GeneEspecifico ... genesEspecificos) {
+        this.sexo = sexo.clone();
+        this.dieta = dieta.clone();
+        this.atratividade = atratividade.clone();
+        this.logitividade = logitividade.clone();
+        this.repoducao = repoducao.clone();
+        this.ambiete = ambiete.clone();
+        this.especie = especie;
+        this.especificos = new ArrayList<>(genesEspecificos.length );
+        
+        for (GeneEspecifico gene : genesEspecificos ) {
+            this.especificos.add(gene);
+        }
+    }
+    
+    public Genoma(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
+        if ( !fstr.getTipo().equals("Genoma") ) 
+            throw new RepresentacaoInvalidaDoTipo("A FormatedString : " + fstr + " não representa um Genoma.");
+        
+        this.sexo = new GeneSexo( new FormatedString(fstr.getAtributo("GeneSexo","Genoma")) );
+        this.dieta = new GeneDieta( new FormatedString(fstr.getAtributo("GeneDieta","Genoma")) );
+        this.atratividade = new GeneAtratividade( new FormatedString(fstr.getAtributo("GeneAtratividade","Genoma")) );
+        this.logitividade = new GeneLongividade( new FormatedString(fstr.getAtributo("GeneLongividade","Genoma")) );
+        this.repoducao = new GeneRepoducao( new FormatedString(fstr.getAtributo("GeneRepoducao","Genoma")) );
+        this.ambiete = new GeneAmbiente( new FormatedString(fstr.getAtributo("GeneAmbiente","Genoma")) );
+        this.especie = new Especie( new FormatedString(fstr.getAtributo("Especie","Genoma")) );
+        this.especificos = FormatedString.converterFormatedArray("Especificos", fstr.getAtributo("Especificos", "Genoma"));
+
+    }
+    
+    public Especie getEspecie(){
+        return this.especie;
+    }
+    
+    public ArrayList<GeneEspecie> getGeneEspecies(){
+        return this.especie.getGenes();
+    }
 
     public GeneSexo getGeneSexo(){
         return this.sexo;
@@ -79,11 +118,11 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         return ambiete.getAmbiente();
     }
 
-    public ArrayList<GeneEspecifico> getGeneEspecificos() {
+    public ArrayList<GeneEspecifico> getGenesEspecificos() {
         return this.especificos;
     }
     
-    public String getEspecificos(int i) {
+    public String getGeneEspecifico(int i) {
         if(i>0&& i<this.especificos.size()){
             return this.especificos.get(i).getValor();
         }
@@ -105,12 +144,56 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         allInstancesCreated.remove(instance);   
     }
     
+    @Override
     public FormatedString toFormatedString(){
         
-        FormatedString fsrt = new FormatedString("GeneEspecie",4);
-        return fsrt;
+        FormatedString fstr = new FormatedString("Genoma",4);
+        fstr.addAtributo("GeneSexo", this.sexo.toFormatedString() );
+        fstr.addAtributo("GeneDieta", this.dieta.toFormatedString() );
+        fstr.addAtributo("GeneAtratividade", this.atratividade.toFormatedString() );
+        fstr.addAtributo("GeneLongividade", this.logitividade.toFormatedString() );
+        fstr.addAtributo("GeneRepoducao", this.repoducao.toFormatedString() );
+        fstr.addAtributo("GeneAmbiente", this.ambiete.toFormatedString() );
+        fstr.addAtributo("Especie", this.especie.toFormatedString() );
+        fstr.addAtributo("Especificos", FormatedString.formatArray(this.especificos) );
+
+        return fstr;
         
     }
     
-    //add eDaEspecie
+    @Override
+    public String toString(){
+        
+        String temp = "Genoma(Genes:\n";
+        temp += this.sexo + "\n";
+        temp += this.dieta + "\n";
+        temp += this.atratividade + "\n";
+        temp += this.logitividade + "\n";
+        temp += this.repoducao + "\n";
+        temp += this.ambiete + "\n";
+        temp += this.especie + "\n";
+        temp += this.especificos + ")";
+        
+        return temp;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+      
+        final Genoma genoma = (Genoma) obj;
+        
+        if(! this.sexo.equals(genoma.getGeneSexo() )) return false;
+        if(! this.repoducao.equals(genoma.getGeneRepoducao() )) return false;
+        if(! this.logitividade.equals(genoma.getGeneLogitividade() )) return false;
+        if(! this.especie.equals(genoma.getEspecie() )) return false;
+        if(! this.dieta.equals(genoma.getGeneDieta())) return false;
+        if(! this.atratividade.equals(genoma.getGeneAtratividade())) return false;
+        if(! this.ambiete.equals(genoma.getGeneAmbiete() )) return false;
+        
+        return this.especificos.equals(genoma.getGenesEspecificos() );
+    }
 }
