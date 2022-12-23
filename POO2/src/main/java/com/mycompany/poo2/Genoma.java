@@ -129,6 +129,14 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         return null;
     }
     
+    public boolean isMutado(){
+        
+        if (!this.ambiete.isMutado())return false;
+        if (!this.logitividade.isMutado())return false;
+        if (!this.repoducao.isMutado())return false;
+        return this.atratividade.isMutado();
+    }
+    
     @Override
     public ArrayList<Genoma> getAllInstances(){
         return allInstancesCreated; 
