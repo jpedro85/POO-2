@@ -12,4 +12,5 @@ public interface Gravavel {
     
     public abstract FormatedString toFormatedString();
     
+    
 }
