@@ -10,21 +10,24 @@ import java.util.ArrayList;
  *
  * @author Pedro
  */
-public class GeneAtratividade extends GeneCaraterisca implements Registo<GeneAtratividade>{
+public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtratividade>{
 
     private int atratividade;
     private static ArrayList<GeneAtratividade> allInstancesCreated = new ArrayList<>(200);
 
-    public GeneAtratividade(int atratividade, String nome) {
-        super(nome);
-        this.atratividade = atratividade;
-        addInstance(this);
-    }
-
     public GeneAtratividade(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr,"GeneAtratividade");
-        this.atratividade = Integer.parseInt ( fstr.getAtributo("Atratividade") );
-        addInstance(this);
+        this.atratividade = Integer.parseInt ( fstr.getAtributo("Atratividade","GeneAtratividade") );
+    }
+    
+    public GeneAtratividade(int atratividade, String nome , int geracao) {
+        super(nome,geracao);
+        this.atratividade = atratividade;
+    }
+    
+    public GeneAtratividade(int atratividade, String nome ) {
+        super(nome);
+        this.atratividade = atratividade;
     }
 
     public int getAtratividade() {
@@ -48,7 +51,21 @@ public class GeneAtratividade extends GeneCaraterisca implements Registo<GeneAtr
     
     @Override
     public void mutar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        if( Gerador.gerarProbabilidate() == 1 ){
+            
+            if (Gerador.gerarProbabilidate() < 30) {
+                this.atratividade += Gerador.gerarNumero(10, 50 );
+            }else{
+                int temp = Gerador.gerarNumero(1, 5);
+                if( this.atratividade - temp > 0){
+                    this.atratividade -= temp;
+                }else
+                    this.atratividade = 0;
+                    
+            }
+            super.mutar();
+        }
     }
     
     @Override
@@ -68,5 +85,21 @@ public class GeneAtratividade extends GeneCaraterisca implements Registo<GeneAtr
 
         return "GeneAtratividade(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Atratividade:"+ this.getAtratividade() +")" ;
     }
-
+    
+    @Override
+    public boolean equals(Object obj) {
+                
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneAtratividade gene = (GeneAtratividade)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAtratividade()== gene.getAtratividade()) ;
+    }
+    
+    @Override
+    public GeneAtratividade clone(){
+        
+        return new GeneAtratividade(this.getAtratividade(),this.getNome(),this.getGeracao());
+    }
 }

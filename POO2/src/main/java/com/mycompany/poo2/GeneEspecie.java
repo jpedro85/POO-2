@@ -19,15 +19,11 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
     public GeneEspecie(String valor, String nome) {
         super(nome);
         this.valor = valor;
-        addInstance(this);
     }
      
     public GeneEspecie(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
-        
         super( fstr , "GeneEspecie" );
-        this.valor = fstr.getAtributo("Valor");
-        addInstance(this);
-        
+        this.valor = fstr.getAtributo("Valor","GeneEspecie");     
     }
     
     @Override
@@ -55,7 +51,6 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Nome", this.getNome());
-        fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Valor",  this.getValor());
         return fsrt;
         
@@ -64,6 +59,23 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
     @Override
     public String toString(){
 
-        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Valor:"+ this.valor +")" ;
+        return "GeneEspecie(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Valor:"+ this.valor +")" ;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+                
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneEspecie gene = (GeneEspecie)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.getValor().equals(gene.getValor()));
+    }
+    
+    @Override
+    public GeneEspecie clone(){
+        
+        return new GeneEspecie(this.getValor(),this.getNome());
     }
 }

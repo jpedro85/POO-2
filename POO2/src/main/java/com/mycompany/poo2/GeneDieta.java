@@ -10,21 +10,19 @@ import java.util.ArrayList;
  *
  * @author Francisco MSI
  */
-public class GeneDieta extends GeneCaraterisca implements Registo<GeneDieta>{
+public class GeneDieta extends Gene implements Registo<GeneDieta>{
     
     private String dieta;
     private static ArrayList<GeneDieta> allInstancesCreated = new ArrayList<>(200);
 
     public GeneDieta(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneDieta");
-        this.dieta = fstr.getAtributo("Dieta") ;
-        addInstance(this);
+        this.dieta = fstr.getAtributo("Dieta","GeneDieta") ;
     }
 
     public GeneDieta(Dieta diteta, String nome) {
         super(nome);
         this.dieta = diteta.toString();
-        addInstance(this);
     }
 
     public String getDiteta() {
@@ -47,17 +45,11 @@ public class GeneDieta extends GeneCaraterisca implements Registo<GeneDieta>{
     }
 
     @Override
-    public void mutar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public FormatedString toFormatedString(){
         
         FormatedString fsrt = new FormatedString(this.getClass().getSimpleName(),4);
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Nome", this.getNome() );
-        fsrt.addAtributo("Geracao",  this.getGeracao() );
         fsrt.addAtributo("Dieta",  this.getDiteta());
         return fsrt;
         
@@ -66,6 +58,33 @@ public class GeneDieta extends GeneCaraterisca implements Registo<GeneDieta>{
     @Override
     public String toString(){
 
-        return "GeneDieta(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Dieta:"+ this.getDiteta()+")" ;
+        return "GeneDieta(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Dieta:"+ this.getDiteta() + ")" ;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+                
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if ( getClass() != obj.getClass() ) return false;
+        
+        GeneDieta gene = (GeneDieta)obj;      
+        return (this.getNome().equals(gene.getNome() )) && (this.dieta.equals(gene.getDiteta())) ;
+    }
+    
+    @Override
+    public GeneDieta clone(){
+        
+        Dieta temp = Dieta.CARNIVORO ;
+        
+        for(Dieta amb: Dieta.values() ){
+            
+            if( amb.toString().equals(this.getDiteta())){
+                temp = amb; 
+            }
+               
+        }
+        
+        return new GeneDieta(temp,this.getNome());
     }
 }

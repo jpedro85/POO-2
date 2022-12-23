@@ -24,38 +24,44 @@ public class FormatedString {
 
     public FormatedString(String str) throws RepresentacaoInvalidaDoTipo {
         
+        this.atributos = new LinkedHashMap<String, String>();
+        
         try{
+            
             int end = str.lastIndexOf('(');
             this.tipo = str.substring(0, end);
-        
+               
             String campo = "",valor = "";
-        
-            while(true){
+            
+            boolean bool = true;
+            while(bool){
 
-                str = str.substring(end);
+                str = str.substring(end+1);
                 end = str.indexOf(":");
-
                 if(end < 0) break;
 
                 campo = str.substring(0,end );
-                str = str.substring(end);
+                str = str.substring(end+1);
                 end = str.indexOf(";");
+                if(end < 0){
+                    end = str.indexOf(")");
+                    bool = false;
+                }   
                 valor = str.substring(0,end);
 
                 this.addAtributo(campo, valor);
-
-
             }
-        } catch(Exception e) {
             
-            throw new RepresentacaoInvalidaDoTipo("A string " + str + " não está fromatada corretamente." );
-            
+        } catch(Exception e ) {
+            throw new RepresentacaoInvalidaDoTipo("A string " + str + " não está fromatada corretamente." );          
         }
         
     }
 
     public <T> void addAtributo(String nomeCampo, T value) {
+
         this.atributos.put(nomeCampo, value.toString());
+       
     }
 
     public void removeAtributo(String nomeCampo) {
@@ -66,11 +72,51 @@ public class FormatedString {
         return this.atributos.get(nomeCampo);
     }
     
+    public String getAtributo(String nomeCampo,String className) throws RepresentacaoInvalidaDoTipo {
+        
+        String temp = this.atributos.get(nomeCampo);
+        if(temp == null)
+            throw new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + className );
+        else
+            return temp;
+    }
+    
     public String getTipo(){
         return this.tipo;
     }
+    
+    public static <Tipo> String formatArray(ArrayList< ? extends Gravavel> array) {
 
-    public String getString() {
+        int count = 0;
+        String temp = "[";
+        for (Gravavel item : array) {
+
+            if (count == array.size()) {
+                temp += item.toFormatedString().toString() + ",";
+            } else {
+                temp += item.toFormatedString().toString() + "]";
+            }
+
+            count++;
+        }
+
+        return temp;
+    }
+
+    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray) throws RepresentacaoInvalidaDoTipo{
+
+        ArrayList<Tipo> novoArray = new ArrayList<>();
+        return convert(instaceClass, strArray, novoArray);
+    }
+
+    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray, int capadidaeinitial) throws RepresentacaoInvalidaDoTipo{
+
+        ArrayList<Tipo> novoArray = new ArrayList<>(capadidaeinitial);
+        return convert(instaceClass, strArray, novoArray);
+    }
+    
+    @Override
+    public String toString() {
 
         String temp = this.tipo + '(';
 
@@ -90,36 +136,6 @@ public class FormatedString {
 
         return temp;
 
-    }
-
-    public static <Tipo> String formatArray(ArrayList< ? extends Gravavel> array) {
-
-        int count = 0;
-        String temp = "[";
-        for (Gravavel item : array) {
-
-            if (count == array.size()) {
-                temp += item.toFormatedString().getString() + ",";
-            } else {
-                temp += item.toFormatedString().getString() + "]";
-            }
-
-            count++;
-        }
-
-        return temp;
-    }
-
-    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray) throws RepresentacaoInvalidaDoTipo{
-
-        ArrayList<Tipo> novoArray = new ArrayList<>();
-        return convert(instaceClass, strArray, novoArray);
-    }
-
-    public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> instaceClass, String strArray, int capadidaeinitial) throws RepresentacaoInvalidaDoTipo{
-
-        ArrayList<Tipo> novoArray = new ArrayList<>(capadidaeinitial);
-        return convert(instaceClass, strArray, novoArray);
     }
 
     private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> instaceClass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
@@ -161,4 +177,5 @@ public class FormatedString {
         }
 
     }
+    
 }
