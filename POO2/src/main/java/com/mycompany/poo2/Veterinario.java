@@ -10,7 +10,7 @@ package com.mycompany.poo2;
  */
 public class Veterinario extends Empregado {
 
-    private int numeroVeterinarios;
+    private static int numeroVeterinarios;
 
     public Veterinario(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Veterinario");
@@ -22,7 +22,7 @@ public class Veterinario extends Empregado {
         numeroVeterinarios++;
     }
 
-    public int getNumeroVeterinarios() {
+    public static int getQuantidade() {
         return numeroVeterinarios;
     }
 
