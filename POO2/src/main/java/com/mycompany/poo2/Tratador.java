@@ -4,11 +4,13 @@
  */
 package com.mycompany.poo2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro
  */
-public class Tratador extends Empregado {
+public class Tratador extends Empregado implements Registo<Tratador>{
 
     private static int numeroTratadores;
 
@@ -62,6 +64,21 @@ public class Tratador extends Empregado {
 
     @Override
     public void trabalhar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<Tratador> getAllInstances() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void addInstance(Tratador instance) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeInstance(Tratador instance) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
