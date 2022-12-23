@@ -8,9 +8,9 @@ package com.mycompany.poo2;
  *
  * @author Pedro
  */
-public abstract class Pessoa {
+public abstract class Pessoa implements Gravavel {
 
-    private static int numeroPessoas;
+    private static int numeroPessoas = 0;
     private String nome;
     private int nif;
     private int idade;
@@ -19,6 +19,20 @@ public abstract class Pessoa {
         this.nome = nome;
         this.nif = nif;
         this.idade = idade;
+        this.numeroPessoas++;
+    }
+
+    public Pessoa(FormatedString fstr, String className) throws RepresentacaoInvalidaDoTipo {
+
+        if (!fstr.getTipo().equals(className)) {
+            throw new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um :" + className);
+        }
+
+        this.nome = fstr.getAtributo("Nome");
+        this.nif = Integer.parseInt(fstr.getAtributo("Nif"));
+        this.idade = Integer.parseInt(fstr.getAtributo("Idade"));
+
+        numeroPessoas++;
     }
 
     public String getNome() {
@@ -27,6 +41,10 @@ public abstract class Pessoa {
 
     public int getNif() {
         return nif;
+    }
+
+    public int getIdade() {
+        return idade;
     }
 
     public static int getQuantidade() {
@@ -39,9 +57,7 @@ public abstract class Pessoa {
 
     @Override
     public String toString() {
-        String text = "";
-        text += "Nome: " + nome + " NIF: " + nif;
-        return text;
+        return "Nome: " + nome + " NIF: " + nif + " Idade:"+this.idade;
     }
 
     public boolean equals(Object obj) {
