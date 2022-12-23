@@ -4,11 +4,13 @@
  */
 package com.mycompany.poo2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro
  */
-public class Cliente extends Pessoa {
+public class Cliente extends Pessoa implements Registo<Cliente>{
     
     private static int numeroClientes = 0;
     private int numeroVisitas;
@@ -84,6 +86,21 @@ public class Cliente extends Pessoa {
     @Override
     public String toString() {
         return "O Cliente tem:\n\t"+super.toString()+" Saldo:"+this.saldo+" Generosidade:"+this.generosidade+" Interece:"+this.interece;
+    }
+
+    @Override
+    public ArrayList<Cliente> getAllInstances() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void addInstance(Cliente instance) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeInstance(Cliente instance) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

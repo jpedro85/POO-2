@@ -4,11 +4,13 @@
  */
 package com.mycompany.poo2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro
  */
-public class Zelador extends Empregado {
+public class Zelador extends Empregado implements Registo<Zelador>{
 
     private static int numeroZeladores;
 
@@ -64,6 +66,21 @@ public class Zelador extends Empregado {
         fstr.addAtributo("TarefasMes", this.getTarefasMes());
 
         return fstr;
+    }
+
+    @Override
+    public ArrayList<Zelador> getAllInstances() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void addInstance(Zelador instance) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeInstance(Zelador instance) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
