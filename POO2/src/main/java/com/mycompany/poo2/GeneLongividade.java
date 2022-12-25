@@ -52,9 +52,9 @@ public class GeneLongividade extends GeneMutavel implements Registo<GeneLongivid
     @Override
     public void mutar() {
         
-        if( Gerador.gerarProbabilidate() <= 10 ){
+        if( Gerador.gerarProbabilidade() <= 10 ){
             
-            if (Gerador.gerarProbabilidate() < 30) {
+            if (Gerador.gerarProbabilidade() < 30) {
                 this.anos += Gerador.gerarNumero(1,10 );
             }else{
                 
@@ -86,7 +86,7 @@ public class GeneLongividade extends GeneMutavel implements Registo<GeneLongivid
     @Override
     public String toString(){
 
-        return "GeneLongividade(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Anos:"+ this.getAnos()+")" ;
+        return "GeneLongividade(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ";Anos:"+ this.getAnos()+")" ;
     }
     
     @Override

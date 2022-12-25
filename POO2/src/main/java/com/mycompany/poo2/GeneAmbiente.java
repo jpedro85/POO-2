@@ -52,7 +52,7 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
     @Override
     public void mutar() {
                 
-        if( Gerador.gerarProbabilidate() == 1){
+        if( Gerador.gerarProbabilidade() <= 10){
             
             int ordinal = Gerador.gerarOrdinal(Ambiente.values().length );
             
@@ -79,7 +79,7 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
     @Override
     public String toString(){
 
-        return "GeneAmbiente(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Ambiente:"+ this.getAmbiente() +")" ;
+        return "GeneAmbiente(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ";Ambiente:"+ this.getAmbiente() +")" ;
     }
     
     @Override

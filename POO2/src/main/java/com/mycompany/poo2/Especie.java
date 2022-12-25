@@ -5,6 +5,7 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -20,9 +21,10 @@ public class Especie implements Gravavel {
         this.genes = new ArrayList<>();
     }
 
-    public Especie(String nome, Gene... genes) {
+    public Especie(String nome, GeneEspecie... genes) {
         this.nome = nome;
-        this.genes = new ArrayList<>();
+        this.genes = new ArrayList<>(genes.length);
+        this.genes.addAll(Arrays.asList(genes));
     }
 
     public Especie(String nome, ArrayList<GeneEspecie> genes) {
@@ -31,6 +33,8 @@ public class Especie implements Gravavel {
     }
     
     public Especie(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
+        System.out.println(fstr);
         
         if ( !fstr.getTipo().equals("Especie") ) 
             throw new RepresentacaoInvalidaDoTipo("A FormatedString : " + fstr + " não representa uma Especie.");
@@ -69,11 +73,17 @@ public class Especie implements Gravavel {
     @Override
     public String toString() {
         String info = "";
-        info = "Especie{" + "nome:" + nome + ", genes:\n";
+        info = "Especie(" + "nome:" + nome ;
+        
+        if(this.genes.isEmpty()) 
+            return info + ")";
+        else
+            info += ", genes:\n";
+        
         for (GeneEspecie e : genes) {
             info += "\t" + e.toString() + "\n";
         }
-        return info;
+        return info + "\t)";
     }
     
     public boolean equals(Object obj){

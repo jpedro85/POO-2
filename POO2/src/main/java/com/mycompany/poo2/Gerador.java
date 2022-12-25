@@ -21,9 +21,9 @@ public final class Gerador {
         
     }
     
-    public static int gerarProbabilidate(){
+    public static Double gerarProbabilidade(){
         
-        return rand.nextInt(101);
+        return rand.nextDouble(100);
     }
     
     public static int gerarOrdinal( int max){

@@ -26,5 +26,6 @@ com\mycompany\poo2\GeneDieta.class
 com\mycompany\poo2\GeneLongividade.class
 com\mycompany\poo2\Genoma.class
 com\mycompany\poo2\Ambiente.class
+com\mycompany\poo2\Animal.class
 com\mycompany\poo2\Dieta.class
 com\mycompany\poo2\GeneSexo.class

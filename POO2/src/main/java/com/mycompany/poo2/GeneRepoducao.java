@@ -51,9 +51,9 @@ public class GeneRepoducao extends GeneMutavel implements Registo<GeneRepoducao>
     @Override
     public void mutar() {
         
-        if( Gerador.gerarProbabilidate() <= 10 ){
+        if( Gerador.gerarProbabilidade() <= 10 ){
             
-            if (Gerador.gerarProbabilidate() < 50) {
+            if (Gerador.gerarProbabilidade() < 50) {
                 this.apetite += Gerador.gerarNumero(1,10 );
             }else{
                 
@@ -83,7 +83,7 @@ public class GeneRepoducao extends GeneMutavel implements Registo<GeneRepoducao>
     @Override
     public String toString(){
 
-        return "GeneRepoducao(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ",Apetite:"+ this.getApetite() +")" ;
+        return "GeneRepoducao(Id:" + this.getId() + ";Nome:" + this.getNome() + ";Geracao:" + this.getGeracao() + ";Apetite:"+ this.getApetite() +")" ;
     }
     
     @Override

@@ -52,9 +52,9 @@ public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtrativ
     @Override
     public void mutar() {
         
-        if( Gerador.gerarProbabilidate() == 1 ){
+        if( Gerador.gerarProbabilidade() <= 40 ){
             
-            if (Gerador.gerarProbabilidate() < 30) {
+            if (Gerador.gerarProbabilidade() < 30) {
                 this.atratividade += Gerador.gerarNumero(10, 50 );
             }else{
                 int temp = Gerador.gerarNumero(1, 5);
