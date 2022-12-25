@@ -46,24 +46,19 @@ public class FormatedString {
                 
                     end = encontratIndiceDoFecho(str,'[',']');
                     valor = str.substring(0, end+1 );
-                    //System.out.println("H1");
                     
                 } else if( str.indexOf("(") > 0 && ( str.indexOf("(") < str.indexOf(";") ) ){//se um tipo
                 
                     end = encontratIndiceDoFecho(str,'(',')');
                     valor = str.substring(0, end+1 );
                     end++;
-                    //System.out.println("H2");
                      
                 } else { //ser for valor simples
                     
                     end = str.indexOf(";");
                     valor = str.substring(0,end);
-                    //System.out.println("H3");
                 }
                 
-               // System.out.println(campo);
-               // System.out.println(valor);
                 addAtributo(campo, valor);
                 
             }
@@ -94,8 +89,7 @@ public class FormatedString {
                 
             }else
                 continue;
-            
-           // indice_divisor = str.indexOf(":",i);
+
             if (i!= 0 && contador == 0 ) {
                 return str.indexOf(fecho,i);
             }
@@ -190,8 +184,6 @@ public class FormatedString {
 
     private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> cclass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
 
-        //format "[Object(campo:valor),Object(campo:valor),Object(campo:valor),Object(campo:valor),Object(campo:valor),]"
-        
         int end = 0;
         FormatedString fstr;
         strArray = strArray.substring(1);
