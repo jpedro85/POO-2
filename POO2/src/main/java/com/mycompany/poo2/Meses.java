@@ -34,6 +34,10 @@ public enum Meses {
         return dias;
     }
 
+    public boolean isLastDay(int dia){
+        return dias==dia;
+    }
+    
     @Override
     public String toString() {
         return nome;
