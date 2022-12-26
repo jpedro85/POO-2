@@ -11,14 +11,10 @@ import java.util.LinkedHashSet;
  * @author Pedro
  */
 public final class Historico {
-
+    
     private static LinkedHashSet<String> acontecimentos = new LinkedHashSet<>(200);
 
-    public Historico() {
-    }
-
-    private Historico() {
-    }
+    private Historico() {}
 
     public void adicionarAcontecimento(String acontecimento) {
         acontecimentos.add(acontecimento);

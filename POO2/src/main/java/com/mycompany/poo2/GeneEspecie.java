@@ -26,8 +26,8 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
         this.valor = fstr.getAtributo("Valor","GeneEspecie");     
     }
     
-    @Override
-    public ArrayList<GeneEspecie> getAllInstances(){
+    //@Override
+    public static ArrayList<GeneEspecie> getAllInstances(){
         return allInstancesCreated; 
     }
     

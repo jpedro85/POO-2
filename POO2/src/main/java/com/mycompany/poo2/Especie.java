@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Pedro
  */
-public class Especie implements Gravavel {
+public class Especie implements Gravavel, Registo {
 
     private String nome;
     private ArrayList<GeneEspecie> genes;
