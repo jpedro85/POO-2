@@ -17,11 +17,20 @@ public class Cliente extends Pessoa {
     private int interece;
     
     public Cliente(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
         super(fstr, "Cliente");
-        this.generosidade = Integer.parseInt(fstr.getAtributo("Generosidade","Cliente"));
-        this.interece = Integer.parseInt(fstr.getAtributo("Interece","Cliente"));
-        this.numeroVisitas = Integer.parseInt(fstr.getAtributo("NumeroVisitas","Cliente"));
-        this.saldo = Double.parseDouble(fstr.getAtributo("Saldo","Cliente"));
+        
+        try{
+        
+            this.generosidade = Integer.parseInt(fstr.getAtributo("Generosidade","Cliente"));
+            this.interece = Integer.parseInt(fstr.getAtributo("Interece","Cliente"));
+            this.numeroVisitas = Integer.parseInt(fstr.getAtributo("NumeroVisitas","Cliente"));
+            this.saldo = Double.parseDouble(fstr.getAtributo("Saldo","Cliente"));
+        
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
+        
         numeroClientes++;
     }
     

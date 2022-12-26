@@ -10,6 +10,6 @@ package com.mycompany.poo2;
  */
 public interface Gravavel {
     
-    public abstract FormatedString toFormatedString();
+    FormatedString toFormatedString();
     
 }

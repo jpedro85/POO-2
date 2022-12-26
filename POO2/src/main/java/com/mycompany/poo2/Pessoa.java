@@ -29,8 +29,16 @@ public abstract class Pessoa implements Gravavel {
         }
 
         this.nome = fstr.getAtributo("Nome",className);
-        this.nif = Integer.parseInt(fstr.getAtributo("Nif",className));
-        this.idade = Integer.parseInt(fstr.getAtributo("Idade",className));
+        
+        try{
+        
+            this.nif = Integer.parseInt(fstr.getAtributo("Nif",className));
+            this.idade = Integer.parseInt(fstr.getAtributo("Idade",className));
+        
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
+        
         numeroPessoas++;
     }
 

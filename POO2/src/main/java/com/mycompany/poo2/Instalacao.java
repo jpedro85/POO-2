@@ -65,13 +65,20 @@ public class Instalacao implements Gravavel {
         if( !fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + Instalacao.class.getSimpleName() );
         
         this.nome = fstr.getAtributo("Nome",className);
-        this.id = Integer.parseInt(fstr.getAtributo("Id",className));
-        this.capacidade = Integer.parseInt(fstr.getAtributo("Capacidade",className));
-        this.custoManutencao = Double.parseDouble(fstr.getAtributo("CustoManutencao",className));
-        this.ultimaManutencao = Integer.parseInt(fstr.getAtributo("UltimaManutencao",className));
-        this.entrevaloLimiteManutencao = Integer.parseInt(fstr.getAtributo("EntrevaloLimiteManutencao",className));
-        this.sujidade = Integer.parseInt(fstr.getAtributo("Sujidade",className));
-        this.condicao = Integer.parseInt(fstr.getAtributo("Condicao",className));
+        
+        try{
+            
+            this.id = Integer.parseInt(fstr.getAtributo("Id",className));
+            this.capacidade = Integer.parseInt(fstr.getAtributo("Capacidade",className));
+            this.custoManutencao = Double.parseDouble(fstr.getAtributo("CustoManutencao",className));
+            this.ultimaManutencao = Integer.parseInt(fstr.getAtributo("UltimaManutencao",className));
+            this.entrevaloLimiteManutencao = Integer.parseInt(fstr.getAtributo("EntrevaloLimiteManutencao",className));
+            this.sujidade = Integer.parseInt(fstr.getAtributo("Sujidade",className));
+            this.condicao = Integer.parseInt(fstr.getAtributo("Condicao",className));
+            
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
 
         this.animais = new HashMap<>();
         this.animais.put("Saudaveis", FormatedString.converterFormatedArray(Animal.class, fstr.getAtributo("Saudaveis",className),this.capacidade));

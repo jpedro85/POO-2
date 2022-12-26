@@ -21,12 +21,20 @@ public abstract class Empregado extends Pessoa {
 
     public Empregado(FormatedString fstr, String className) throws RepresentacaoInvalidaDoTipo {
         super(fstr, className);
-        this.salarioBase = Double.parseDouble(fstr.getAtributo("SalarioBase",className));
-        this.bonusTarefa = Integer.parseInt(fstr.getAtributo("BonusTarefa",className));
-        this.experiencia = Integer.parseInt(fstr.getAtributo("Experiencia",className));
-        this.maxTarefas = Integer.parseInt(fstr.getAtributo("MaxTarefas",className));
-        this.totalTarefas = Integer.parseInt(fstr.getAtributo("TotalTarefas",className));
-        this.tarefasMes = Integer.parseInt(fstr.getAtributo("TarefasMes",className));
+        
+        try{
+            
+            this.salarioBase = Double.parseDouble(fstr.getAtributo("SalarioBase",className));
+            this.bonusTarefa = Integer.parseInt(fstr.getAtributo("BonusTarefa",className));
+            this.experiencia = Integer.parseInt(fstr.getAtributo("Experiencia",className));
+            this.maxTarefas = Integer.parseInt(fstr.getAtributo("MaxTarefas",className));
+            this.totalTarefas = Integer.parseInt(fstr.getAtributo("TotalTarefas",className));
+            this.tarefasMes = Integer.parseInt(fstr.getAtributo("TarefasMes",className));
+            
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
+        
         numeroEmpregados++;
     }
     

@@ -11,8 +11,9 @@ import java.util.Arrays;
  *
  * @author Pedro
  */
-public class Especie implements Gravavel {
+public class Especie implements Gravavel,Registo<Especie> {
 
+    private static ArrayList<Especie> allInstancesCreated = new ArrayList<>(200);
     private String nome;
     private ArrayList<GeneEspecie> genes;
 
@@ -42,6 +43,28 @@ public class Especie implements Gravavel {
         this.nome = fstr.getAtributo("Nome","Especie");
         this.genes = FormatedString.converterFormatedArray(GeneEspecie.class, fstr.getAtributo("Genes", "Especie"));
 
+    }
+    
+    public static ArrayList<Especie> getAllInstances(){
+        return allInstancesCreated; 
+    }
+    
+    public static void addInstanceToResgisto( Especie instance ){  
+        allInstancesCreated.add(instance);
+    }
+   
+    public static void removeInstanceToRegisto( Especie instance ){
+        allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
 
     public String getNome() {

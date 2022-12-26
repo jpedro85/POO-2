@@ -28,9 +28,8 @@ public final class Carregador {
                 try {
 
                     T a = cclass.getConstructor(FormatedString.class).newInstance(new FormatedString(ficheiro));
-
                     Registo<T> b = (Registo<T>) a;
-                    b.addInstance(a);
+                    b.addInstanceAoResgisto();
 
                 } catch (RepresentacaoInvalidaDoTipo exp1) {
                     System.out.println(exp1.getMessage());

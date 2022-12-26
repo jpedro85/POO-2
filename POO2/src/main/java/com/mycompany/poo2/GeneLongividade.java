@@ -12,12 +12,19 @@ import java.util.ArrayList;
  */
 public class GeneLongividade extends GeneMutavel implements Registo<GeneLongividade>{
 
-    private int anos;
     private static ArrayList<GeneLongividade> allInstancesCreated = new ArrayList<>(200);
+    private int anos;
 
     public GeneLongividade(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
+        
         super(fstr,"GeneLongividade");
-        this.anos = Integer.parseInt( fstr.getAtributo("Anos","GeneLongividade") );
+        
+        try{
+            this.anos = Integer.parseInt( fstr.getAtributo("Anos","GeneLongividade") );
+            
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
     }
 
     public GeneLongividade(int anos, String nome , int geracao) {
@@ -34,19 +41,26 @@ public class GeneLongividade extends GeneMutavel implements Registo<GeneLongivid
         return anos;
     }
     
-    @Override
-    public ArrayList<GeneLongividade> getAllInstances(){
+    public static ArrayList<GeneLongividade> getAllInstances(){
         return allInstancesCreated; 
     }
     
-    @Override
-    public void addInstance( GeneLongividade instance ){  
+    public static void addInstanceToResgisto( GeneLongividade instance ){  
         allInstancesCreated.add(instance);
     }
    
-    @Override
-    public void removeInstance( GeneLongividade instance ){
+    public static void removeInstanceToRegisto( GeneLongividade instance ){
         allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
     
     @Override
@@ -78,6 +92,7 @@ public class GeneLongividade extends GeneMutavel implements Registo<GeneLongivid
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Nome", this.getNome() );
         fsrt.addAtributo("Geracao",  this.getGeracao() );
+        fsrt.addAtributo("Mutado",  this.estaMutado());
         fsrt.addAtributo("Anos",  this.getAnos() );
         return fsrt;
         
@@ -97,7 +112,7 @@ public class GeneLongividade extends GeneMutavel implements Registo<GeneLongivid
         if ( getClass() != obj.getClass() ) return false;
         
         final GeneLongividade gene = (GeneLongividade)obj;      
-        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAnos()== gene.getAnos()) ;
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.estaMutado() == gene.estaMutado()) && (this.getAnos()== gene.getAnos()) ;
     }
     
     @Override

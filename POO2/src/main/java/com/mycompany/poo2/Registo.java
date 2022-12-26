@@ -13,11 +13,9 @@ import java.util.ArrayList;
  */
 
 public interface Registo<T> {
+        
+    void addInstanceAoResgisto();
     
-    ArrayList <T> getAllInstances();
-    
-    void addInstance( T instance );
-    
-    void removeInstance( T instance );
+    void removeInstanceDoResgisto();
  
 }

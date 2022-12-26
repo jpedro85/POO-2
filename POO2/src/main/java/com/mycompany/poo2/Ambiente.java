@@ -10,7 +10,7 @@ package com.mycompany.poo2;
  */
 public enum Ambiente {
     
-    DESETICO("deserto"),ROCHOSO("rochoso"),SAVANA("savana"),SELVA("selva"),FLORESTA("floresta");
+    DESERTICO("deserto"),ROCHOSO("rochoso"),SAVANA("savana"),SELVA("selva"),FLORESTA("floresta");
     
     private String nome;
     
@@ -23,4 +23,15 @@ public enum Ambiente {
         return nome;
     }
     
+    public static boolean estaRepresentado(String str){
+        
+        for (Ambiente amb :Ambiente.values()) {
+            
+            if( str.equals(amb.toString()) )
+                return true;
+        }
+
+        return false;
+    }
+  
 } 

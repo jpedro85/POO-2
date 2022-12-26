@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Tratador extends Empregado implements Registo<Tratador>{
 
-    private static int numeroTratadores;
     private static ArrayList<Tratador> allInstancesCreated = new ArrayList<>(200);
+    private static int numeroTratadores;
 
     public Tratador(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Tratador");
@@ -26,16 +26,7 @@ public class Tratador extends Empregado implements Registo<Tratador>{
     }
 
     //dar comer
-    public static int getQuantidade() {
-        return numeroTratadores;
-    }
-
-    @Override
-    public void eleminar() {
-        super.eleminar();
-        numeroTratadores--;
-    }
-
+    
     @Override
     public Horario createHorario() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -45,6 +36,13 @@ public class Tratador extends Empregado implements Registo<Tratador>{
     public Horario getHorario() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    public void eleminar() {
+        super.eleminar();
+        numeroTratadores--;
+    }
+
 
     @Override
     public FormatedString toFormatedString() {
@@ -67,20 +65,30 @@ public class Tratador extends Empregado implements Registo<Tratador>{
     public void trabalhar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public ArrayList<Tratador> getAllInstances() {
-        return allInstancesCreated;
+    
+    public static int getQuantidade() {
+        return numeroTratadores;
     }
-
-    @Override
-    public void addInstance( Tratador instance ){  
+    
+    public static ArrayList<Tratador> getAllInstances(){
+        return allInstancesCreated; 
+    }
+    
+    public static void addInstanceToResgisto( Tratador instance ){  
         allInstancesCreated.add(instance);
     }
    
-    @Override
-    public void removeInstance( Tratador instance ){
+    public static void removeInstanceToRegisto( Tratador instance ){
         allInstancesCreated.remove(instance);   
     }
-
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
+    }
 }

@@ -22,5 +22,15 @@ public enum Dieta {
     public String toString(){
         return nome;
     }
-   
+    
+    public static boolean estaRepresentado(String str){
+        
+        for (Dieta dieta :Dieta.values()) {
+            
+            if( str.equals(dieta.toString()) )
+                return true;
+        }
+        
+        return false;
+    }
 }

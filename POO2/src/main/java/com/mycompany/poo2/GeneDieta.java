@@ -12,12 +12,14 @@ import java.util.ArrayList;
  */
 public class GeneDieta extends Gene implements Registo<GeneDieta>{
     
-    private String dieta;
     private static ArrayList<GeneDieta> allInstancesCreated = new ArrayList<>(200);
+    private String dieta;
 
     public GeneDieta(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneDieta");
         this.dieta = fstr.getAtributo("Dieta","GeneDieta") ;
+        if(!Dieta.estaRepresentado(dieta))
+            throw new RepresentacaoInvalidaDoTipo("O valor do campo Dieta não representa nenhum do tipo Dieta.");
     }
 
     public GeneDieta(Dieta diteta, String nome) {
@@ -29,19 +31,26 @@ public class GeneDieta extends Gene implements Registo<GeneDieta>{
         return dieta;
     }
     
-    @Override
-    public ArrayList<GeneDieta> getAllInstances(){
+    public static ArrayList<GeneDieta> getAllInstances(){
         return allInstancesCreated; 
     }
     
-    @Override
-    public void addInstance( GeneDieta instance ){  
+    public static void addInstanceToResgisto( GeneDieta instance ){  
         allInstancesCreated.add(instance);
     }
    
-    @Override
-    public void removeInstance( GeneDieta instance ){
+    public static void removeInstanceToRegisto( GeneDieta instance ){
         allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
 
     @Override

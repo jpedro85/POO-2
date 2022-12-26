@@ -30,4 +30,15 @@ public enum CararcteristicasEspecificas {
         return name;
     }
     
+    public static boolean estaRepresentado(String str){
+        
+        for (CararcteristicasEspecificas carac :CararcteristicasEspecificas.values()) {
+
+            if( str.equals(carac.toString()) )
+                return true;
+        }
+
+        return false;
+    }
+
 }

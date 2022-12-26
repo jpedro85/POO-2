@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Veterinario extends Empregado implements Registo<Veterinario>{
 
-    private static int numeroVeterinarios;
     private static ArrayList<Veterinario> allInstancesCreated = new ArrayList<>(200);
+    private static int numeroVeterinarios;
 
     public Veterinario(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Veterinario");
@@ -23,10 +23,6 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
     public Veterinario(String nome, int nif, int idade, double salarioBase, int bonusTarefa, int experiencia, int maxTarefas, int totalTarefas) {
         super(nome, nif, idade, salarioBase, bonusTarefa, experiencia, maxTarefas, totalTarefas);
         numeroVeterinarios++;
-    }
-
-    public static int getQuantidade() {
-        return numeroVeterinarios;
     }
 
     //criar horario
@@ -68,20 +64,31 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
 
         return fstr;
     }
-
-    @Override
-    public ArrayList<Veterinario> getAllInstances() {
-        return allInstancesCreated;
+    
+    public static int getQuantidade() {
+        return numeroVeterinarios;
     }
-
-    @Override
-    public void addInstance(Veterinario instance) {
+    
+    public static ArrayList<Veterinario> getAllInstances(){
+        return allInstancesCreated; 
+    }
+    
+    public static void addInstanceToResgisto( Veterinario instance ){  
         allInstancesCreated.add(instance);
     }
-
+   
+    public static void removeInstanceToRegisto( Veterinario instance ){
+        allInstancesCreated.remove(instance);   
+    }
+    
     @Override
-    public void removeInstance(Veterinario instance) {
-        allInstancesCreated.remove(instance);
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
 
 }
