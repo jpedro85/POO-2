@@ -14,4 +14,15 @@ public class RepresentacaoInvalidaDoTipo extends Exception{
         super(msg);
     }
     
+    @Override
+    public String toString(){
+        
+        String temp = this.getMessage() + "\n";
+        
+        for (StackTraceElement a : this.getStackTrace()) {
+            temp += "\t" + a.toString() + "\n";
+        }
+        
+        return temp;
+    }
 }

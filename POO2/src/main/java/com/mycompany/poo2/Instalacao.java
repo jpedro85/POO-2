@@ -5,117 +5,195 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  *
  * @author Pedro
  */
-public class Instalacao {
-    private int numeroInstalacoes;
+public class Instalacao implements Gravavel {
+    
+    private static int numeroInstalacoes = 0;
+    private static int lastId = 0;
+    
     private int id;
-    private static int lastId;
     private String nome;
     private int capacidade;
-    private int vacancia;
     private double custoManutencao;
-    private int tempoMedioManutencao;
+    private int ultimaManutencao;
+    private int entrevaloLimiteManutencao;
     private int sujidade;
     private int condicao;
-    private Map<String,ArrayList<Animal>> animais;
-
-    public Instalacao(int numeroInstalacoes, String nome, int capacidade, int vacancia, double custoManutencao, int tempoMedioManutencao, int sujidade, int condicao, Map<String, ArrayList<Animal>> animais) {
-        this.numeroInstalacoes = numeroInstalacoes;
+    private HashMap<String,ArrayList<Animal>> animais;
+    
+    public Instalacao(String nome, int capacidade, double custoManutencao, int entrevaloLimiteManutencao ) {
+    
         this.nome = nome;
         this.capacidade = capacidade;
-        this.vacancia = vacancia;
         this.custoManutencao = custoManutencao;
-        this.tempoMedioManutencao = tempoMedioManutencao;
+        this.ultimaManutencao = 0;
+        this.entrevaloLimiteManutencao = entrevaloLimiteManutencao;
+        this.sujidade = 0;
+        this.condicao = 100;
+        this.animais = new HashMap<>();
+        this.id = ++lastId;
+        
+        numeroInstalacoes++;
+        
+    }
+    
+    public Instalacao(String nome, int capacidade, int ultimaManutencao , int sujidade, int condicao ,double custoManutencao, int entrevaloLimiteManutencao , HashMap<String,ArrayList<Animal>> animais) {
+    
+        this.nome = nome;
+        this.capacidade = capacidade;
+        this.custoManutencao = custoManutencao;
+        this.ultimaManutencao = ultimaManutencao;
+        this.entrevaloLimiteManutencao = entrevaloLimiteManutencao;
         this.sujidade = sujidade;
         this.condicao = condicao;
         this.animais = animais;
+        this.id = ++lastId;
+        
+        numeroInstalacoes++;
+        
     }
+    
+    public Instalacao(FormatedString fstr) throws RepresentacaoInvalidaDoTipo,NumberFormatException {
+        
+        String className = Instalacao.class.getSimpleName();
+        if( !fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + Instalacao.class.getSimpleName() );
+        
+        this.nome = fstr.getAtributo("Nome",className);
+        this.id = Integer.parseInt(fstr.getAtributo("Id",className));
+        this.capacidade = Integer.parseInt(fstr.getAtributo("Capacidade",className));
+        this.custoManutencao = Double.parseDouble(fstr.getAtributo("CustoManutencao",className));
+        this.ultimaManutencao = Integer.parseInt(fstr.getAtributo("UltimaManutencao",className));
+        this.entrevaloLimiteManutencao = Integer.parseInt(fstr.getAtributo("EntrevaloLimiteManutencao",className));
+        this.sujidade = Integer.parseInt(fstr.getAtributo("Sujidade",className));
+        this.condicao = Integer.parseInt(fstr.getAtributo("Condicao",className));
 
-    public int getNumeroInstalacoes() {
+        this.animais = new HashMap<>();
+        this.animais.put("Saudaveis", FormatedString.converterFormatedArray(Animal.class, fstr.getAtributo("Saudaveis",className),this.capacidade));
+        this.animais.put("Doentes", FormatedString.converterFormatedArray(Animal.class, fstr.getAtributo("Doentes",className),this.capacidade));
+        
+        if (lastId < this.id) {
+            lastId = this.id;
+        }
+        
+        numeroInstalacoes++;
+        
+    }
+    
+    public static int getNumeroInstalacoes() {
         return numeroInstalacoes;
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
-
+    
+    public int getOcupacao() {
+      return this.animais.get("Doentes").size() + this.animais.get("Saudaveis").size();
+    }
+    
     public int getVacancia() {
-        return vacancia;
+      return this.capacidade - this.getOcupacao();
+    }
+    
+    public int getUltimaManutencao(){
+        return this.ultimaManutencao;
     }
 
     public int getSujidade() {
-        return sujidade;
+        return this.sujidade;
     }
 
     public int getCondicao() {
-        return condicao;
-    }
-
-    public static int getLastId() {
-        return lastId;
+        return this.condicao;
     }
 
     public int getCapacidade() {
-        return capacidade;
+        return this.capacidade;
     }
 
     public Map<String, ArrayList<Animal>> getAnimais() {
-        return animais;
+        return this.animais;
     }
 
     public double getCustoManutencao() {
-        return custoManutencao;
+        return this.custoManutencao;
+    }
+    
+    public int getultimaManutencao() {
+        return this.ultimaManutencao;
     }
 
     public void setCustoManutencao(double custoManutencao) {
         this.custoManutencao = custoManutencao;
     }
 
-    public int getTempoMedioManutencao() {
-        return tempoMedioManutencao;
+    public int getEntrevaloLimiteManutencao() {
+        return this.entrevaloLimiteManutencao;
     }
 
-    public void setTempoMedioManutencao(int tempoMedioManutencao) {
-        this.tempoMedioManutencao = tempoMedioManutencao;
+    public void setEntrevaloLimiteManutencao(int entrevaloLimite) {
+        if (entrevaloLimite > 0 ) 
+            this.entrevaloLimiteManutencao = entrevaloLimite;  
     }
     
-    public boolean isPrecaria(){
-        if(sujidade==0) return true;
-        else return false;
+    public boolean estaCheia(){
+        return this.capacidade == this.getOcupacao();
+    }
+    
+    public boolean estaPrecaria(){
+        return (sujidade>=100);
     }
     
     public boolean precisaManutencao(){
-        if(condicao<25) return true;
-        else return false;
+        return (condicao<25) || this.ultimaManutencao >= this.entrevaloLimiteManutencao ;
     }
     
     public boolean precisaLimpeza(){
-        if(sujidade>50)return true;
-        else return false;
+        return (sujidade>50);
     }
     
     public boolean temAnimaisDoentes(){
-        if(animais.containsKey("doente"))return true;
-        else return false;
+        return !animais.get("Doentes").isEmpty();
     }
     
     public void desgaste(){
-        condicao++;
-        sujidade--;
+        condicao--;
+        sujidade++;
     }
     
+    @Override
+    public FormatedString toFormatedString(){
+        
+        FormatedString fstr = new FormatedString(Instalacao.class.getSimpleName(),10);
+        fstr.addAtributo("Nome", this.getNome());
+        fstr.addAtributo("Id", this.getId());
+        fstr.addAtributo("Capacidade", this.getCapacidade());
+        fstr.addAtributo("CustoManutencao", this.getCustoManutencao());
+        fstr.addAtributo("UltimaManutencao", this.getUltimaManutencao());
+        fstr.addAtributo("EntrevaloLimiteManutencao", this.getEntrevaloLimiteManutencao());
+        fstr.addAtributo("Sujidade", this.getSujidade());
+        fstr.addAtributo("Condicao", this.getCondicao());
+        fstr.addAtributo("Saudaveis", FormatedString.formatArray(this.animais.get("Saudaveis")));
+        fstr.addAtributo("Doentes", FormatedString.formatArray(this.animais.get("Doentes")));
+        
+        return fstr;
+    }
+    
+    @Override
     public String toString(){
+        
         String text="";
-        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+vacancia+" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+tempoMedioManutencao+"\n Animais:\n";
+        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+ getVacancia() +" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+entrevaloLimiteManutencao+"\n Animais:\n";
         for (Animal animal:animais.get("Doentes")) {
             text+= animal+"\n";
         }
@@ -125,20 +203,14 @@ public class Instalacao {
         return text;
     }
     
-     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
 
-        if (obj == null) {
-            return false;
-        }
-
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Instalacao i = (Instalacao) obj;
+        final Instalacao i = (Instalacao) obj;
 
         return (nome.equals(i.getNome())) && (id == i.getId());
     }

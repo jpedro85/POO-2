@@ -134,6 +134,57 @@ public class Genoma implements Gravavel,Registo<Genoma>{
         if (!this.repoducao.isMutado())return false;
         return this.atratividade.isMutado();
     }
+        
+    public static Genoma comabinarGenomas (Genoma genoma1 , Genoma genoma2){
+            
+        Especie especie = escolher( genoma1.getEspecie(),genoma2.getEspecie() );
+
+        int tamanho = genoma1.getGenesEspecificos().size() + genoma2.getGenesEspecificos().size();        
+        ArrayList<GeneEspecifico> espedificos = new ArrayList<>(tamanho);
+        espedificos.addAll(genoma1.getGenesEspecificos());
+        
+        for (GeneEspecifico gene_presente: espedificos) {
+            
+            for (GeneEspecifico gene_por: genoma2.getGenesEspecificos()) {
+                
+                if (!gene_por.equals(gene_presente)) espedificos.add(gene_por);
+            }  
+        }
+        
+        GeneDieta geneDieta = escolher(genoma1.getGeneDieta(),genoma2.getGeneDieta()).clone();
+        GeneSexo geneSexo = escolher(genoma1.getGeneSexo(),genoma2.getGeneSexo()).clone();
+        
+        GeneLongividade geneLongitividade = escolher(genoma1.getGeneLogitividade(),genoma2.getGeneLogitividade()).clone();
+        geneLongitividade.mutar();
+        
+        GeneRepoducao geneReproducao = escolher(genoma1.getGeneRepoducao(),genoma2.getGeneRepoducao()).clone();
+        geneReproducao.mutar();
+        
+        GeneAmbiente geneAmbiente = escolher(genoma1.getGeneAmbiete(),genoma2.getGeneAmbiete()).clone();
+        geneAmbiente.mutar();
+        
+        GeneAtratividade geneAtratividade = escolher(genoma1.getGeneAtratividade(),genoma2.getGeneAtratividade()).clone();
+        geneAtratividade.mutar();
+        
+        
+        return new Genoma(especie,geneSexo,geneDieta,geneAtratividade,geneLongitividade,geneReproducao,geneAmbiente, espedificos);   
+    }
+    
+    private static <T> T escolher(T a,T b){
+        
+        if ( a.equals(b) ) {
+            
+            return a;
+            
+        }else{
+        
+            if(Gerador.gerarProbabilidade() < 50)
+                return a;
+            else
+                return b;
+            
+        }
+    }
     
     @Override
     public ArrayList<Genoma> getAllInstances(){
@@ -170,15 +221,14 @@ public class Genoma implements Gravavel,Registo<Genoma>{
     @Override
     public String toString(){
         
-        String temp = "Genoma(Genes:\n";
-        temp += "\t" + this.sexo + "\n";
+        String temp = "Genoma("+this.especie ;
+        temp += ";Genes:\n\t" + this.sexo + "\n";
         temp += "\t" + this.dieta + "\n";
         temp += "\t" + this.atratividade + "\n";
         temp += "\t" + this.logitividade + "\n";
         temp += "\t" + this.repoducao + "\n";
         temp += "\t" + this.ambiete + "\n";
-        temp += "\t" + this.especie + "\n";
-        temp += "\t" + this.especificos + ")";
+        temp += "\t" + "Especificos" + this.especificos + ")";
         
         return temp;
     }

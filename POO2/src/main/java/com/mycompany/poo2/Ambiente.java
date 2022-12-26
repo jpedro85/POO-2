@@ -10,7 +10,7 @@ package com.mycompany.poo2;
  */
 public enum Ambiente {
     
-    DESETICO("deserto"),ROCHOSO("rochoso"),SAVANA("savana"),SELVA("selva");
+    DESETICO("deserto"),ROCHOSO("rochoso"),SAVANA("savana"),SELVA("selva"),FLORESTA("floresta");
     
     private String nome;
     
@@ -23,4 +23,4 @@ public enum Ambiente {
         return nome;
     }
     
-}
+} 

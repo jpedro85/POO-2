@@ -13,89 +13,196 @@ import java.util.Objects;
 public class Animal implements Gravavel {
 
     private static int lastId = 0;
+    
     private int id;
     private String nomeArtistico;
+    private String nomeArtisticoPai;
+    private String nomeArtisticoMae;
     private Genoma genoma;
-    private int idade;
+    private int idade;//dias
     private int atratividadeBase;
-
-    public Animal(String nomeArtistico, Genoma genoma, int atratividade) {
-        this.nomeArtistico = nomeArtistico;
+    private boolean doente;
+    private boolean tratado;
+    private int ultimaTratacao;
+    
+    public Animal( String nomeArtisticoPai , String nomeArtisticoMae , Genoma genoma, int atratividadeBase ) {
+        
+        this.nomeArtisticoPai = nomeArtisticoPai;
+        this.nomeArtisticoMae = nomeArtisticoMae;
         this.genoma = genoma;
-        this.id = lastId;
+        this.id = ++lastId;
         this.idade = 0;
-        this.atratividadeBase = atratividade;
-        lastId++;
+        this.atratividadeBase = atratividadeBase;
+        this.doente = false;
+        this.tratado = true;
+        this.ultimaTratacao = 0 ;
+        this.nomeArtistico = this.genoma.getEspecie().getNome() + "_animal_ " + this.id ;
+        
     }
 
-    public static int getLastId() {
-        return lastId;
+    public Animal(String nomeArtistico , String nomeArtisticoPai , String nomeArtisticoMae , Genoma genoma, int atratividadeBase ) {
+        
+        this.nomeArtistico = nomeArtistico;
+        this.nomeArtisticoPai = nomeArtisticoPai;
+        this.nomeArtisticoMae = nomeArtisticoMae;
+        this.genoma = genoma;
+        this.id = ++lastId;
+        this.idade = 0;
+        this.atratividadeBase = atratividadeBase;
+        this.doente = false;
+        this.tratado = true;
+        this.ultimaTratacao = 0 ;
+        
     }
-
+    
+    public Animal(FormatedString fstr) throws RepresentacaoInvalidaDoTipo,NumberFormatException {
+                
+        String className = Animal.class.getSimpleName();
+        if( !fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + Instalacao.class.getSimpleName() );
+        
+        this.nomeArtistico = fstr.getAtributo("NomeArtistico",className);
+        this.nomeArtisticoPai = fstr.getAtributo("NomePai",className);
+        this.nomeArtisticoMae = fstr.getAtributo("NomeMae",className);
+        this.genoma = new Genoma(  new FormatedString(fstr.getAtributo("NomeArtistico",className)) );
+        this.id = Integer.parseInt(fstr.getAtributo("Id",className));
+        this.idade = Integer.parseInt(fstr.getAtributo("Idade",className));
+        this.atratividadeBase = Integer.parseInt(fstr.getAtributo("AtratividadeBase",className));
+        this.doente = Boolean.parseBoolean(fstr.getAtributo("Doente",className));
+        this.tratado = Boolean.parseBoolean(fstr.getAtributo("Tratado",className));
+        this.ultimaTratacao = Integer.parseInt(fstr.getAtributo("UltimaTratacao",className));
+        
+        if (lastId < this.id) {
+            lastId = this.id;
+        }
+        
+    }
+    
     public int getId() {
         return id;
     }
 
     public String getNomeArtistico() {
-        return nomeArtistico;
+        return this.nomeArtistico;
+    }
+    
+    public String setNomeArtistico() {
+        return this.nomeArtistico;
+    }
+    
+    public String getNomeArtisticoPai() {
+        return this.nomeArtisticoPai;
+    }
+    
+    public String getNomeArtisticoMae() {
+        return this.nomeArtisticoMae;
     }
 
     public Genoma getGenoma() {
-        return genoma;
+        return this.genoma;
     }
-
+    
     public int getAtratividadeBase() {
-        return atratividadeBase;
+        return this.atratividadeBase ;
+    }
+    
+    public int getAtratividade() {
+        return this.atratividadeBase + this.genoma.getGeneAtratividade().getAtratividade() ;
     }
 
     public int getIdade() {
         return idade;
     }
-
-    public int comer() {
-        return 1;
+    
+    public int getIdadeAnos() {
+        return idade/365;
+    }
+      
+    public int getUltimaTratacao(){
+        return this.ultimaTratacao;
+    }
+        
+    public boolean estaDoente(){
+        return this.doente;
+    }
+    
+    public boolean estaTratado(){
+        return this.tratado;
+    }
+    
+    public TipoMorte morre(boolean abate) {       
+        if (abate) 
+            return TipoMorte.ABATE;
+        else 
+            return morreProb();  
+    }
+    
+    public TipoMorte morre() {
+        return morreProb(); 
+    }
+    
+    public boolean ficaDoente(Instalacao instalacao) {
+        
+        double chance = Math.pow( ( (double)(((10 + this.genoma.getGeneLogitividade().getAnos()) / this.genoma.getGeneLogitividade().getAnos()) - 1) / 2.5 ) + 1, this.getIdadeAnos() );
+        if (instalacao.estaPrecaria())
+            chance += 20;
+        
+        this.doente = Gerador.gerarProbabilidade() < chance;
+        
+        return this.doente;
+        
     }
 
-    public boolean estaDoente(Instalacao instalacao) {
-        return true;
+    public Animal reproduzir(Animal animal) {
+        
+        if( Gerador.gerarProbabilidade() < this.genoma.getGeneRepoducao().getApetite()  ){
+            
+            if( Gerador.gerarProbabilidade() < animal.genoma.getGeneRepoducao().getApetite() ){
+            
+                if( !this.genoma.getGeneSexo().getSexo().equals(animal.getGenoma().getGeneSexo().getSexo()) ){
+                    
+                    Genoma novoGenoma = Genoma.comabinarGenomas(this.genoma,animal.getGenoma());
+                    int atratividade = (this.getAtratividadeBase() + animal.getAtratividadeBase()) / 2;
+                    
+                    if (this.genoma.getGeneSexo().getSexo().equals(Sexo.MACHO.toString() )) 
+                        return new Animal(this.getNomeArtistico(),animal.getNomeArtistico(),novoGenoma,atratividade);
+                    else
+                        return new Animal(animal.getNomeArtistico(),this.getNomeArtistico(),novoGenoma,atratividade);
+                   
+                } else return null;
+                 
+            }else return null;
+            
+        }else return null;
     }
 
-    public Animal reproduzir() {
-        return null;
-    }
-
-    public void anoChinesEffect() {
-        this.atratividadeBase++;
-    }
-
-    public int atratividade() {
-        return this.atratividadeBase + this.getGenoma().getAtratividade();
+    public void aumentarAtratividadeBase(int bonus) {
+        if ( bonus > 0 )
+            this.atratividadeBase+=bonus;
     }
 
     @Override
     public FormatedString toFormatedString() {
         
-        FormatedString fstr = new FormatedString(getClass().getSimpleName(), 8);
+        FormatedString fstr = new FormatedString(Animal.class.getSimpleName(), 8);
         fstr.addAtributo("Id", this.getId());
         fstr.addAtributo("NomeArtistico", this.getNomeArtistico());
+        fstr.addAtributo("NomeArtisticoPai", this.getNomeArtisticoPai());
+        fstr.addAtributo("NomeArtisticoMae", this.getNomeArtisticoMae());
+        fstr.addAtributo("Genoma", this.genoma.toFormatedString());
         fstr.addAtributo("Idade", this.getIdade());
         fstr.addAtributo("AtratividadeBase", this.getAtratividadeBase());
-        //falta Genoma
+        fstr.addAtributo("Doente", this.estaDoente());
+        fstr.addAtributo("Tratado", this.estaTratado());
+        fstr.addAtributo("UltimaTratacao", this.getUltimaTratacao());
         
         return fstr;
     }
 
     @Override
     public String toString() {
-        return "Animal tem:\n\t" + "Id:" + this.id + ", Nome Artistico:" + this.nomeArtistico + ", Genoma:" + this.genoma + ", Idade:" + this.idade + ", Atratividade Base:" + this.atratividadeBase;
+        return "Animal tem: Id:" + this.id + ", Nome Artistico:" + this.nomeArtistico + ", Genoma:" + this.genoma + ", Idade:" + this.idade + ", Atratividade Base:" + this.atratividadeBase;
     }
 
-    /**
-     * Devolve true se o Animal for igual em termos de id e genoma
-     *
-     * @param obj
-     * @return
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -113,5 +220,25 @@ public class Animal implements Gravavel {
         }
         return Objects.equals(this.genoma, other.genoma);
     }
-
+    
+    private  TipoMorte morreProb(){
+        
+        double chance = Math.pow( ( (double)(((11 + this.genoma.getGeneLogitividade().getAnos()) / this.genoma.getGeneLogitividade().getAnos()) - 1) / 2.5 ) + 1, this.getIdadeAnos());
+        
+        if (this.doente)chance += 10;
+        if (!this.tratado && this.ultimaTratacao > 1 ) chance += (int) Math.pow(2, this.ultimaTratacao)*5;
+        
+        if(Gerador.gerarProbabilidade() < chance){
+            
+            if (this.doente) return TipoMorte.DOENTE;
+            if (!this.tratado) 
+                return TipoMorte.FOME;
+            else
+                return TipoMorte.IDOSO;
+            
+        }else
+            return null;
+    
+    }
+    
 }
