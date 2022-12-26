@@ -10,13 +10,14 @@ package com.mycompany.poo2;
  */
 public enum CararcteristicasEspecificas {
     
+    COROLHOS("cor dos olhos"),
     OLHOS("olhos"),
-    NARIS("naris"),
+    NARIZ("nariz"),
     MANDIBULA("mandibula"),
     PATAS("patas"),
     PELE("pele"),
-    PELAGEM("pelagem"),
-    ORELHAS("orelhas");
+    ORELHAS("orelhas"),
+    PADRAO("padrao");
     
     private String name;
     
