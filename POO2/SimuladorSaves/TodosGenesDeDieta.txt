@@ -1,3 +1,3 @@
-GeneDieta(Id:113;Nome:Vegan;Valor:Vegetariano;)
-GeneDieta(Id:114;Nome:Carne;Valor:Carnivoro;)
-GeneDieta(Id:115;Nome:Tudo;Valor:Omnivoro;)
+GeneDieta(Id:113;Nome:Vegan;Dieta:vegetariano;)
+GeneDieta(Id:114;Nome:Carne;Dieta:carnivoro;)
+GeneDieta(Id:115;Nome:Tudo;Dieta:omnivoro;)

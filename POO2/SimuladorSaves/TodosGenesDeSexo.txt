@@ -1,2 +1,2 @@
-GeneSexo(Id:111;Nome:Macho;Valor:Macho;)
-GeneSexo(Id:112;Nome:Femea;Valor:Femea;)
+GeneSexo(Id:111;Nome:Macho;Sexo:Macho;)
+GeneSexo(Id:112;Nome:Femea;Sexo:Femea;)

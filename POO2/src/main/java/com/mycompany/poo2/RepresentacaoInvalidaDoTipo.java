@@ -9,9 +9,16 @@ package com.mycompany.poo2;
  * @author Francisco MSI
  */
 public class RepresentacaoInvalidaDoTipo extends Exception{
+    
+    private static RepresentacaoInvalidaDoTipo ultimaExecao;
 
     public RepresentacaoInvalidaDoTipo(String msg) {
         super(msg);
+        ultimaExecao=this;
+    }
+    
+    public static RepresentacaoInvalidaDoTipo getUltimaExcecao(){
+        return ultimaExecao;
     }
     
     @Override

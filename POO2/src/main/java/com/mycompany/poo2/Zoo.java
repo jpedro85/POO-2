@@ -56,5 +56,76 @@ public final class Zoo {
         }
     }
     
+    public ArrayList<Instalacao> getAllInstalacoes(){
+        return instalacoes;
+    }
     
+    public Instalacao getInstalacao(int i){
+        if(i>0&& i<instalacoes.size()){
+            return instalacoes.get(i);
+        }
+        return null;
+    }
+    
+    public Instalacao getInstalacaoComId(int i){
+        for(Instalacao a:instalacoes){
+            if(a.getId()==i){
+                return a;
+            }
+        }
+        return null;
+    }
+    
+    public void removeInstalacao(int i){
+        instalacoes.remove(i);
+    }
+    public void removeInstalacaoComId(int i){
+        for(Instalacao a:instalacoes){
+            if(a.getId()==i){
+                instalacoes.remove(a);
+            }
+        }
+    }
+    
+    public ArrayList<Empregado> getAllEmpregados(){
+        return empregados;
+    }
+    
+    public Empregado getEmpregado(int i){
+        if(i>0&& i<empregados.size()){
+            return empregados.get(i);
+        }
+        return null;
+    }
+    public void addEmpregado(Empregado empregado){
+        empregados.add(empregado);
+    }
+    public void removeEmpregado(int i){
+        empregados.remove(i);
+    }
+    
+    public ArrayList<Cliente> getAllClientes(){
+        return clientes;
+    }
+    
+    public Cliente getCliente(int i){
+        if(i>0&& i<clientes.size()){
+            return clientes.get(i);
+        }
+        return null;
+    }
+    public void addCliente(Cliente cliente){
+        clientes.add(cliente);
+    }
+    public void removeCliente(int i){
+        clientes.remove(i);
+    }
+    
+    public void reset(){
+    this.obituario.clear();
+    this.semiLivres.clear();
+    this.instalacoes.clear();
+    this.empregados.clear();
+    this.clientes.clear();
+    }
 }
