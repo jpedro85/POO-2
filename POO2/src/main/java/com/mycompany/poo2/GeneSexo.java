@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class GeneSexo extends Gene implements Registo<GeneSexo>{
 
-    private String sexo;
     private static ArrayList<GeneSexo> allInstancesCreated = new ArrayList<>(200);
+    private String sexo;
 
     public GeneSexo(Sexo sexo, String nome ) {
         super(nome);
@@ -24,26 +24,33 @@ public class GeneSexo extends Gene implements Registo<GeneSexo>{
         super(fstr , "GeneSexo");
         this.sexo = fstr.getAtributo("Sexo","GeneSexo");
     }
-
+    
+    public static ArrayList<GeneSexo> getAllInstances(){
+        return allInstancesCreated; 
+    }
+    
+    public static void addInstanceToResgisto( GeneSexo instance ){  
+        allInstancesCreated.add(instance);
+    }
+   
+    public static void removeInstanceToRegisto( GeneSexo instance ){
+        allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
+    }
+    
     public String getSexo() {
         return sexo;
     }
     
-    @Override
-    public ArrayList<GeneSexo> getAllInstances(){
-        return allInstancesCreated; 
-    }
-    
-    @Override
-    public void addInstance( GeneSexo instance ){  
-        allInstancesCreated.add(instance);
-    }
-   
-    @Override
-    public void removeInstance( GeneSexo instance ){
-        allInstancesCreated.remove(instance);   
-    }
-
     @Override
     public FormatedString toFormatedString(){
         

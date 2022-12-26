@@ -15,8 +15,15 @@ public abstract class GeneMutavel extends Gene{
     
     public GeneMutavel(FormatedString fstr , String classname) throws RepresentacaoInvalidaDoTipo {
         super(fstr ,classname);
-        this.geracao = Integer.parseInt( fstr.getAtributo("Geracao") );
-        this.mutado = false;
+        
+        try{
+            this.geracao = Integer.parseInt( fstr.getAtributo("Geracao") );
+            this.mutado = Boolean.parseBoolean(fstr.getAtributo("Mutado"));
+            
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
+        
     }
 
     public GeneMutavel(String nome , int geracao) {
@@ -39,7 +46,7 @@ public abstract class GeneMutavel extends Gene{
         this.geracao++;
     }
     
-    public boolean isMutado(){
+    public boolean estaMutado(){
         return this.mutado;
     }
     
@@ -56,7 +63,7 @@ public abstract class GeneMutavel extends Gene{
         if ( getClass() != obj.getClass() ) return false;
         
         final GeneMutavel gene = (GeneMutavel)obj;      
-        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) ;
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.estaMutado() == gene.estaMutado()) ;
     }
        
 }

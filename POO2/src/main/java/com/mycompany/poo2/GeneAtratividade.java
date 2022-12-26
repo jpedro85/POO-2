@@ -12,12 +12,19 @@ import java.util.ArrayList;
  */
 public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtratividade>{
 
-    private int atratividade;
     private static ArrayList<GeneAtratividade> allInstancesCreated = new ArrayList<>(200);
+    private int atratividade;
 
     public GeneAtratividade(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
+        
         super(fstr,"GeneAtratividade");
-        this.atratividade = Integer.parseInt ( fstr.getAtributo("Atratividade","GeneAtratividade") );
+        
+        try{
+            this.atratividade = Integer.parseInt ( fstr.getAtributo("Atratividade","GeneAtratividade") );
+            
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
     }
     
     public GeneAtratividade(int atratividade, String nome , int geracao) {
@@ -34,19 +41,26 @@ public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtrativ
         return atratividade;
     }
     
-    @Override
-    public ArrayList<GeneAtratividade> getAllInstances(){
+    public static ArrayList<GeneAtratividade> getAllInstances(){
         return allInstancesCreated; 
     }
     
-    @Override
-    public void addInstance( GeneAtratividade instance ){  
+    public static void addInstanceToResgisto( GeneAtratividade instance ){  
         allInstancesCreated.add(instance);
     }
    
-    @Override
-    public void removeInstance( GeneAtratividade instance ){
+    public static void removeInstanceToRegisto( GeneAtratividade instance ){
         allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
     
     @Override
@@ -75,6 +89,7 @@ public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtrativ
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Geracao",  this.getGeracao() );
+        fsrt.addAtributo("Mutado",  this.estaMutado());
         fsrt.addAtributo("Atratividade",  this.getAtratividade());
         return fsrt;
         
@@ -94,7 +109,7 @@ public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtrativ
         if ( getClass() != obj.getClass() ) return false;
         
         final GeneAtratividade gene = (GeneAtratividade)obj;      
-        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAtratividade()== gene.getAtratividade()) ;
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.estaMutado() == gene.estaMutado()) && (this.getAtratividade()== gene.getAtratividade()) ;
     }
     
     @Override

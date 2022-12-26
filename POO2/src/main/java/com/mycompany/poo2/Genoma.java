@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Pedro
  */
-public class Genoma implements Gravavel,Registo<Genoma>{
+public class Genoma implements Gravavel{
 
     private GeneSexo sexo;
     private GeneDieta dieta;
@@ -21,7 +21,6 @@ public class Genoma implements Gravavel,Registo<Genoma>{
     private GeneAmbiente ambiete;
     private ArrayList<GeneEspecifico> especificos;
     private Especie especie;
-    private static ArrayList<Genoma> allInstancesCreated = new ArrayList<>(200);
 
     public Genoma(Especie especie ,GeneSexo sexo, GeneDieta dieta, GeneAtratividade atratividade, GeneLongividade logitividade, GeneRepoducao repoducao, GeneAmbiente ambiete, ArrayList<GeneEspecifico> especificos) {
         this.sexo = sexo.clone();
@@ -129,10 +128,10 @@ public class Genoma implements Gravavel,Registo<Genoma>{
     
     public boolean isMutado(){
         
-        if (!this.ambiete.isMutado())return false;
-        if (!this.logitividade.isMutado())return false;
-        if (!this.repoducao.isMutado())return false;
-        return this.atratividade.isMutado();
+        if (!this.ambiete.estaMutado())return false;
+        if (!this.logitividade.estaMutado())return false;
+        if (!this.repoducao.estaMutado())return false;
+        return this.atratividade.estaMutado();
     }
         
     public static Genoma comabinarGenomas (Genoma genoma1 , Genoma genoma2){
@@ -185,22 +184,7 @@ public class Genoma implements Gravavel,Registo<Genoma>{
             
         }
     }
-    
-    @Override
-    public ArrayList<Genoma> getAllInstances(){
-        return allInstancesCreated; 
-    }
-    
-    @Override
-    public void addInstance( Genoma instance ){  
-        allInstancesCreated.add(instance);
-    }
-    
-    @Override
-    public void removeInstance( Genoma instance ){
-        allInstancesCreated.remove(instance);   
-    }
-    
+        
     @Override
     public FormatedString toFormatedString(){
         

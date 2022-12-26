@@ -25,8 +25,14 @@ public abstract class Gene implements Gravavel{
         if( !fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + className );
         
         this.nome = fstr.getAtributo("Nome",className);
-        this.id = Integer.parseInt( fstr.getAtributo("Id",className) );
-                
+        
+        try{
+            this.id = Integer.parseInt( fstr.getAtributo("Id",className) );
+            
+        }catch(NumberFormatException exp){
+            throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
+        }
+        
         if(this.id > lastId)
             lastId = this.id;
 

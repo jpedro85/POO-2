@@ -12,12 +12,14 @@ import java.util.ArrayList;
  */
 public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
 
-    private String ambiente;
     private static ArrayList<GeneAmbiente> allInstancesCreated = new ArrayList<>(200);
+    private String ambiente;
 
     public GeneAmbiente(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"GeneAmbiente");
         this.ambiente = fstr.getAtributo("Ambiente","GeneAmbiente");
+        if(!Ambiente.estaRepresentado(this.ambiente))
+            throw new RepresentacaoInvalidaDoTipo("O valor do campo Ambiente não representa nenhum do tipo Ambiente.");
     }
 
     public GeneAmbiente(Ambiente ambiente, String nome , int geracao) {
@@ -29,26 +31,33 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
         super(nome);
         this.ambiente = ambiente.toString() ;
     }
-
-    public String getAmbiente() {
-        return ambiente;
-    }
     
-    @Override
-    public ArrayList<GeneAmbiente> getAllInstances(){
+    public static ArrayList<GeneAmbiente> getAllInstances(){
         return allInstancesCreated; 
     }
     
-    @Override
-    public void addInstance( GeneAmbiente instance ){  
+    public static void addInstanceToResgisto( GeneAmbiente instance ){  
         allInstancesCreated.add(instance);
     }
    
-    @Override
-    public void removeInstance( GeneAmbiente instance ){
+    public static void removeInstanceToRegisto( GeneAmbiente instance ){
         allInstancesCreated.remove(instance);   
     }
     
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
+    }
+    
+    public String getAmbiente() {
+        return ambiente;
+    }
+       
     @Override
     public void mutar() {
                 
@@ -71,6 +80,7 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
         fsrt.addAtributo("Id",  this.getId() );
         fsrt.addAtributo("Nome", this.getNome());
         fsrt.addAtributo("Geracao",  this.getGeracao() );
+        fsrt.addAtributo("Mutado",  this.estaMutado());
         fsrt.addAtributo("Ambiente",  this.getAmbiente());
         return fsrt;
         
@@ -90,7 +100,7 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
         if ( getClass() != obj.getClass() ) return false;
         
         final GeneAmbiente gene = (GeneAmbiente)obj;      
-        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.isMutado() == gene.isMutado()) && (this.getAmbiente().equals(gene.getAmbiente() )) ;
+        return (this.getNome().equals(gene.getNome() )) && (this.getGeracao() == gene.getGeracao()) && (this.estaMutado() == gene.estaMutado()) && (this.getAmbiente().equals(gene.getAmbiente() )) ;
     }
     
     @Override

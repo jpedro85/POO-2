@@ -22,4 +22,16 @@ public enum Sexo {
     public String toString(){
         return nome;
     }
+    
+    public static boolean representa(String str){
+        
+        for (Sexo sex :Sexo.values()) {
+            
+            if( str.equals(sex.toString()) )
+                return true;
+        }
+        
+        return false;
+    }
+
 }

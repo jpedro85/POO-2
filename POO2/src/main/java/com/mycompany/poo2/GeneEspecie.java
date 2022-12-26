@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
     
-    private String valor;
     private static ArrayList<GeneEspecie> allInstancesCreated = new ArrayList<>(200);
+    private String valor;
     
     public GeneEspecie(String valor, String nome) {
         super(nome);
@@ -26,19 +26,26 @@ public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
         this.valor = fstr.getAtributo("Valor","GeneEspecie");     
     }
     
-    //@Override
     public static ArrayList<GeneEspecie> getAllInstances(){
         return allInstancesCreated; 
     }
     
-    @Override
-    public void addInstance( GeneEspecie instance ){  
+    public static void addInstanceToResgisto( GeneEspecie instance ){  
         allInstancesCreated.add(instance);
     }
    
-    @Override
-    public void removeInstance( GeneEspecie instance ){
+    public static void removeInstanceToRegisto( GeneEspecie instance ){
         allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
     
     public String getValor(){

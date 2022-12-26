@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Zelador extends Empregado implements Registo<Zelador>{
 
-    private static int numeroZeladores;
     private static ArrayList<Zelador> allInstancesCreated = new ArrayList<>(200);
+    private static int numeroZeladores;
 
     public Zelador(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         super(fstr,"Zelador");
@@ -69,19 +69,26 @@ public class Zelador extends Empregado implements Registo<Zelador>{
         return fstr;
     }
 
-    @Override
-    public ArrayList<Zelador> getAllInstances() {
-        return allInstancesCreated;
+    public static ArrayList<Zelador> getAllInstances(){
+        return allInstancesCreated; 
     }
-
-    @Override
-    public void addInstance(Zelador instance) {
+    
+    public static void addInstanceToResgisto( Zelador instance ){  
         allInstancesCreated.add(instance);
     }
-
+   
+    public static void removeInstanceToRegisto( Zelador instance ){
+        allInstancesCreated.remove(instance);   
+    }
+    
     @Override
-    public void removeInstance(Zelador instance) {
-        allInstancesCreated.remove(instance);
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
 
 }

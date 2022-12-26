@@ -11,12 +11,13 @@ import java.util.ArrayList;
  * @author Francisco MSI
  */
 public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
-    
+
+    private static ArrayList<GeneEspecifico> allInstancesCreated = new ArrayList<>(200);    
     private String valor;
     private String tipo; 
-    private static ArrayList<GeneEspecifico> allInstancesCreated = new ArrayList<>(200);
+
     
-    public GeneEspecifico(String valor, String nome , CararcteristicasEspecificas tipo) {
+    public GeneEspecifico(String valor, String nome , CararcteristicasEspecificas tipo){   
         super(nome);
         this.valor = valor;
         this.tipo = tipo.toString();
@@ -27,21 +28,8 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
         super(fstr , "GeneEspecifico");
         this.valor = fstr.getAtributo("Valor","GeneEspecifico");
         this.tipo = fstr.getAtributo("Tipo","GeneEspecifico");
-    }
-    
-    @Override
-    public ArrayList<GeneEspecifico> getAllInstances(){
-        return allInstancesCreated; 
-    }
-    
-    @Override
-    public void addInstance( GeneEspecifico instance ){  
-        allInstancesCreated.add(instance);
-    }
-   
-    @Override
-    public void removeInstance( GeneEspecifico instance ){
-        allInstancesCreated.remove(instance);   
+        if(!CararcteristicasEspecificas.estaRepresentado(this.tipo))
+            throw new RepresentacaoInvalidaDoTipo("O valor do campo Tipo não representa nenhum do tipo CararcteristicasEspecificas.");
     }
     
     public String getValor(){
@@ -50,6 +38,28 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
     
     public String getTipo(){
         return this.tipo;
+    }
+    
+    public static ArrayList<GeneEspecifico> getAllInstances(){
+        return allInstancesCreated; 
+    }
+    
+    public static void addInstanceToResgisto( GeneEspecifico instance ){  
+        allInstancesCreated.add(instance);
+    }
+   
+    public static void removeInstanceToRegisto( GeneEspecifico instance ){
+        allInstancesCreated.remove(instance);   
+    }
+    
+    @Override
+    public void addInstanceAoResgisto(){  
+        allInstancesCreated.add(this);
+    }
+   
+    @Override
+    public void removeInstanceDoResgisto(){
+        allInstancesCreated.remove(this);   
     }
     
     @Override
@@ -82,7 +92,7 @@ public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
     }
     
     @Override
-    public GeneEspecifico clone(){
+    public GeneEspecifico clone() {
         
         CararcteristicasEspecificas temp = CararcteristicasEspecificas.OLHOS;
       
