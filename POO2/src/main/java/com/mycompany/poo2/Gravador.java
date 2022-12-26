@@ -51,7 +51,7 @@ public final class Gravador {
         }
     }
 
-    public static void escreverPessoas(ArrayList<? extends Pessoa> pessoas, String ficheiro){
+    public static void escreverPessoas(ArrayList<? extends Pessoa> pessoas, String ficheiro) {
         try {
             FileWriter fW = new FileWriter(ficheiro);
             BufferedWriter bW = new BufferedWriter(fW);
@@ -65,7 +65,7 @@ public final class Gravador {
         } finally {
             out.close();
         }
-        
+
     }
 
     public static void escreverGenes(ArrayList<? extends Gene> genes, String ficheiro) {
