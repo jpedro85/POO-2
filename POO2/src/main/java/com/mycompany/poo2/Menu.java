@@ -15,47 +15,89 @@ public abstract class Menu {
     private static Menu ultimoMeno;
     private static Scanner scanner = new Scanner(System.in);
     
-    public static void mostrarOpções(String optn){
+    public void mostrarOpcoes(String title , String optn){
         
+        System.out.println(title);
         System.out.println(" Opções:" );
         System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("optn");
+        System.out.println(optn);
         System.out.println("------------------------------------------------------------------------------------------");
     }
     
-    public static int pedirOpcao(int maxOptn){
+    public int pedirOpcao(int maxOptn){
         
         System.out.println("-> " + "Escolha uma opção !");
-        System.out.println("<-:");
-        String linha = scanner.nextLine();
+        System.out.print("<-:");
+        
         int optn = -1;
-        
-        while(optn<0){
-            optn = Menu.validarOptn(linha,maxOptn);
+        while(optn == -1){
+            optn = validarNumero( 0, maxOptn,getScanner().nextLine());
         }
-        
         return optn;
     }
+    
+    public int pedirNumero(String menssagem,int min,int max){
         
-    public static int validarOptn(String number ,int maxOptn){
-
-        try{
-            
-            int optn = Integer.parseInt(number);
-            
-            if ( optn <= maxOptn) 
-                return optn;
-            else
-                return -1;
-                
-        }catch(NumberFormatException expNumber ){
-            
-            System.out.println("Opção inválidae tem de ser um numero entre 0 e " + maxOptn + " !" );
-            System.out.println("Tente de novo.");
-            return -1;
+        System.out.println("-> " + menssagem );
+        System.out.print("<-:");
+        
+        int optn = -1;
+        while(optn == -1){
+            optn = validarNumero( min, max,getScanner().nextLine());
         }
+        return optn;
         
     }
+    
+    public Meses pedirMes(){
+        
+        System.out.println("-> " + "Introduza um Mes" );
+        System.out.print("<-:");
+        
+        Meses mes = null;
+        while(mes == null){
+            
+            for (Meses m : Meses.values() ) {
+                if(getScanner().nextLine().equals(m.toString() )){
+                     mes = m;
+                     break;
+                }
+            }
+            
+            System.out.println("Não introduzio um mês válido. Tente outra vês !");
+            System.out.print("<-:");
+            
+        }
+        return mes;
+        
+    }
+            
+    private int validarNumero(int limitInf ,int limitSup ,String str_number){
+    
+        try {
+
+            int valor = Integer.parseInt(str_number);
+            
+            if (valor >= limitInf && valor <= limitSup) {
+                return valor;
+            } else {
+                throw new NumberFormatException("Numero fora dos limites permitidos !");
+            }
+            
+            
+        } catch (NumberFormatException expNumber) {
+
+            System.out.println(expNumber.getMessage());
+            System.out.println("Tente de novo.");
+            System.out.print("<-:");
+            return -1;
+        }
+
+    }   
+    
+    public abstract void mostrarOpcoes();
+    public abstract void excutarOpcaoPedida();
+    public abstract void executarOpcao(int optn); 
     
     public static Scanner getScanner() {
         return scanner;
@@ -71,6 +113,10 @@ public abstract class Menu {
 
     public static void setUltimoMeno(Menu ultimoMeno) {
         Menu.ultimoMeno = ultimoMeno;
+    }
+        
+    public void voltarAtraz(){
+        getUltimoMeno().excutarOpcaoPedida();
     }
     
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author Pedro
  */
 public final class Zoo {
+        
     private ArrayList<Animal>obituario;
     private ArrayList<Animal>semiLivres;
     private ArrayList<Instalacao>instalacoes;
@@ -28,7 +29,7 @@ public final class Zoo {
     public ArrayList<Animal> getAllSemiLivres(){
         return semiLivres;
     }
-    
+
     public Animal getSemiLivre(int i){
         if(i>0&& i<semiLivres.size()){
             return semiLivres.get(i);
@@ -122,10 +123,10 @@ public final class Zoo {
     }
     
     public void reset(){
-    this.obituario.clear();
-    this.semiLivres.clear();
-    this.instalacoes.clear();
-    this.empregados.clear();
-    this.clientes.clear();
+        this.obituario.clear();
+        this.semiLivres.clear();
+        this.instalacoes.clear();
+        this.empregados.clear();
+        this.clientes.clear();
     }
 }
