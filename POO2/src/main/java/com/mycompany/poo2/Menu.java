@@ -4,6 +4,7 @@
  */
 package com.mycompany.poo2;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -130,7 +131,7 @@ public abstract class Menu {
         return nome;
     }
     
-    public int pedirGeneEspecie(){
+    public GeneEspecie pedirGeneEspecie(){
         for(GeneEspecie gene:GeneEspecie.getAllInstances()){
             System.out.println(gene);   
         }
@@ -138,11 +139,14 @@ public abstract class Menu {
         System.out.print("<-:");
         
         int id = -1;
-        while(id == -1){
+        GeneEspecie gene=null;
+        while(gene==null){
+            
             id = this.pedirNumero("Introduza o ID do Gene de Especie", 0, Gene.getLastId());
-            for(GeneEspecie gene:GeneEspecie.getAllInstances()){
-              if(id==gene.getId()){
-                  return id;
+            for(GeneEspecie genes:GeneEspecie.getAllInstances()){
+              if(id==genes.getId()){
+                  gene=genes;
+                  return gene;
               }
               else{
                   System.out.println("ID invalido, tente novamente:" );
@@ -150,6 +154,18 @@ public abstract class Menu {
               }
             }
         }
-        return id;
+        return null;
+    }
+    
+    public boolean pedirBooleano(String message){
+        System.out.println(message+"\n<-:");
+        while(true){
+            try{
+                return getScanner().nextBoolean();
+            }catch(InputMismatchException e){
+                System.out.println("Introduzio um valor não booleano. Tente de novo!!!");
+                System.out.println("<-:");
+            }
+        }
     }
 }
