@@ -4,6 +4,8 @@
  */
 package com.mycompany.poo2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Pedro
@@ -47,4 +49,17 @@ public final class MenuGerirBaseDeDados extends Menu {
     public void excutarOpcaoPedida() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    private void inserirNovaEspecie(){
+        String nome=this.pedirNome();
+        GeneEspecie gene=this.pedirGeneEspecie();
+        ArrayList<GeneEspecie> genes=new ArrayList<GeneEspecie>();
+        genes.add(gene);
+        boolean bool;
+        while(bool=this.pedirBooleano("Pretende introduzir mais genes?")==true){
+            genes.add(this.pedirGeneEspecie());
+        }
+        Especie e=new Especie(nome,genes);
+    }
+    
 }

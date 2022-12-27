@@ -119,4 +119,37 @@ public abstract class Menu {
         getUltimoMeno().excutarOpcaoPedida();
     }
     
+    public String pedirNome(){
+        System.out.println("-> " + "Introduza um Nome");
+        System.out.print("<-:");
+        
+        String nome = "";
+        while(nome == null || nome.equals("")){
+            nome=this.getScanner().nextLine();
+        }
+        return nome;
+    }
+    
+    public int pedirGeneEspecie(){
+        for(GeneEspecie gene:GeneEspecie.getAllInstances()){
+            System.out.println(gene);   
+        }
+        System.out.println("-> " + "Introduza um numero");
+        System.out.print("<-:");
+        
+        int id = -1;
+        while(id == -1){
+            id = this.pedirNumero("Introduza o ID do Gene de Especie", 0, Gene.getLastId());
+            for(GeneEspecie gene:GeneEspecie.getAllInstances()){
+              if(id==gene.getId()){
+                  return id;
+              }
+              else{
+                  System.out.println("ID invalido, tente novamente:" );
+                  id=-1;
+              }
+            }
+        }
+        return id;
+    }
 }
