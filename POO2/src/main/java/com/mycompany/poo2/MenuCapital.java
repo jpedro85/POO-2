@@ -10,9 +10,23 @@ package com.mycompany.poo2;
  */
 public class MenuCapital extends Menu {
 
+    private static final int MAXOPTN = 6;
+
     @Override
     public void mostrarOpcoes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String optn = "";
+        optn = """
+                  (1) -> Ver Balanço
+                  (2) -> Ver Despesas 
+                  (3) -> Ver Lucros
+                  (2) -> Calcular Balanço (Periodo Comtabilistico)
+                  (3) -> Mudar salarios
+                  (4) -> Vender 
+                  (5) -> Realocar
+                  
+                  (0) -> Voltar Atraz""";
+        this.mostrarOpcoes("=================================== Menu Gerir Capital =================================== ", optn);
+        this.pedirOpcao(MAXOPTN);
     }
 
     @Override
@@ -24,5 +38,5 @@ public class MenuCapital extends Menu {
     public void executarOpcao(int optn) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
