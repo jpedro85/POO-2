@@ -9,12 +9,12 @@ package com.mycompany.poo2;
  * @author Pedro
  */
 public final class MenuGerirBaseDeDados extends Menu {
-    
-    private final int MAXOPTN=19;
-    
-    public void mostrarOpcoes(){
-        String optn="";
-        optn="""
+
+    private final int MAXOPTN = 19;
+
+    public void mostrarOpcoes() {
+        String optn = "";
+        optn = """
                         (1) -> Ver Todas As Especie
                         (2) -> Ver Todos Os Genes De Especie
                         (3) -> Ver Todos Os Genes Especificos
@@ -36,15 +36,119 @@ public final class MenuGerirBaseDeDados extends Menu {
                     
                         (0) -> Voltar Atraz
                     """;
-        this.mostrarOpcoes("================================ Menu Gerir Base De Dados ================================",optn);
-        this.pedirOpcao(this.MAXOPTN);
+        this.mostrarOpcoes("================================ Menu Gerir Base De Dados ================================", optn);
     }
+
     @Override
     public void executarOpcao(int optn) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch (optn) {
+            case 0 ->
+                this.voltarAtraz();
+            case 1 -> {
+                if (!Especie.getAllInstances().isEmpty()) {
+                    for (Especie especie : Especie.getAllInstances()) {
+                        System.out.println(especie);;
+                    }
+                } else {
+                    System.out.println("Não possui especies ainda!");
+                }
+            }
+            case 2 -> {
+                if (!GeneEspecie.getAllInstances().isEmpty()) {
+                    for (GeneEspecie allInstance : GeneEspecie.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes de Especies ainda!");
+                }
+            }
+            case 3 -> {
+                if (!GeneEspecifico.getAllInstances().isEmpty()) {
+                    for (GeneEspecifico allInstance : GeneEspecifico.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes Especificos ainda!");
+                }
+            }
+            case 4 -> {
+                if (!GeneDieta.getAllInstances().isEmpty()) {
+                    for (GeneDieta allInstance : GeneDieta.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes de Dieta ainda!");
+                }
+            }
+            case 5 -> {
+                if (!GeneSexo.getAllInstances().isEmpty()) {
+                    for (GeneSexo allInstance : GeneSexo.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes de Sexo ainda!");
+                }
+            }
+            case 6 -> {
+                if (!GeneRepoducao.getAllInstances().isEmpty()) {
+                    for (GeneRepoducao allInstance : GeneRepoducao.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes de Reprodução ainda!");
+                }
+            }
+            case 7 -> {
+                if (!GeneLongividade.getAllInstances().isEmpty()) {
+                    for (GeneLongividade allInstance : GeneLongividade.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes de Longividade ainda!");
+                }
+            }
+            case 8 -> {
+                if (!GeneAmbiente.getAllInstances().isEmpty()) {
+                    for (GeneAmbiente allInstance : GeneAmbiente.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                } else {
+                    System.out.println("Não possui Genes de Ambiente ainda!");
+                }
+            }
+            case 9 -> {
+                if (!GeneAtratividade.getAllInstances().isEmpty()) {
+                    for (GeneAtratividade allInstance : GeneAtratividade.getAllInstances()) {
+                        System.out.println(allInstance);
+                    }
+                }else{
+                    System.out.println("Não possui Genes de Atratividade ainda!");
+                }
+            }
+            case 10 -> {
+            }
+            case 11 -> {
+            }
+            case 12 -> {
+            }
+            case 13 -> {
+            }
+            case 14 -> {
+            }
+            case 15 -> {
+            }
+            case 16 -> {
+            }
+            case 17 -> {
+            }
+            case 18 -> {
+            }
+        }
     }
+
     @Override
     public void excutarOpcaoPedida() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.mostrarOpcoes();
+        this.executarOpcao(this.pedirOpcao(MAXOPTN));
     }
 }
