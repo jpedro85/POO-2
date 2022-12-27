@@ -19,8 +19,7 @@ public final class MenuEmpregado extends Menu{
                   (2) -> Contratar
                   
                   (0) -> Voltar Atraz""";
-        System.out.println("================================= Menu Gerir Empregados ================================= ");
-        this.mostrarOpcoes(optn);
+        this.mostrarOpcoes("================================= Menu Gerir Empregados =================================",optn);
         this.pedirOpcao(this.MAXOPTN);
     }
 
@@ -28,4 +27,10 @@ public final class MenuEmpregado extends Menu{
     public void executarOpcao(int optn) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public void excutarOpcaoPedida() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

@@ -11,6 +11,7 @@ package com.mycompany.poo2;
 public final class MenuGeral extends Menu {
 
 
+    @Override
     public void mostrarOpcoes() {
         String optn="";
         optn = """
@@ -27,13 +28,17 @@ public final class MenuGeral extends Menu {
                   (13) -> Gravar Zoo
                  
                    (0) -> Sair""";
-        System.out.println("======================================= Menu Geral ======================================= ");
-        this.mostrarOpcoes(optn);
+        this.mostrarOpcoes("======================================= Menu Geral =======================================",optn);
         this.pedirOpcao(13);
     }
 
     @Override
     public void executarOpcao(int optn) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void excutarOpcaoPedida() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -20,13 +20,17 @@ public final class MenuInstalacao extends Menu {
                   (3) -> Ver instala\u00e7\u00e3o
                   
                   (0) -> Voltar Atraz""";
-        System.out.println("================================= Menu Gerir Instalações ================================= ");
-        this.mostrarOpcoes(optn);
+        this.mostrarOpcoes("================================= Menu Gerir Instalações =================================",optn);
         this.pedirOpcao(this.MAXOPTN);
     }
 
     @Override
     public void executarOpcao(int optn) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void excutarOpcaoPedida() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
