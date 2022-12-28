@@ -30,7 +30,7 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
         
         if (instalacao.temAnimaisDoentes()) {
             
-            for (Animal animalDoente:instalacao.getAnimais().get("Doentes")) {
+            for (Animal animalDoente:instalacao.getAnimaisDoentes()) {
                 
                 if(animalDoente.ficaCorado(this)){
                     String mesg = "O animal o animal " + animalDoente + "foi curado pelo veterinário " + this;

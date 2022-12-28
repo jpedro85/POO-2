@@ -4,6 +4,7 @@
  */
 package com.mycompany.poo2;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -11,6 +12,9 @@ import java.util.Random;
  * @author Francisco MSI
  */
 public final class Gerador {
+    
+    private static ArrayList<String> nomes;
+    private static ArrayList<String> empresas;
     
     private Gerador(){}
     private final static Random rand = new Random();
@@ -36,5 +40,29 @@ public final class Gerador {
         
         return rand.nextInt(max);
     }
+    
+    public static int gerarNIF() {
+        
+        return rand.nextInt(10000000,99999999);
+        
+    }
+
+    public static ArrayList<String> getNomes() {
+        return nomes;
+    }
+
+    public static ArrayList<String> getEmpresas() {
+        return empresas;
+    }
+
+    public static void setNomes(ArrayList<String> nomes) {
+        Gerador.nomes = nomes;
+    }
+
+    public static void setEmpresas(ArrayList<String> empresas) {
+        Gerador.empresas = empresas;
+    }
+    
+    
     
 }

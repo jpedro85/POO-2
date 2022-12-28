@@ -38,7 +38,7 @@ public class Zelador extends Empregado implements Registo<Zelador>{
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,instalacao.getCustoLimpeza());
         }
         
-        if (instalacao.precisaManutencao()) {
+        if (instalacao.precisaManutencao() && Gerador.gerarProbabilidade() < this.getExperiencia()) {
             instalacao.reparar();
             String mesg = "Manutenção da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome();
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,instalacao.getCustoManutencao());

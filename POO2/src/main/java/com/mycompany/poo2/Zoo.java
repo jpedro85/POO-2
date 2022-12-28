@@ -5,6 +5,7 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -14,11 +15,20 @@ public final class Zoo {
     
     private static ArrayList<Animal>nascimentos;
     private static ArrayList<Animal>obituario;
-    private static ArrayList<Animal>semiLivres;
+    private static HashMap<Animal,Instalacao>semiLivres;
     private static ArrayList<Instalacao>instalacoes;
     private static ArrayList<Empregado>empregados;
     private static ArrayList<Cliente>clientes;
-    
+    private static double entrada;
+
+    public static double getEntrada() {
+        return entrada;
+    }
+
+    public static void setEntrada(double entrada) {
+        Zoo.entrada = entrada;
+    }
+
     public static ArrayList<Animal> getAllNascimentos(){
         return nascimentos;
     }
@@ -45,38 +55,10 @@ public final class Zoo {
         Zoo.obituario = obituario;
     }
 
-    public static ArrayList<Animal> getAllSemiLivres(){
+    public static HashMap<Animal,Instalacao> getAllSemiLivres(){
         return semiLivres;
     }
-
-    public static Animal getSemiLivre(int i){
-        if(i>0&& i<semiLivres.size()){
-            return semiLivres.get(i);
-        }
-        return null;
-    }
-    
-    public static Animal getSemiLivreComId(int i){
-        for(Animal a:semiLivres){
-            if(a.getId()==i){
-                return a;
-            }
-        }
-        return null;
-    }
-    
-    public static void removeSemiLivre(int i){
-        semiLivres.remove(i);
-    }
-    
-    public static void removeSemiLivreComId(int i){
-        for(Animal a:semiLivres){
-            if(a.getId()==i){
-                semiLivres.remove(a);
-            }
-        }
-    }
-    
+            
     public static ArrayList<Instalacao> getAllInstalacoes(){
         return instalacoes;
     }

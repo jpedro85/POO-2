@@ -18,7 +18,9 @@ public enum Acontecimentos {
     COMPRA("Compra"),
     DESPESA("Despesa"),
     LUCRO("Lucro"),
-    INFO("informação");
+    INFO("Informação"),
+    FUGAANIMAL("Um animal fugio"),
+    ENCONTRADO("Um animal foi encontrado");
     
     private String name;
     

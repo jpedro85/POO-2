@@ -31,11 +31,11 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         String mesg = "";
         double desconto = 0;
         
-        for (Animal animalDoente : instalacao.getAnimais().get("Doentes")) {
+        for (Animal animalDoente : instalacao.getAnimaisDoentes()) {
             trabalharAuxiliar( animalDoente, mesg, desconto, dia, mes ,ano);    
         }  
         
-        for (Animal animalSaudavel : instalacao.getAnimais().get("Saudaveis")) {
+        for (Animal animalSaudavel : instalacao.getAnimaisSaudaveis()) {
             trabalharAuxiliar( animalSaudavel, mesg, desconto, dia, mes ,ano);    
         }
       

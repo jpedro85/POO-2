@@ -6,7 +6,6 @@ package com.mycompany.poo2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -132,8 +131,19 @@ public class Instalacao implements Gravavel {
         return this.capacidade;
     }
 
-    public Map<String, ArrayList<Animal>> getAnimais() {
-        return this.animais;
+    public ArrayList<Animal> getAnimaisTodos() {
+        ArrayList<Animal> anim = new ArrayList<Animal>(this.getOcupacao());
+        anim.addAll(this.getAnimaisDoentes());
+        anim.addAll(this.getAnimaisSaudaveis());
+        return anim;
+    }
+    
+    public ArrayList<Animal> getAnimaisSaudaveis() {
+        return this.animais.get("Saudaveis");
+    }
+   
+    public ArrayList<Animal> getAnimaisDoentes() {
+        return this.animais.get("Doentes");
     }
     
     public double getCustoLimpeza() {
@@ -180,7 +190,7 @@ public class Instalacao implements Gravavel {
     public boolean estaPrecaria(){
         return (sujidade>=100);
     }
-    
+        
     public boolean precisaManutencao(){
         return (condicao<25) || this.ultimaManutencao >= this.entrevaloLimiteManutencao ;
     }

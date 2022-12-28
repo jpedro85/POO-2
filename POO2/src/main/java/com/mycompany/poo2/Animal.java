@@ -129,11 +129,27 @@ public class Animal implements Gravavel {
         return this.tratado;
     }
     
+    public void envelhecer(){
+        this.idade++;
+    }
+    
     public TipoMorte morre(boolean abate) {       
         if (abate) 
             return TipoMorte.ABATE;
         else 
             return morreProb();  
+    }
+    
+    
+    public Boolean foge(Instalacao instalacao,Boolean jumanji) {
+        if (jumanji ) 
+            return Gerador.gerarProbabilidade() <= 50;
+        else
+            return this.foge(instalacao);
+    }
+    
+    private Boolean foge(Instalacao instalacao) {
+        return instalacao.precisaManutencao() && Gerador.gerarProbabilidade() < instalacao.getUltimaManutencao()*10 ; 
     }
     
     public TipoMorte morre() {

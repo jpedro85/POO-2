@@ -75,7 +75,25 @@ public class Cliente extends Pessoa {
     public double pagar(double preco) {
         return saldo - preco;
     }
-    //oferecerDinheiro por fazer 
+    
+    public double oferecerDinheiro(Animal animal){
+        
+        if ( animal.getAtratividade() >= this.getInterece() && Gerador.gerarProbabilidade() <= this.getGenerosidade()) {
+            double oferecer = Gerador.gerarNumero(0.0, 200.0);
+            
+            if (this.saldo - oferecer >= 0) {
+                this.saldo -= oferecer;
+                return oferecer;
+            }else{
+                oferecer = this.saldo;
+                this.saldo =0;
+            }
+            
+            return oferecer;
+
+        }
+        return 0.0;
+    }
 
     @Override
     public FormatedString toFormatedString() {
