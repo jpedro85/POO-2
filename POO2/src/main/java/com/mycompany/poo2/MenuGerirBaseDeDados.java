@@ -51,7 +51,7 @@ public final class MenuGerirBaseDeDados extends Menu {
     }
     
     private void inserirNovaEspecie(){
-        String nome=this.pedirNome();
+        String nome=this.pedirNome("Introduza uma nova Especie");
         GeneEspecie gene=this.pedirGeneEspecie();
         ArrayList<GeneEspecie> genes=new ArrayList<GeneEspecie>();
         genes.add(gene);
@@ -62,4 +62,50 @@ public final class MenuGerirBaseDeDados extends Menu {
         Especie e=new Especie(nome,genes);
     }
     
+    private void inserirNovoGenesDeEspecie(){
+        String nome=this.pedirNome("Introduza uma nova GeneEspecie");
+        String valor=this.pedirValorStringGeneEspecie();
+        GeneEspecie e=new GeneEspecie(valor, nome);
+    }
+    
+    private void inserirNovoGenesEspecificos(){
+        String nome=this.pedirNome("Introduza um novo GeneEspecifico");
+        String valor=this.pedirValorStringGeneEspecifico();
+        CararcteristicasEspecificas tipo=pedirTipoCaracteristica();
+        GeneEspecifico e=new GeneEspecifico(valor, nome, tipo);
+    }
+    
+    private void inserirNovoGenesDeSexo(){
+        Sexo sexo=pedirSexo();
+        String nome=sexo.toString();
+        GeneSexo s=new GeneSexo(sexo, nome);
+    }
+    private void inserirNovoGeneDeDieta(){
+        Dieta d=pedirDieta();
+        String nome=this.pedirNome("Introduza uma nova Alimentacao");
+        GeneDieta dieta=new GeneDieta(d, nome);
+    }
+    private void inserirNovoGeneDeReproducao(){
+        String nome=this.pedirNome("Introduza uma novo GeneReproducao");
+        int i=this.pedirNumero("Introduza um Valor entre 0 e 100 para o Apetite de Reprodução", 0, 100);
+        GeneRepoducao r=new GeneRepoducao(i, nome);
+    }
+    
+    private void inserirNovoGeneDeLongitividade(){
+        String nome=this.pedirNome("Introduza uma novo GeneLongitividade");
+        int i=this.pedirNumero("Introduza um Valor entre 1 e 10000 para os anos", 0, 10000);
+        GeneLongividade l=new GeneLongividade(i, nome);
+    }
+    
+    private void inserirNovoGeneDeAmbiente(){
+        String nome=this.pedirNome("Introduza uma novo GeneAmbiente");
+        Ambiente a=pedirAmbiente();
+        GeneAmbiente ambi=new GeneAmbiente(a, nome);
+    }
+    
+    private void inserirNovoGeneDeAtratividade(){
+        String nome=this.pedirNome("Introduza uma novo GeneAtratividade");
+        int i=this.pedirNumero("Introduza um Valor entre 1 e 1000 para a Atratividade Base", 0, 1000);
+        GeneAtratividade a=new GeneAtratividade(i, nome);
+    }
 }

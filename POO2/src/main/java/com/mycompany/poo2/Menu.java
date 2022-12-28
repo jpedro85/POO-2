@@ -120,8 +120,8 @@ public abstract class Menu {
         getUltimoMeno().excutarOpcaoPedida();
     }
     
-    public String pedirNome(){
-        System.out.println("-> " + "Introduza um Nome");
+    public String pedirNome(String message){
+        System.out.println("-> " + message);
         System.out.print("<-:");
         
         String nome = "";
@@ -167,5 +167,126 @@ public abstract class Menu {
                 System.out.println("<-:");
             }
         }
+    }
+    public String pedirValorStringGeneEspecie(){
+        String temp="";
+        boolean valido=false;
+        if(!Carregador.isZooCarregado()){
+            Carregador.carrega(GeneEspecie.class, "SimuladorSaves/TodosGenesDeEspecie.txt");
+        }
+        while(valido==false){
+            temp=pedirNome("Introduza um novo Valor para o GeneEspecie");
+            valido=true;
+            for (GeneEspecie gene : GeneEspecie.getAllInstances()) {
+                if(gene.getValor().equals(temp)){
+                    valido=false;
+                    break;
+                }
+            }
+        }
+        return temp;
+    }
+    
+    public String pedirValorStringGeneEspecifico(){
+        String temp="";
+        boolean valido=false;
+        if(!Carregador.isZooCarregado()){
+            Carregador.carrega(GeneEspecifico.class, "SimuladorSaves/TodosGenesDeEspecifico.txt");
+        }
+        while(valido==false){
+            temp=pedirNome("Introduza um novo Valor para o GeneEspecifico");
+            valido=true;
+            for (GeneEspecifico gene : GeneEspecifico.getAllInstances()) {
+                if(gene.getValor().equals(temp)){
+                    valido=false;
+                    break;
+                }
+            }
+        }
+        return temp;
+    }
+    
+    public CararcteristicasEspecificas pedirTipoCaracteristica(){
+        
+        System.out.println("-> " + "Escolha um tipo dos seguintes:" );
+        for(CararcteristicasEspecificas tipo:CararcteristicasEspecificas.values()){
+            System.out.println(tipo);
+        }
+        System.out.print("<-:");
+        CararcteristicasEspecificas tipo = null;
+        while(tipo == null){
+            
+            for (CararcteristicasEspecificas cara: CararcteristicasEspecificas.values()) {
+                if(getScanner().nextLine().equals(cara.toString() )){
+                     tipo = cara;
+                     break;
+                }
+            }
+            
+            System.out.println("Não introduzio um Tipo válido. Tente outra vês !");
+            System.out.print("<-:");
+            
+        }
+        return tipo;
+    }
+    
+    public Sexo pedirSexo(){
+        System.out.println("-> " + "Escolha um dos Sexos seguintes:" );
+        for(Sexo s:Sexo.values()){
+            System.out.println(s);
+        }
+        System.out.print("<-:");
+        Sexo tipo=null;
+        while(tipo==null){
+            for(Sexo ss:Sexo.values()){
+                if(getScanner().nextLine().equals(ss.toString() )){
+                    tipo=ss;
+                    break;
+                }
+            }
+            System.out.println("Não introduzio um Sexo válido. Tente outra vês !");
+            System.out.print("<-:");
+        }
+        return tipo;
+    }
+    
+    public Dieta pedirDieta(){
+        System.out.println("-> " + "Escolha um dos Sexos seguintes:" );
+        for(Dieta s:Dieta.values()){
+            System.out.println(s);
+        }
+        System.out.print("<-:");
+        Dieta tipo=null;
+        while(tipo==null){
+            for(Dieta d:Dieta.values()){
+                if(getScanner().nextLine().equals(d.toString() )){
+                    tipo=d;
+                    break;
+                }
+            }
+            System.out.println("Não introduzio um Sexo válido. Tente outra vês !");
+            System.out.print("<-:");
+        }
+        return tipo;
+    }
+    
+    public Ambiente pedirAmbiente(){
+        System.out.println("-> " + "Escolha um dos Ambientes seguintes:" );
+        for(Ambiente s:Ambiente.values()){
+            System.out.println(s);
+        }
+        System.out.print("<-:");
+        Ambiente tipo=null;
+        while(tipo==null){
+            for(Ambiente a:Ambiente.values()){
+                if(getScanner().nextLine().equals(a.toString() )){
+                    tipo=a;
+                    break;
+                }
+            }
+            System.out.println("Não introduzio um Ambiente válido. Tente outra vês !");
+            System.out.print("<-:");
+        }
+        return tipo;
     }
 }

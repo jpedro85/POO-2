@@ -13,8 +13,12 @@ import java.io.IOException;
  * @author Pedro
  */
 public final class Carregador {
-
+    private static boolean zooCarregado=false;//fica true quando no metodo carregar zoo
     private Carregador() {
+    }
+
+    public static boolean isZooCarregado() {
+        return zooCarregado;
     }
 
     public static <T> void carrega(Class<T> cclass, String ficheiro) {
