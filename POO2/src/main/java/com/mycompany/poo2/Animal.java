@@ -7,8 +7,7 @@ package com.mycompany.poo2;
 import java.util.Objects;
 
 /**
- *
- * @author Pedro
+ * Representa um animal.
  */
 public class Animal implements Gravavel {
 
@@ -25,6 +24,9 @@ public class Animal implements Gravavel {
     private boolean tratado;
     private int ultimaTratacao;
     
+    /**
+    * Cria um animal novo com valores novos nomeArtistico a defenir.
+    */
     public Animal( String nomeArtisticoPai , String nomeArtisticoMae , boolean doente, Genoma genoma, int atratividadeBase ) {
         
         this.nomeArtisticoPai = nomeArtisticoPai;
@@ -39,7 +41,10 @@ public class Animal implements Gravavel {
         this.nomeArtistico = this.genoma.getEspecie().getNome() + "_animal_ " + this.id ;
         
     }
-
+    
+    /**
+    * Cria um animal novo com valores novos.
+    */
     public Animal(String nomeArtistico , String nomeArtisticoPai , String nomeArtisticoMae , boolean doente , Genoma genoma, int atratividadeBase ) {
         
         this.nomeArtistico = nomeArtistico;
@@ -55,6 +60,9 @@ public class Animal implements Gravavel {
         
     }
     
+    /**
+    * Cria um animal novo apartir de uma formated string.
+    */
     public Animal(FormatedString fstr) throws RepresentacaoInvalidaDoTipo,NumberFormatException {
                 
         String className = Animal.class.getSimpleName();
@@ -105,34 +113,73 @@ public class Animal implements Gravavel {
         return this.atratividadeBase ;
     }
     
+    /**
+    * Devolve a atratividade do animal (atratividade base + valor do gene).
+    */
     public int getAtratividade() {
         return this.atratividadeBase + this.genoma.getGeneAtratividade().getAtratividade() ;
     }
-
+    
+    /**
+    * Devolve a idade em dias.
+    */
     public int getIdade() {
         return idade;
     }
     
+    /**
+    * Devolve a idade em anos.
+    */
     public int getIdadeAnos() {
         return idade/365;
     }
-      
+    
+    /**
+     * Devolve à quantos dias foi tratado.
+     */
     public int getUltimaTratacao(){
         return this.ultimaTratacao;
     }
-        
+    
+    /**
+     * Reseta a o tratado para "ficar com fome"
+     */
+    public void ressetTratado() {
+        this.tratado = false;
+    }
+    
+    /**
+     * Reseta a ultima tratacao
+     */
+    public void resetUltimaTratacao() {
+        this.ultimaTratacao = 0;
+        this.tratado = true;
+    }
+    
+    /**
+     * Retorna se o animal esta doente
+     */
     public boolean estaDoente(){
         return this.doente;
     }
     
+    /**
+     * Retorna se o animal esta tratado "sem fome"
+     */
     public boolean estaTratado(){
         return this.tratado;
     }
     
+    /**
+     * aumenta o numero de dias na idade.
+     */
     public void envelhecer(){
         this.idade++;
     }
     
+    /**
+    *   Determina se o animal morre com base no tempo que viveu , na longitividade e no se esta doente ou não. Se abate o anima morre e tipo de morte é abate.
+    */
     public TipoMorte morre(boolean abate) {       
         if (abate) 
             return TipoMorte.ABATE;
@@ -140,7 +187,9 @@ public class Animal implements Gravavel {
             return morreProb();  
     }
     
-    
+    /**
+    *   Determina se o animal foge com base no efeito jumanji .
+    */
     public Boolean foge(Instalacao instalacao,Boolean jumanji) {
         if (jumanji ) 
             return Gerador.gerarProbabilidade() <= 50;
@@ -152,14 +201,22 @@ public class Animal implements Gravavel {
         return instalacao.precisaManutencao() && Gerador.gerarProbabilidade() < instalacao.getUltimaManutencao()*10 ; 
     }
     
+    /**
+    *   Determina se o animal morre com base no tempo que viveu , na longitividade e no se esta doente ou não.
+    */
     public TipoMorte morre() {
         return morreProb(); 
     }
     
+    /**
+    *   Determina se o fica doente com base no tempo que viveu , na longitividade e na instalacao.
+    */
     public boolean ficaDoente(Instalacao instalacao) {
         
         double chance = Math.pow( ( (double)(((10 + this.genoma.getGeneLogitividade().getAnos()) / this.genoma.getGeneLogitividade().getAnos()) - 1) / 2.5 ) + 1, this.getIdadeAnos() );
         if (instalacao.estaPrecaria())
+            chance += 20;
+        if (!instalacao.getAmbiente().equals(this.genoma.getAmbiete()))
             chance += 20;
         
         this.doente = Gerador.gerarProbabilidade() < chance;
@@ -168,6 +225,9 @@ public class Animal implements Gravavel {
         
     }
     
+    /**
+     *  Retorna true se corado , com base na esperiencia do veterinario e probabilidade minima 25%.
+     */
     public boolean ficaCorado(Veterinario veterinario) {
         
         double chance = (veterinario.getExperiencia()/100) + 25;
@@ -179,11 +239,13 @@ public class Animal implements Gravavel {
         }
         
     }
-
+    
+    /**
+     *  Retorna um animal se este animal repeosuzio com outro da mesma especie e do sexo oposto.
+     */
     public Animal reproduzir(Animal animal) {
         
-        
-        if (!this.equals(animal)) {
+        if (!this.equals(animal) && this.getGenoma().getEspecie().equals(animal.getGenoma().getEspecie() )) {
             
             if( Gerador.gerarProbabilidade() < this.genoma.getGeneRepoducao().getApetite()  ){
 
@@ -212,7 +274,10 @@ public class Animal implements Gravavel {
             return null;
         
     }
-
+    
+    /**
+     *  Aumenta de forma permanente a atratividade base do animal.
+     */
     public void aumentarAtratividadeBase(int bonus) {
         if ( bonus > 0 )
             this.atratividadeBase+=bonus;
@@ -238,25 +303,21 @@ public class Animal implements Gravavel {
 
     @Override
     public String toString() {
-        return "Animal tem: Id:" + this.id + ", Nome Artistico:" + this.nomeArtistico + ", Genoma:" + this.genoma + ", Idade:" + this.idade + ", Atratividade Base:" + this.atratividadeBase;
+        return "Animal: Id:" + this.id + ", Nome Artistico:" + this.nomeArtistico + ", Idade:" + this.idade + ", Atratividade Base:" + this.atratividadeBase +"\n" + this.genoma;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Animal other = (Animal) obj;
         
-        if (this.id != other.id) {
-            return false;
-        }
+        if (this == obj) return true;
+        
+        if (obj == null) return false;
+        
+        if (getClass() != obj.getClass()) return false;
+        
+        final Animal other = (Animal) obj;
+        if (this.id != other.id) return false;
+        
         return Objects.equals(this.genoma, other.genoma);
     }
     

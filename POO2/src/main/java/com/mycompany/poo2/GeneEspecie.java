@@ -7,10 +7,8 @@ package com.mycompany.poo2;
 import java.util.ArrayList;
 
 /**
- *
- * @author Francisco MSI
+ *  Um Gene que representa uma caracteristica da especie.
  */
-
 public class GeneEspecie extends Gene implements Registo<GeneEspecie> {
     
     private static ArrayList<GeneEspecie> allInstancesCreated = new ArrayList<>(200);

@@ -5,8 +5,7 @@
 package com.mycompany.poo2;
 
 /**
- *
- * @author Francisco MSI
+ *  Defeni um gene deform geral
  */
 
 public abstract class Gene implements Gravavel{ 
@@ -64,7 +63,7 @@ public abstract class Gene implements Gravavel{
         if ( getClass() != obj.getClass() ) return false;
         
         return this.nome.equals( ((Gene) obj).getNome() ) ;
-       
+    
     }
       
 }

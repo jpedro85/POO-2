@@ -21,6 +21,8 @@ public final class Zoo {
     private static ArrayList<Cliente>clientes;
     private static double entrada;
 
+    private Zoo(){}    
+    
     public static double getEntrada() {
         return entrada;
     }
@@ -44,8 +46,7 @@ public final class Zoo {
         if (nascimentos.indexOf(animal) > 0) {
             
         }else
-    }*/
-    
+    }*/  
     
     public static ArrayList<Animal> getAllObitos() {
         return obituario;

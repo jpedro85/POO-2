@@ -7,8 +7,7 @@ package com.mycompany.poo2;
 import java.util.ArrayList;
 
 /**
- *
- * @author Francisco MSI
+ *  Um Gene que representa o Alimento que o animal prefere.
  */
 public class GeneDieta extends Gene implements Registo<GeneDieta>{
     

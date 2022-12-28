@@ -7,8 +7,7 @@ package com.mycompany.poo2;
 import java.util.ArrayList;
 
 /**
- *
- * @author Pedro
+ *  Um Gene que representa se o animal é macho ou femia.
  */
 public class GeneSexo extends Gene implements Registo<GeneSexo>{
 
@@ -23,6 +22,8 @@ public class GeneSexo extends Gene implements Registo<GeneSexo>{
     public GeneSexo(FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
         super(fstr , "GeneSexo");
         this.sexo = fstr.getAtributo("Sexo","GeneSexo");
+        if(!Sexo.estaRepresentado(this.sexo))
+            throw new RepresentacaoInvalidaDoTipo("O valor do campo Sexo não representa nenhum do tipo Sexo.");
     }
     
     public static ArrayList<GeneSexo> getAllInstances(){

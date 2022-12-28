@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
- * @author Pedro
+ *  Repreenta o genoma do animal 
  */
 public class Genoma implements Gravavel{
 

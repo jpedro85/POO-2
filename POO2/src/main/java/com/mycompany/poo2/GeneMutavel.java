@@ -5,8 +5,7 @@
 package com.mycompany.poo2;
 
 /**
- *
- * @author Francisco MSI
+ *  representa um gene mutavel no geral
  */
 public abstract class GeneMutavel extends Gene{
     

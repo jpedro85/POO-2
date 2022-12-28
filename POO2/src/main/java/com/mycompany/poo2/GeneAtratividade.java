@@ -7,8 +7,7 @@ package com.mycompany.poo2;
 import java.util.ArrayList;
 
 /**
- *
- * @author Pedro
+ *  Um Gene que representa a Atratividade extra do animal.
  */
 public class GeneAtratividade extends GeneMutavel implements Registo<GeneAtratividade>{
 

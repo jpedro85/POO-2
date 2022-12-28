@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
- * @author Pedro
+ *  representa uma especia atravez do nome e um conjunto de genes de Especie
  */
 public class Especie implements Gravavel,Registo<Especie> {
 
