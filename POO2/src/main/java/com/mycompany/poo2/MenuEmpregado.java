@@ -12,6 +12,11 @@ public final class MenuEmpregado extends Menu{
 
     private final int MAXOPTN = 3;
 
+    public MenuEmpregado(Menu menu) {
+        super(menu);
+    }
+
+    @Override
     public void mostrarOpcoes() {
         String optn = "";
         optn = """

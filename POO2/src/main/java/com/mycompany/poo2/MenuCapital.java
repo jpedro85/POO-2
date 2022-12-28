@@ -12,6 +12,10 @@ public class MenuCapital extends Menu {
 
     private static final int MAXOPTN = 6;
 
+    public MenuCapital(Menu menu) {
+        super(menu);
+    }
+
     @Override
     public void mostrarOpcoes() {
         String optn = "";

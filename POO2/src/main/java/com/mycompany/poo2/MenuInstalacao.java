@@ -12,6 +12,10 @@ public final class MenuInstalacao extends Menu {
 
     private final int MAXOPTN = 4;
 
+    public MenuInstalacao(Menu menu) {
+        super(menu);
+    }
+
     public void mostrarOpcoes() {
         String optn = "";
         optn = """

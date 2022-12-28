@@ -13,6 +13,10 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 public class MenuSimulador extends Menu{
     
     private static final int MAXOPTN = 5 ; 
+
+    public MenuSimulador(Menu menu) {
+        super(menu);
+    }
     
     @Override
     public void mostrarOpcoes(){

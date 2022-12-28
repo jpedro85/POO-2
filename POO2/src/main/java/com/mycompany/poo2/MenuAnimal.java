@@ -11,6 +11,10 @@ package com.mycompany.poo2;
 public final class MenuAnimal extends Menu {
     
     private final int MAXOPTN=6;
+
+    public MenuAnimal(Menu menu) {
+        super(menu);
+    }
     
     public void mostrarOpcoes(){
         String optn="";

@@ -13,6 +13,12 @@ import java.util.ArrayList;
 public final class MenuGerirBaseDeDados extends Menu {
     
     private final int MAXOPTN=19;
+
+    public MenuGerirBaseDeDados(Menu menu) {
+        super(menu);
+    }
+    
+    
     
     public void mostrarOpcoes(){
         String optn="";

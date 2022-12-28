@@ -15,6 +15,11 @@ public abstract class Menu {
     
     private static Menu ultimoMeno;
     private static Scanner scanner = new Scanner(System.in);
+
+    public Menu(Menu menu) {
+        ultimoMeno=menu;
+    }
+    
     
     public void mostrarOpcoes(String title , String optn){
         
@@ -288,5 +293,28 @@ public abstract class Menu {
             System.out.print("<-:");
         }
         return tipo;
+    }
+    
+    public Acontecimentos pedirAcontecimento(){
+        
+        System.out.println("-> " + "Introduza um Acontecimento" );
+        System.out.print("<-:");
+        
+        Acontecimentos acon = null;
+        while(acon == null){
+            
+            for (Acontecimentos acontecimento : Acontecimentos.values() ) {
+                if(getScanner().nextLine().equals(acontecimento.toString() )){
+                     acon = acontecimento;
+                     break;
+                }
+            }
+            
+            System.out.println("Não introduzio um mês válido. Tente outra vês !");
+            System.out.print("<-:");
+            
+        }
+        return acon;
+        
     }
 }
