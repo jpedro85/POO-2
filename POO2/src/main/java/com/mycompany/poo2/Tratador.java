@@ -28,24 +28,26 @@ public class Tratador extends Empregado implements Registo<Tratador>{
     @Override
     public void trabalhar(Instalacao instalacao, int dia, Meses mes, int ano) {
         
-        String mesg = "";
         double desconto = 0;
         
         for (Animal animalDoente : instalacao.getAnimaisDoentes()) {
-            trabalharAuxiliar( animalDoente, mesg, desconto, dia, mes ,ano);    
+            trabalharAuxiliar( animalDoente ,desconto, dia, mes ,ano);    
         }  
         
         for (Animal animalSaudavel : instalacao.getAnimaisSaudaveis()) {
-            trabalharAuxiliar( animalSaudavel, mesg, desconto, dia, mes ,ano);    
+            trabalharAuxiliar( animalSaudavel ,desconto, dia, mes ,ano);    
         }
       
         super.trabalhar();
         super.evoluir();
     } 
     
-    private void trabalharAuxiliar(Animal animalDoente,String mesg,double desconto,int dia,Meses mes ,int ano){
+    private void trabalharAuxiliar(Animal animalDoente,double desconto,int dia,Meses mes ,int ano){
         
+        String mesg = "";
         String dieta = animalDoente.getGenoma().getGeneDieta().toString();
+        animalDoente.resetUltimaTratacao();
+        
         if (dieta.equals(Dieta.VEGETARIANO.toString())) {
 
             mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;

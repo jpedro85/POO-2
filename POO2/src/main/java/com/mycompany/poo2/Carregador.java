@@ -9,8 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- *
- * @author Pedro
+ *  Oferece Métodos para caregar conteodos.
  */
 public final class Carregador {
 

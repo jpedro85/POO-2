@@ -5,9 +5,9 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+
 /**
- *
- * @author Pedro
+ *  Um Gene que representa a vontade de reproduzir do animal.
  */
 public class GeneRepoducao extends GeneMutavel implements Registo<GeneRepoducao>{
 

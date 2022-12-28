@@ -25,6 +25,10 @@ public final class Historico {
                 
         acontecimentos.add(  new AcontecimentoMonetario(acontecimento,descricao,dia,mes,ano,valor) );
     }
+    
+    public static LinkedHashSet<Acontecimento> getAcontecimentos(){
+        return acontecimentos;
+    }
 
     public static String getStringHistoricoDeTipo(Acontecimentos acontecimento){
         
@@ -46,7 +50,7 @@ public final class Historico {
         return text;
     }
     
-    private static class Acontecimento {
+    public static class Acontecimento {
         
         private Acontecimentos tipo;
         private String desscricao;
@@ -92,17 +96,14 @@ public final class Historico {
         
     }
     
-    private static class AcontecimentoMonetario extends Acontecimento {
+    public static class AcontecimentoMonetario extends Acontecimento {
         
         private double valor;
         
         public AcontecimentoMonetario(Acontecimentos acontcimentos , String descricao , int dia , Meses mes, int ano, double valor){
             
             super(acontcimentos,descricao,dia,mes,ano);
-            if(acontcimentos.equals(Acontecimentos.DESPESA))
-                this.valor = -valor;
-            else
-                this.valor = valor;
+            this.valor = valor;
             
         }
 

@@ -30,6 +30,9 @@ public enum CararcteristicasEspecificas {
         return name;
     }
     
+    /**
+     * Devolve True se str representa um CararcteristicasEspecificas (se é igual ao toString de um CararcteristicasEspecificas).
+     */
     public static boolean estaRepresentado(String str){
         
         for (CararcteristicasEspecificas carac :CararcteristicasEspecificas.values()) {

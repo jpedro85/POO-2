@@ -72,8 +72,9 @@ public class Cliente extends Pessoa {
         return numeroVisitas;
     }
     
-    public double pagar(double preco) {
-        return saldo - preco;
+    public boolean pagar(double preco) {
+        this.saldo -= preco;
+        return saldo > 0;
     }
     
     public double oferecerDinheiro(Animal animal){

@@ -9,19 +9,28 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- *
- * @author Francisco MSI
+ *  Class para formatar e carregar de maneira identtica objetos de classes diferentes
  */
 public class FormatedString {
 
     private String tipo;
     private LinkedHashMap<String, String> atributos;
-
+    
+    /**
+    * Usado para formatar um objeto.
+    * <Class.getSimpleName()>(campo:valor;...;)
+    */
     public FormatedString(String tipo, int numeroCampos) {
         this.tipo = tipo;
         this.atributos = new LinkedHashMap<>(numeroCampos);
     }
-
+    
+    /**
+    * Usado para carregar.
+    * <Class.getSimpleName()>(campo:valor;...;)
+    * @throws RepresentacaoInvalidaDoTipo se str estiver mal formatada
+    * 
+    */
     public FormatedString(String str) throws RepresentacaoInvalidaDoTipo {
         
         this.atributos = new LinkedHashMap<>();
@@ -115,6 +124,11 @@ public class FormatedString {
         return this.atributos.get(nomeCampo);
     }
     
+    /**
+    * Usado obter um atributo de um objeto.
+    * @throws RepresentacaoInvalidaDoTipo se estiver mal formatado 
+    * 
+    */
     public String getAtributo(String nomeCampo,String className) throws RepresentacaoInvalidaDoTipo {
         
         String temp = this.atributos.get(nomeCampo);
@@ -124,10 +138,19 @@ public class FormatedString {
             return temp;
     }
     
+    /**
+    * Devolve na pratica Class.getSimpleName()
+    * 
+    */
     public String getTipo(){
         return this.tipo;
     }
     
+    /**
+    * Devolve uma string com o array formatado
+    * [<Class.getSimpleName()>(campo:valor;...;),<Class.getSimpleName()>(campo:valor;...;),...,]
+    * 
+    */
     public static <Tipo> String formatArray(ArrayList< ? extends Gravavel> array) {
 
         int count = 1;
@@ -145,13 +168,23 @@ public class FormatedString {
 
         return temp;
     }
-
+    
+    /**
+    * Devolve um array de uma string formatada
+    * [<Class.getSimpleName()>(campo:valor;...;),<Class.getSimpleName()>(campo:valor;...;),...,]
+    * @throws RepresentacaoInvalidaDoTipo se strArray não estiver formatado corretamente
+    */
     public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> cclass, String strArray) throws RepresentacaoInvalidaDoTipo{
 
         ArrayList<Tipo> novoArray = new ArrayList<>();
         return convert(cclass, strArray, novoArray);
     }
-
+    
+    /**
+    * Devolve um array de uma string formatada com uma capacidade inicial
+    * [<Class.getSimpleName()>(campo:valor;...;),<Class.getSimpleName()>(campo:valor;...;),...,]
+    * @throws RepresentacaoInvalidaDoTipo se strArray não estiver formatado corretamente
+    */
     public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> cclass, String strArray, int capadidaeInicial) throws RepresentacaoInvalidaDoTipo{
 
         ArrayList<Tipo> novoArray = new ArrayList<>(capadidaeInicial);
@@ -224,7 +257,17 @@ public class FormatedString {
                 return new GeneDieta(fstr);
             case "GeneSexo":
                 return new GeneSexo(fstr);
-                
+            case "Animal":
+                return new Animal(fstr);
+            case "Instalacao":
+                return new Instalacao(fstr);
+            case "Tratador":
+                return new Tratador(fstr);
+            case "Zelador":
+                return new Zelador(fstr);
+            case "Veterinario":
+                return new Veterinario(fstr);
+
             default:
                 throw new AssertionError();
         }

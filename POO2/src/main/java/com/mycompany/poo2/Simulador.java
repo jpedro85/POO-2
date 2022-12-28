@@ -18,11 +18,16 @@ public final class Simulador {
     private static boolean jumangi;
     
     private Simulador(){}
-
+    
+    /**
+     * Retotna se esta ativo o efeito jomangi Ativo no meno
+     * @return 
+     */
     public static boolean isJumangi() {
         return jumangi;
     }
-
+    
+    
     public static void setJumangi(boolean jumangi) {
         Simulador.jumangi = jumangi;
     }
@@ -53,10 +58,30 @@ public final class Simulador {
     
     public static void simularDia() {
         
-    
+        simularDiaIstalacao();
+        simularDiaFuncionarios();
+        simularDiaClientes();
+        atualizarData();
         
     }
      
+    private static void atualizarData(){
+         if(diaCorrente == mesCorrente.getDias()){
+            
+            diaCorrente = 0;
+            
+            if ( mesCorrente == Meses.DEZEMBRO ) {
+                mesCorrente=Meses.JANEIRO;
+                
+                pagarEmpregados();
+                periodoComtabilistico(false);
+            }else
+                mesCorrente = Meses.values()[mesCorrente.ordinal()+1] ;
+            
+        }else
+            diaCorrente++;
+    }
+    
     private static void simularDiaIstalacao(){ // ainmais e instalacao
         
         ArrayList<Instalacao> instalacoes = Zoo.getAllInstalacoes();
@@ -67,7 +92,10 @@ public final class Simulador {
             todosAnimais = inst.getAnimaisSaudaveis();
             
             for (Animal animalSuadavel : todosAnimais) {
-                                
+                
+                //ficar com fome
+                animalSuadavel.ressetTratado();
+                
                 //ver se moorre
                 TipoMorte morte = animalSuadavel.morre();
                 if( morte != null){
@@ -127,7 +155,10 @@ public final class Simulador {
             
             for (Animal animalDoente : todosAnimais) {
                 
-                 //ver se moorre
+                //ficar com fome
+                animalDoente.ressetTratado();
+                
+                //ver se moorre
                 TipoMorte morte = animalDoente.morre();
                 if( morte != null){
                     
@@ -256,17 +287,22 @@ public final class Simulador {
         double dinheiroOferecido = 0;
         for (Cliente cliente: clientes) {
             
-            Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "Entrada paga cliente " + cliente , diaCorrente, mesCorrente, anoCorrente ,cliente.pagar(Zoo.getEntrada()));
-            
-            for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
+            if(cliente.pagar(Zoo.getEntrada())){
+                Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "Entrada paga cliente " + cliente , diaCorrente, mesCorrente, anoCorrente ,Zoo.getEntrada());
                 
-                for (Animal animal: instalacao.getAnimaisTodos()) {
+                for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
                 
-                    dinheiroOferecido = cliente.oferecerDinheiro(animal);
-                    if (dinheiroOferecido == 0) 
-                        Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "O cliente " + cliente + " ofereceu dinheiro ao animal " + animal, diaCorrente, mesCorrente, anoCorrente);
+                    for (Animal animal: instalacao.getAnimaisTodos()) {
+
+                        dinheiroOferecido = cliente.oferecerDinheiro(animal);
+                        if (dinheiroOferecido == 0) 
+                            Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "O cliente " + cliente + " ofereceu dinheiro ao animal " + animal, diaCorrente, mesCorrente, anoCorrente);
+                    }
                 }
-            }
+            
+            }else
+                clientes.remove(cliente);
+            
         }
         
     } 
@@ -297,4 +333,38 @@ public final class Simulador {
         return clientes;
     }
             
+    
+    private static void pagarEmpregados(){
+        
+        double salario;
+        for( Empregado empregado:Zoo.getAllEmpregados()){
+            salario = empregado.getSalario();
+            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, "O empregado " + empregado + "foi pago", diaCorrente, mesCorrente, anoCorrente,salario);
+        }
+    }
+    
+    public static void periodoComtabilistico(boolean manual){
+        
+        int custo=0,lucro=0;
+        for (Historico.Acontecimento evento : Historico.getAcontecimentos()) {
+            
+            if(evento.getTipo() == Acontecimentos.LUCRO){
+            
+                System.out.println(evento);
+                lucro += ((Historico.AcontecimentoMonetario)evento).getValor();
+            }
+            
+            if(evento.getTipo() == Acontecimentos.DESPESA){
+            
+                System.out.println(evento);
+                custo += ((Historico.AcontecimentoMonetario)evento).getValor();
+            }
+                 
+        }
+
+        Historico.adicionarAcontecimento(Acontecimentos.INFO, "Peridodo de contas lucro: " + lucro + "despesas: " + custo + "balanço: " + (lucro-custo), diaCorrente, mesCorrente, anoCorrente);
+        if(manual)
+            System.out.println("Peridodo de contas lucro: " + lucro + "despesas: " + custo + "balanço: " + (lucro-custo) );
+    }
+    
 }

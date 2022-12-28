@@ -5,8 +5,7 @@
 package com.mycompany.poo2;
 
 /**
- *
- * @author Pedro
+ *  Sexos disponiveis.
  */
 public enum Sexo {
     MACHO("macho"),
@@ -23,7 +22,12 @@ public enum Sexo {
         return nome;
     }
     
-    public static boolean representa(String str){
+    /**
+     * devolve true se str é igual a um sexo.ToString.
+     * @param str
+     * @return boolean
+     */
+    public static boolean estaRepresentado(String str){
         
         for (Sexo sex :Sexo.values()) {
             

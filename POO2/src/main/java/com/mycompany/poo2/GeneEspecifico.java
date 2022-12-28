@@ -7,8 +7,7 @@ package com.mycompany.poo2;
 import java.util.ArrayList;
 
 /**
- *
- * @author Francisco MSI
+ *  Um Gene que representa uma caracteristica do animal.
  */
 public class GeneEspecifico extends Gene implements Registo<GeneEspecifico> {
 

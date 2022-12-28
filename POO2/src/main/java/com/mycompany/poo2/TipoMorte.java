@@ -23,4 +23,20 @@ public enum TipoMorte {
         return "TipoMorte(" + "razao:" + razao + ')';
     }
     
+    /**
+     * devolve true se str é igual a um TipoMorte.ToString.
+     * @param str
+     * @return boolean
+     */
+    public static boolean estaRepresentado(String str){
+        
+        for (TipoMorte tipo :TipoMorte.values()) {
+            
+            if( str.equals(tipo.toString()) )
+                return true;
+        }
+        
+        return false;
+    }
+    
 }

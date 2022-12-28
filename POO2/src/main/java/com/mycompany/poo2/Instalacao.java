@@ -25,9 +25,10 @@ public class Instalacao implements Gravavel {
     private int entrevaloLimiteManutencao;
     private int sujidade;
     private int condicao;
+    private String ambiente;
     private HashMap<String,ArrayList<Animal>> animais;
     
-    public Instalacao(String nome, int capacidade, double custoManutencao, double custoLimpeza, int entrevaloLimiteManutencao ) {
+    public Instalacao(String nome, int capacidade,Ambiente ambiente ,double custoManutencao, double custoLimpeza, int entrevaloLimiteManutencao ) {
     
         this.nome = nome;
         this.capacidade = capacidade;
@@ -37,30 +38,16 @@ public class Instalacao implements Gravavel {
         this.entrevaloLimiteManutencao = entrevaloLimiteManutencao;
         this.sujidade = 0;
         this.condicao = 100;
+        this.ambiente = ambiente.toString();
         this.animais = new HashMap<>();
+        this.animais.put("Doentes",new ArrayList<>(this.capacidade) );
+        this.animais.put("Saudaveis",new ArrayList<>(this.capacidade) );
         this.id = ++lastId;
         
         numeroInstalacoes++;
         
     }
-    
-    public Instalacao(String nome, int capacidade, int ultimaManutencao , int sujidade, int condicao ,double custoManutencao, double custoLimpeza, int entrevaloLimiteManutencao , HashMap<String,ArrayList<Animal>> animais) {
-    
-        this.nome = nome;
-        this.capacidade = capacidade;
-        this.custoLimpeza = custoLimpeza;
-        this.custoManutencao = custoManutencao;
-        this.ultimaManutencao = ultimaManutencao;
-        this.entrevaloLimiteManutencao = entrevaloLimiteManutencao;
-        this.sujidade = sujidade;
-        this.condicao = condicao;
-        this.animais = animais;
-        this.id = ++lastId;
-        
-        numeroInstalacoes++;
-        
-    }
-    
+       
     public Instalacao(FormatedString fstr) throws RepresentacaoInvalidaDoTipo,NumberFormatException {
         
         String className = Instalacao.class.getSimpleName();
@@ -76,6 +63,9 @@ public class Instalacao implements Gravavel {
             this.custoManutencao = Double.parseDouble(fstr.getAtributo("CustoManutencao",className));
             this.ultimaManutencao = Integer.parseInt(fstr.getAtributo("UltimaManutencao",className));
             this.entrevaloLimiteManutencao = Integer.parseInt(fstr.getAtributo("EntrevaloLimiteManutencao",className));
+            this.ambiente = fstr.getAtributo("Ambiente",className);
+            if(!Ambiente.estaRepresentado(this.ambiente))
+                throw new RepresentacaoInvalidaDoTipo("O valor do campo Ambiente não representa nenhum do tipo Ambiente.");
             this.sujidade = Integer.parseInt(fstr.getAtributo("Sujidade",className));
             this.condicao = Integer.parseInt(fstr.getAtributo("Condicao",className));
             
@@ -93,6 +83,10 @@ public class Instalacao implements Gravavel {
         
         numeroInstalacoes++;
         
+    }
+
+    public String getAmbiente() {
+        return ambiente;
     }
     
     public static int getNumeroInstalacoes() {
@@ -229,6 +223,7 @@ public class Instalacao implements Gravavel {
         fstr.addAtributo("EntrevaloLimiteManutencao", this.getEntrevaloLimiteManutencao());
         fstr.addAtributo("Sujidade", this.getSujidade());
         fstr.addAtributo("Condicao", this.getCondicao());
+        fstr.addAtributo("Ambiente", this.getAmbiente());
         fstr.addAtributo("Saudaveis", FormatedString.formatArray(this.animais.get("Saudaveis")));
         fstr.addAtributo("Doentes", FormatedString.formatArray(this.animais.get("Doentes")));
         
@@ -258,6 +253,6 @@ public class Instalacao implements Gravavel {
 
         final Instalacao i = (Instalacao) obj;
 
-        return (nome.equals(i.getNome())) && (id == i.getId());
+        return (id == i.getId()) && (nome.equals(i.getNome()));
     }
 }

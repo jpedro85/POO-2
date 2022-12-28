@@ -7,8 +7,7 @@ package com.mycompany.poo2;
 import java.util.ArrayList;
 
 /**
- *
- * @author Pedro
+ *  Um Gene que representa o Ambiente preferido do animal.
  */
 public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
 
@@ -21,7 +20,7 @@ public class GeneAmbiente extends GeneMutavel implements Registo<GeneAmbiente>{
         if(!Ambiente.estaRepresentado(this.ambiente))
             throw new RepresentacaoInvalidaDoTipo("O valor do campo Ambiente não representa nenhum do tipo Ambiente.");
     }
-
+    
     public GeneAmbiente(Ambiente ambiente, String nome , int geracao) {
         super(nome,geracao);
         this.ambiente = ambiente.toString() ;

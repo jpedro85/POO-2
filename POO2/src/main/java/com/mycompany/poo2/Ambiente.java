@@ -5,8 +5,7 @@
 package com.mycompany.poo2;
 
 /**
- *
- * @author Francisco MSI
+ * Oferece os tipos de ambiente disponiveis.
  */
 public enum Ambiente {
     
@@ -23,6 +22,9 @@ public enum Ambiente {
         return nome;
     }
     
+    /**
+     * Devolve True se str representa um ambiente (se é igual ao toString de um ambiemnte).
+     */
     public static boolean estaRepresentado(String str){
         
         for (Ambiente amb :Ambiente.values()) {

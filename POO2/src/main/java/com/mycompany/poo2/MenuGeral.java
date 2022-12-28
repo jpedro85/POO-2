@@ -18,12 +18,12 @@ public final class MenuGeral extends Menu {
                    (1) -> Simulador 
                    (2) -> Gerir Base De dados 
                    (3) -> Gerir Animais 
-                   (4) -> Gerir Instala\u00e7\u00f5es
+                   (4) -> Gerir Instalaçõees
                    (5) -> Gerir Funcionarios
                    (8) -> Gerir Clientes
                    (9) -> Gerir Capital
-                  (10) -> Gerir Eventos(JUmanji e ano chin\u00eas)
-                  (11) -> Hist\u00f3rico
+                  (10) -> Gerir Eventos(JUmanji e ano chinês)
+                  (11) -> Histórico
                   (12) -> Caregar Zoo
                   (13) -> Gravar Zoo
                  

@@ -5,8 +5,7 @@
 package com.mycompany.poo2;
 
 /**
- *
- * @author Francisco MSI
+ *  Oferece tipos de alimentação
  */
 public enum Dieta {
     
@@ -23,6 +22,9 @@ public enum Dieta {
         return nome;
     }
     
+    /**
+     * Devolve True se str representa uma Dieta (se é igual ao toString de uma Dieta).
+     */
     public static boolean estaRepresentado(String str){
         
         for (Dieta dieta :Dieta.values()) {

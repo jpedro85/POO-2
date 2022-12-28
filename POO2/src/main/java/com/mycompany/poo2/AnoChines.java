@@ -5,8 +5,7 @@
 package com.mycompany.poo2;
 
 /**
- *
- * @author Pedro
+ *  Devolve as pussibilidades para os anos chines.
  */
 public enum AnoChines {
     RATO("rato"),
@@ -32,5 +31,18 @@ public enum AnoChines {
     public String toString() {
         return nome;
     }
-
+    
+    /**
+     *  Devolve True se str representa um AnoChines (se é igual ao toString de um AnoChines).
+     */
+    public static boolean estaRepresentado(String str){
+        
+        for (AnoChines chines : AnoChines.values()) {
+            
+            if( str.equals(chines.toString()) )
+                return true;
+        }
+        return false;
+    }
+    
 }
