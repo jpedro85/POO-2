@@ -12,10 +12,8 @@ public enum Acontecimentos {
  
     OBITO("Óbito"),
     NASCIMENTO("Nascimento"),
-    CONSTUCAO("Construção"),
+    CONSTRUCAO("Construção"),
     DESTRUICAO("Destruição"),
-    VENDA("Venda"),
-    COMPRA("Compra"),
     DESPESA("Despesa"),
     LUCRO("Lucro"),
     INFO("Informação"),

@@ -283,7 +283,7 @@ public final class Simulador {
         
         for (int i = 0; i < nClienets; i++) {
             
-            nome = Gerador.getNomes().get(Gerador.gerarNumero(0,Gerador.getNomes().size() ));
+            nome = Gerador.getPessoas().get(Gerador.gerarNumero(0,Gerador.getPessoas().size() ));
             nif = Gerador.gerarNIF();
             idade = Gerador.gerarNumero(1, 120);
             generozidade = Gerador.gerarNumero(0, 99);

@@ -14,18 +14,21 @@ import java.io.IOException;
  */
 public final class Carregador {
 
+
     private Carregador() {
     }
 
+    
+
     public static <T> void carrega(Class<T> cclass, String ficheiro) {
         try {
-            
+
             FileReader rW = new FileReader(ficheiro);
             BufferedReader bW = new BufferedReader(rW);
-            String linha="";
-            linha=bW.readLine();
-            int contador=0;
-            while(linha!=null) {
+            String linha = "";
+            linha = bW.readLine();
+            int contador = 0;
+            while (linha != null) {
                 contador++;
                 try {
 
@@ -37,15 +40,16 @@ public final class Carregador {
                     System.out.println(exp1);
                 } catch (Exception expall) {//porque usamos a class construct nao é apanhada a exceccao representacaodotipo do construtor da class:Illegal access
                     System.out.print("Item não carregado!! ");
-                    System.out.println("Na linha "+contador+" do ficheiro");
+                    System.out.println("Na linha " + contador + " do ficheiro");
                     System.out.println(RepresentacaoInvalidaDoTipo.getUltimaExcecao().getMessage());
                 }
-                linha=bW.readLine();
+                linha = bW.readLine();
             }
             bW.close();
             rW.close();
         } catch (IOException e) {
-            System.out.println("Não foi possivel abrir o ficheiro: "+ficheiro);
+            System.out.println("Não foi possivel abrir o ficheiro: " + ficheiro);
         }
     }
+
 }
