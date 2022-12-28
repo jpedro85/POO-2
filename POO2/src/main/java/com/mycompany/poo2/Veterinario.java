@@ -25,29 +25,33 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
         numeroVeterinarios++;
     }
 
-    //criar horario
-    //gethorario
     @Override
-    public void trabalhar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public void trabalhar(Instalacao instalacao, int dia, Meses mes, int ano) {
+        
+        if (instalacao.temAnimaisDoentes()) {
+            
+            for (Animal animalDoente:instalacao.getAnimaisDoentes()) {
+                
+                if(animalDoente.ficaCorado(this)){
+                    String mesg = "O animal o animal " + animalDoente + "foi curado pelo veterinário " + this;
+                    Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,Gerador.gerarNumero(50, 150));
+                } else {
+                    String mesg = "Tentativa de curar o animal " + animalDoente + " pelo veterinário " + this;
+                    Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,Gerador.gerarNumero(25, 50));
+                }
+            }           
+        }
+        
+        super.trabalhar();
+        super.evoluir();
+    } 
 
     @Override
     public void eleminar() {
         super.eleminar();
         numeroVeterinarios--;
     }
-
-    @Override
-    public Horario createHorario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Horario getHorario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    
     @Override
     public FormatedString toFormatedString() {
 
@@ -60,7 +64,6 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
         fstr.addAtributo("Experiencia", this.getExperiencia());
         fstr.addAtributo("MaxTarefas", this.getMaxTarefas());
         fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
-        fstr.addAtributo("TarefasMes", this.getTarefasMes());
 
         return fstr;
     }
@@ -90,5 +93,5 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
     public void removeInstanceDoResgisto(){
         allInstancesCreated.remove(this);   
     }
-
+ 
 }

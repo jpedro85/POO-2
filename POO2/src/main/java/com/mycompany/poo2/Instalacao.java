@@ -6,7 +6,6 @@ package com.mycompany.poo2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -21,16 +20,18 @@ public class Instalacao implements Gravavel {
     private String nome;
     private int capacidade;
     private double custoManutencao;
+    private double custoLimpeza;
     private int ultimaManutencao;
     private int entrevaloLimiteManutencao;
     private int sujidade;
     private int condicao;
     private HashMap<String,ArrayList<Animal>> animais;
     
-    public Instalacao(String nome, int capacidade, double custoManutencao, int entrevaloLimiteManutencao ) {
+    public Instalacao(String nome, int capacidade, double custoManutencao, double custoLimpeza, int entrevaloLimiteManutencao ) {
     
         this.nome = nome;
         this.capacidade = capacidade;
+        this.custoLimpeza = custoLimpeza;
         this.custoManutencao = custoManutencao;
         this.ultimaManutencao = 0;
         this.entrevaloLimiteManutencao = entrevaloLimiteManutencao;
@@ -43,10 +44,11 @@ public class Instalacao implements Gravavel {
         
     }
     
-    public Instalacao(String nome, int capacidade, int ultimaManutencao , int sujidade, int condicao ,double custoManutencao, int entrevaloLimiteManutencao , HashMap<String,ArrayList<Animal>> animais) {
+    public Instalacao(String nome, int capacidade, int ultimaManutencao , int sujidade, int condicao ,double custoManutencao, double custoLimpeza, int entrevaloLimiteManutencao , HashMap<String,ArrayList<Animal>> animais) {
     
         this.nome = nome;
         this.capacidade = capacidade;
+        this.custoLimpeza = custoLimpeza;
         this.custoManutencao = custoManutencao;
         this.ultimaManutencao = ultimaManutencao;
         this.entrevaloLimiteManutencao = entrevaloLimiteManutencao;
@@ -70,6 +72,7 @@ public class Instalacao implements Gravavel {
             
             this.id = Integer.parseInt(fstr.getAtributo("Id",className));
             this.capacidade = Integer.parseInt(fstr.getAtributo("Capacidade",className));
+            this.custoLimpeza = Double.parseDouble(fstr.getAtributo("CustoLimpeza",className));
             this.custoManutencao = Double.parseDouble(fstr.getAtributo("CustoManutencao",className));
             this.ultimaManutencao = Integer.parseInt(fstr.getAtributo("UltimaManutencao",className));
             this.entrevaloLimiteManutencao = Integer.parseInt(fstr.getAtributo("EntrevaloLimiteManutencao",className));
@@ -128,10 +131,25 @@ public class Instalacao implements Gravavel {
         return this.capacidade;
     }
 
-    public Map<String, ArrayList<Animal>> getAnimais() {
-        return this.animais;
+    public ArrayList<Animal> getAnimaisTodos() {
+        ArrayList<Animal> anim = new ArrayList<Animal>(this.getOcupacao());
+        anim.addAll(this.getAnimaisDoentes());
+        anim.addAll(this.getAnimaisSaudaveis());
+        return anim;
     }
-
+    
+    public ArrayList<Animal> getAnimaisSaudaveis() {
+        return this.animais.get("Saudaveis");
+    }
+   
+    public ArrayList<Animal> getAnimaisDoentes() {
+        return this.animais.get("Doentes");
+    }
+    
+    public double getCustoLimpeza() {
+        return this.custoLimpeza;
+    }
+    
     public double getCustoManutencao() {
         return this.custoManutencao;
     }
@@ -140,8 +158,12 @@ public class Instalacao implements Gravavel {
         return this.ultimaManutencao;
     }
 
-    public void setCustoManutencao(double custoManutencao) {
-        this.custoManutencao = custoManutencao;
+    public boolean setCustoManutencao(double custoManutencao) {
+        if (custoManutencao>0) {
+            this.custoManutencao = custoManutencao;
+            return true;
+        }
+        return false;
     }
 
     public int getEntrevaloLimiteManutencao() {
@@ -152,6 +174,14 @@ public class Instalacao implements Gravavel {
         if (entrevaloLimite > 0 ) 
             this.entrevaloLimiteManutencao = entrevaloLimite;  
     }
+
+    public void ocoreuMorte() {
+        this.sujidade = 60;
+    }
+
+    public void ocoreuFuga() {
+        this.condicao = 0;
+    }
     
     public boolean estaCheia(){
         return this.capacidade == this.getOcupacao();
@@ -160,7 +190,7 @@ public class Instalacao implements Gravavel {
     public boolean estaPrecaria(){
         return (sujidade>=100);
     }
-    
+        
     public boolean precisaManutencao(){
         return (condicao<25) || this.ultimaManutencao >= this.entrevaloLimiteManutencao ;
     }
@@ -171,6 +201,14 @@ public class Instalacao implements Gravavel {
     
     public boolean temAnimaisDoentes(){
         return !animais.get("Doentes").isEmpty();
+    }
+    
+    public void limpar(){
+        this.sujidade = 0;
+    }
+    
+    public void reparar(){
+        this.condicao = 100;
     }
     
     public void desgaste(){
@@ -185,6 +223,7 @@ public class Instalacao implements Gravavel {
         fstr.addAtributo("Nome", this.getNome());
         fstr.addAtributo("Id", this.getId());
         fstr.addAtributo("Capacidade", this.getCapacidade());
+        fstr.addAtributo("CustoLimpeza", this.getCustoLimpeza());
         fstr.addAtributo("CustoManutencao", this.getCustoManutencao());
         fstr.addAtributo("UltimaManutencao", this.getUltimaManutencao());
         fstr.addAtributo("EntrevaloLimiteManutencao", this.getEntrevaloLimiteManutencao());

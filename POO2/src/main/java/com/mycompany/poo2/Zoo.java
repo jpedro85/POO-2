@@ -5,70 +5,72 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author Pedro
  */
 public final class Zoo {
-        
-    private ArrayList<Animal>obituario;
-    private ArrayList<Animal>semiLivres;
-    private ArrayList<Instalacao>instalacoes;
-    private ArrayList<Empregado>empregados;
-    private ArrayList<Cliente>clientes;
+    
+    private static ArrayList<Animal>nascimentos;
+    private static ArrayList<Animal>obituario;
+    private static HashMap<Animal,Instalacao>semiLivres;
+    private static ArrayList<Instalacao>instalacoes;
+    private static ArrayList<Empregado>empregados;
+    private static ArrayList<Cliente>clientes;
+    private static double entrada;
 
-    public ArrayList<Animal> getAllObitos() {
+    public static double getEntrada() {
+        return entrada;
+    }
+
+    public static void setEntrada(double entrada) {
+        Zoo.entrada = entrada;
+    }
+
+    public static ArrayList<Animal> getAllNascimentos(){
+        return nascimentos;
+    }
+    
+    public static void addNascimento(Animal animal){
+         nascimentos.add(animal);
+    }
+    
+ /*   public static void realocar(Animal animal,Instalacao instalacao){
+         
+        int indice = nascimentos.indexOf(animal);
+        
+        if (nascimentos.indexOf(animal) > 0) {
+            
+        }else
+    }*/
+    
+    
+    public static ArrayList<Animal> getAllObitos() {
         return obituario;
     }
     
-    public void addObito(ArrayList<Animal> obituario) {
-        this.obituario = obituario;
+    public static void addObito(ArrayList<Animal> obituario) {
+        Zoo.obituario = obituario;
     }
 
-    public ArrayList<Animal> getAllSemiLivres(){
+    public static HashMap<Animal,Instalacao> getAllSemiLivres(){
         return semiLivres;
     }
-
-    public Animal getSemiLivre(int i){
-        if(i>0&& i<semiLivres.size()){
-            return semiLivres.get(i);
-        }
-        return null;
-    }
-    
-    public Animal getSemiLivreComId(int i){
-        for(Animal a:semiLivres){
-            if(a.getId()==i){
-                return a;
-            }
-        }
-        return null;
-    }
-    
-    public void removeSemiLivre(int i){
-        semiLivres.remove(i);
-    }
-    public void removeSemiLivreComId(int i){
-        for(Animal a:semiLivres){
-            if(a.getId()==i){
-                semiLivres.remove(a);
-            }
-        }
-    }
-    
-    public ArrayList<Instalacao> getAllInstalacoes(){
+            
+    public static ArrayList<Instalacao> getAllInstalacoes(){
         return instalacoes;
     }
     
-    public Instalacao getInstalacao(int i){
+    public static Instalacao getInstalacao(int i){
         if(i>0&& i<instalacoes.size()){
             return instalacoes.get(i);
         }
         return null;
     }
     
-    public Instalacao getInstalacaoComId(int i){
+    public static Instalacao getInstalacaoComId(int i){
         for(Instalacao a:instalacoes){
             if(a.getId()==i){
                 return a;
@@ -77,10 +79,11 @@ public final class Zoo {
         return null;
     }
     
-    public void removeInstalacao(int i){
+    public static void removeInstalacao(int i){
         instalacoes.remove(i);
     }
-    public void removeInstalacaoComId(int i){
+    
+    public static void removeInstalacaoComId(int i){
         for(Instalacao a:instalacoes){
             if(a.getId()==i){
                 instalacoes.remove(a);
@@ -88,45 +91,49 @@ public final class Zoo {
         }
     }
     
-    public ArrayList<Empregado> getAllEmpregados(){
+    public static ArrayList<Empregado> getAllEmpregados(){
         return empregados;
     }
     
-    public Empregado getEmpregado(int i){
+    public static Empregado getEmpregado(int i){
         if(i>0&& i<empregados.size()){
             return empregados.get(i);
         }
         return null;
     }
-    public void addEmpregado(Empregado empregado){
+    
+    public static void addEmpregado(Empregado empregado){
         empregados.add(empregado);
     }
-    public void removeEmpregado(int i){
+    
+    public static void removeEmpregado(int i){
         empregados.remove(i);
     }
     
-    public ArrayList<Cliente> getAllClientes(){
+    public static ArrayList<Cliente> getAllClientes(){
         return clientes;
     }
     
-    public Cliente getCliente(int i){
+    public static Cliente getCliente(int i){
         if(i>0&& i<clientes.size()){
             return clientes.get(i);
         }
         return null;
     }
-    public void addCliente(Cliente cliente){
+    
+    public static void addCliente(Cliente cliente){
         clientes.add(cliente);
     }
-    public void removeCliente(int i){
+    
+    public static void removeCliente(int i){
         clientes.remove(i);
     }
     
-    public void reset(){
-        this.obituario.clear();
-        this.semiLivres.clear();
-        this.instalacoes.clear();
-        this.empregados.clear();
-        this.clientes.clear();
+    public static void reset(){
+        obituario.clear();
+        semiLivres.clear();
+        instalacoes.clear();
+        empregados.clear();
+        clientes.clear();
     }
 }

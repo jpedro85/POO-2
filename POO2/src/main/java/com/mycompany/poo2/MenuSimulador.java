@@ -4,8 +4,6 @@
  */
 package com.mycompany.poo2;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-
 /**
  *
  * @author Francisco MSI
@@ -13,6 +11,8 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 public class MenuSimulador extends Menu{
     
     private static final int MAXOPTN = 5 ; 
+    
+  
     
     @Override
     public void mostrarOpcoes(){
@@ -32,6 +32,7 @@ public class MenuSimulador extends Menu{
       
     @Override
     public void excutarOpcaoPedida(){
+        this.mostrarOpcoes();
         this.executarOpcao(super.pedirOpcao(MAXOPTN));
     }
     
@@ -53,6 +54,7 @@ public class MenuSimulador extends Menu{
                 this.simularMes();
                 break;
             case 4:
+                this.simularMeses(pedirMes());
                 break;
             case 5:
                 this.simularAnos();

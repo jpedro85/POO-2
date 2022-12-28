@@ -25,7 +25,7 @@ public class Animal implements Gravavel {
     private boolean tratado;
     private int ultimaTratacao;
     
-    public Animal( String nomeArtisticoPai , String nomeArtisticoMae , Genoma genoma, int atratividadeBase ) {
+    public Animal( String nomeArtisticoPai , String nomeArtisticoMae , boolean doente, Genoma genoma, int atratividadeBase ) {
         
         this.nomeArtisticoPai = nomeArtisticoPai;
         this.nomeArtisticoMae = nomeArtisticoMae;
@@ -40,7 +40,7 @@ public class Animal implements Gravavel {
         
     }
 
-    public Animal(String nomeArtistico , String nomeArtisticoPai , String nomeArtisticoMae , Genoma genoma, int atratividadeBase ) {
+    public Animal(String nomeArtistico , String nomeArtisticoPai , String nomeArtisticoMae , boolean doente , Genoma genoma, int atratividadeBase ) {
         
         this.nomeArtistico = nomeArtistico;
         this.nomeArtisticoPai = nomeArtisticoPai;
@@ -49,7 +49,7 @@ public class Animal implements Gravavel {
         this.id = ++lastId;
         this.idade = 0;
         this.atratividadeBase = atratividadeBase;
-        this.doente = false;
+        this.doente = doente;
         this.tratado = true;
         this.ultimaTratacao = 0 ;
         
@@ -129,11 +129,27 @@ public class Animal implements Gravavel {
         return this.tratado;
     }
     
+    public void envelhecer(){
+        this.idade++;
+    }
+    
     public TipoMorte morre(boolean abate) {       
         if (abate) 
             return TipoMorte.ABATE;
         else 
             return morreProb();  
+    }
+    
+    
+    public Boolean foge(Instalacao instalacao,Boolean jumanji) {
+        if (jumanji ) 
+            return Gerador.gerarProbabilidade() <= 50;
+        else
+            return this.foge(instalacao);
+    }
+    
+    private Boolean foge(Instalacao instalacao) {
+        return instalacao.precisaManutencao() && Gerador.gerarProbabilidade() < instalacao.getUltimaManutencao()*10 ; 
     }
     
     public TipoMorte morre() {
@@ -151,28 +167,50 @@ public class Animal implements Gravavel {
         return this.doente;
         
     }
+    
+    public boolean ficaCorado(Veterinario veterinario) {
+        
+        double chance = (veterinario.getExperiencia()/100) + 25;
+        if (Gerador.gerarProbabilidade() <= chance) {
+            this.doente = false;  
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
 
     public Animal reproduzir(Animal animal) {
         
-        if( Gerador.gerarProbabilidade() < this.genoma.getGeneRepoducao().getApetite()  ){
+        
+        if (!this.equals(animal)) {
             
-            if( Gerador.gerarProbabilidade() < animal.genoma.getGeneRepoducao().getApetite() ){
-            
-                if( !this.genoma.getGeneSexo().getSexo().equals(animal.getGenoma().getGeneSexo().getSexo()) ){
-                    
-                    Genoma novoGenoma = Genoma.comabinarGenomas(this.genoma,animal.getGenoma());
-                    int atratividade = (this.getAtratividadeBase() + animal.getAtratividadeBase()) / 2;
-                    
-                    if (this.genoma.getGeneSexo().getSexo().equals(Sexo.MACHO.toString() )) 
-                        return new Animal(this.getNomeArtistico(),animal.getNomeArtistico(),novoGenoma,atratividade);
-                    else
-                        return new Animal(animal.getNomeArtistico(),this.getNomeArtistico(),novoGenoma,atratividade);
-                   
-                } else return null;
-                 
+            if( Gerador.gerarProbabilidade() < this.genoma.getGeneRepoducao().getApetite()  ){
+
+                if( Gerador.gerarProbabilidade() < animal.genoma.getGeneRepoducao().getApetite() ){
+
+                    if( !this.genoma.getGeneSexo().getSexo().equals(animal.getGenoma().getGeneSexo().getSexo()) ){
+
+                        Genoma novoGenoma = Genoma.comabinarGenomas(this.genoma,animal.getGenoma());
+                        int atratividade = (this.getAtratividadeBase() + animal.getAtratividadeBase()) / 2;
+                        
+                        boolean doent = false;
+                        if ((this.estaDoente() || animal.estaDoente()) && Gerador.gerarProbabilidade() < 50 ) doent = true;
+
+                        if (this.genoma.getGeneSexo().getSexo().equals(Sexo.MACHO.toString() )) 
+                            return new Animal(this.getNomeArtistico(),animal.getNomeArtistico(),doent,novoGenoma,atratividade);
+                        else
+                            return new Animal(animal.getNomeArtistico(),this.getNomeArtistico(),doent,novoGenoma,atratividade);
+
+                    } else return null;
+
+                }else return null;
+
             }else return null;
-            
-        }else return null;
+        
+        }else
+            return null;
+        
     }
 
     public void aumentarAtratividadeBase(int bonus) {
@@ -215,6 +253,7 @@ public class Animal implements Gravavel {
             return false;
         }
         final Animal other = (Animal) obj;
+        
         if (this.id != other.id) {
             return false;
         }

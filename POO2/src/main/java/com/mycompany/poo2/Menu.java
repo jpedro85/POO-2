@@ -15,6 +15,10 @@ public abstract class Menu {
     private static Menu ultimoMeno;
     private static Scanner scanner = new Scanner(System.in);
     
+  //  public Menu(Menu ultimoMenu){
+   //     ultimoMeno = ultimoMenu;
+   // }
+    
     public void mostrarOpcoes(String title , String optn){
         
         System.out.println(title);
