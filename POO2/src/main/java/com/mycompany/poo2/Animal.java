@@ -182,6 +182,7 @@ public class Animal implements Gravavel {
 
     public Animal reproduzir(Animal animal) {
         
+        
         if (!this.equals(animal)) {
             
             if( Gerador.gerarProbabilidade() < this.genoma.getGeneRepoducao().getApetite()  ){
