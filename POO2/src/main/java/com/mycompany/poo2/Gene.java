@@ -45,6 +45,10 @@ public abstract class Gene implements Gravavel{
     public String getNome() {
         return this.nome;
     }
+    
+    public static int getLastId() {
+        return lastId;
+    }
 
     @Override
     public String toString(){

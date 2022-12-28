@@ -21,6 +21,12 @@ public final class Gerador {
         
     }
     
+    public static double gerarNumero(double min,double max){
+        
+        return rand.nextDouble(min,max);
+        
+    }
+    
     public static Double gerarProbabilidade(){
         
         return rand.nextDouble(100);

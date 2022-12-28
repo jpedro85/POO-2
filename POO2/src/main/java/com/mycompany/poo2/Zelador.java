@@ -30,20 +30,22 @@ public class Zelador extends Empregado implements Registo<Zelador>{
     }
 
     @Override
-    public Horario createHorario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public void trabalhar(Instalacao instalacao, int dia, Meses mes ,int ano) {
 
-    @Override
-    public Horario getHorario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    //arranjar
-    //limpar
-    @Override
-    public void trabalhar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (instalacao.precisaLimpeza()) {
+            instalacao.limpar();
+            String mesg = "Limpeza da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome();
+            Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,instalacao.getCustoLimpeza());
+        }
+        
+        if (instalacao.precisaManutencao()) {
+            instalacao.reparar();
+            String mesg = "Manutenção da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome();
+            Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,instalacao.getCustoManutencao());
+        }        
+        
+        super.trabalhar();
+        super.evoluir();
     }
 
     @Override
@@ -64,7 +66,6 @@ public class Zelador extends Empregado implements Registo<Zelador>{
         fstr.addAtributo("Experiencia", this.getExperiencia());
         fstr.addAtributo("MaxTarefas", this.getMaxTarefas());
         fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
-        fstr.addAtributo("TarefasMes", this.getTarefasMes());
 
         return fstr;
     }

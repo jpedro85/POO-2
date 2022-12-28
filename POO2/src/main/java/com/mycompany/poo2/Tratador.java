@@ -25,16 +25,46 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         numeroTratadores++;
     }
 
-    //dar comer
+    @Override
+    public void trabalhar(Instalacao instalacao, int dia, Meses mes, int ano) {
+        
+        String mesg = "";
+        double desconto = 0;
+        
+        for (Animal animalDoente : instalacao.getAnimais().get("Doentes")) {
+            trabalharAuxiliar( animalDoente, mesg, desconto, dia, mes ,ano);    
+        }  
+        
+        for (Animal animalSaudavel : instalacao.getAnimais().get("Saudaveis")) {
+            trabalharAuxiliar( animalSaudavel, mesg, desconto, dia, mes ,ano);    
+        }
+      
+        super.trabalhar();
+        super.evoluir();
+    } 
     
-    @Override
-    public Horario createHorario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    private void trabalharAuxiliar(Animal animalDoente,String mesg,double desconto,int dia,Meses mes ,int ano){
+        
+        String dieta = animalDoente.getGenoma().getGeneDieta().toString();
+        if (dieta.equals(Dieta.VEGETARIANO.toString())) {
 
-    @Override
-    public Horario getHorario() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
+            desconto = this.getExperiencia() * 0.2;
+            desconto = desconto > 20 ? 20 : desconto;
+            Historico.adicionarAcontecimento(Acontecimentos.DESPESA, mesg, dia, mes, ano, Gerador.gerarNumero(20 - desconto, 40 - desconto));
+        } else if (dieta.equals(Dieta.OMNIVORO.toString())) {
+
+            mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
+            desconto = this.getExperiencia() * 0.2;
+            desconto = desconto > 40 ? 40 : desconto;
+            Historico.adicionarAcontecimento(Acontecimentos.DESPESA, mesg, dia, mes, ano, Gerador.gerarNumero(40 - desconto, 80 - desconto));
+        } else {
+
+            mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
+            desconto = this.getExperiencia() * 0.2;
+            desconto = desconto > 30 ? 30 : desconto;
+            Historico.adicionarAcontecimento(Acontecimentos.DESPESA, mesg, dia, mes, ano, Gerador.gerarNumero(30 - desconto, 65 - desconto));
+        }
     }
     
     @Override
@@ -42,7 +72,6 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         super.eleminar();
         numeroTratadores--;
     }
-
 
     @Override
     public FormatedString toFormatedString() {
@@ -56,14 +85,8 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         fstr.addAtributo("Experiencia", this.getExperiencia());
         fstr.addAtributo("MaxTarefas", this.getMaxTarefas());
         fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
-        fstr.addAtributo("TarefasMes", this.getTarefasMes());
 
         return fstr;
-    }
-
-    @Override
-    public void trabalhar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     public static int getQuantidade() {
@@ -91,4 +114,5 @@ public class Tratador extends Empregado implements Registo<Tratador>{
     public void removeInstanceDoResgisto(){
         allInstancesCreated.remove(this);   
     }
+
 }

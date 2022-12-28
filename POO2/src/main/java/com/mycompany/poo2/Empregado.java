@@ -16,8 +16,6 @@ public abstract class Empregado extends Pessoa {
     private int experiencia;
     private int maxTarefas;
     private int totalTarefas;
-    private int tarefasMes;
-    private Horario horario;
 
     public Empregado(FormatedString fstr, String className) throws RepresentacaoInvalidaDoTipo {
         super(fstr, className);
@@ -29,7 +27,6 @@ public abstract class Empregado extends Pessoa {
             this.experiencia = Integer.parseInt(fstr.getAtributo("Experiencia",className));
             this.maxTarefas = Integer.parseInt(fstr.getAtributo("MaxTarefas",className));
             this.totalTarefas = Integer.parseInt(fstr.getAtributo("TotalTarefas",className));
-            this.tarefasMes = Integer.parseInt(fstr.getAtributo("TarefasMes",className));
             
         }catch(NumberFormatException exp){
             throw new RepresentacaoInvalidaDoTipo("Numero mal formatado na FormatedString: \n" + fstr );
@@ -57,7 +54,7 @@ public abstract class Empregado extends Pessoa {
         this.totalTarefas = 0;
         numeroEmpregados++;
     }
-
+    
     public double getSalarioBase() {
         return salarioBase;
     }
@@ -78,10 +75,6 @@ public abstract class Empregado extends Pessoa {
         return maxTarefas;
     }
 
-    public int getTarefasMes() {
-        return tarefasMes;
-    }
-
     public static int getNumeroEmpregados() {
         return numeroEmpregados;
     }
@@ -94,19 +87,20 @@ public abstract class Empregado extends Pessoa {
         return totalTarefas;
     }
 
-    public void setTarefasMes(int tarefasMes) {
-        this.tarefasMes = tarefasMes;
-    }
-
     public void setMaxTarefas(int maxTarefas) {
         this.maxTarefas = maxTarefas;
     }
-
-    public abstract Horario createHorario();
-
-    public abstract Horario getHorario();
-
-    public abstract void trabalhar();
+    
+    public void evoluir(){
+        if (this.totalTarefas%10 == 0) 
+            this.experiencia++;
+    }
+    
+    public void trabalhar(){
+        this.totalTarefas++;
+    }
+    
+    public abstract void trabalhar(Instalacao instalacao, int dia, Meses mes ,int ano);
 
     public double getSalario() {
         return salarioBase + salarioBase * bonusTarefa * maxTarefas / 100;
@@ -124,6 +118,6 @@ public abstract class Empregado extends Pessoa {
 
     @Override
     public String toString() {
-        return "O Empregado tem:\n\t" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas;
+        return "O Empregado :\n\t" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas;
     }
 }

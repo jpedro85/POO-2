@@ -64,7 +64,7 @@ public abstract class Pessoa implements Gravavel {
 
     @Override
     public String toString() {
-        return "Pessoa(Nome: " + nome + " NIF: " + nif + " Idade:"+this.idade+")";
+        return "Nome: " + nome + " NIF: " + nif + " Idade:"+this.idade;
     }
 
     @Override
