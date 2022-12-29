@@ -13,13 +13,13 @@ import java.util.HashMap;
  */
 public final class Zoo {
     
-    private static ArrayList<Animal>nascimentos;
-    private static ArrayList<Animal>obituario;
-    private static HashMap<Animal,Instalacao>semiLivres;
-    private static ArrayList<Instalacao>instalacoes;
-    private static ArrayList<Empregado>empregados;
-    private static ArrayList<Cliente>clientes;
-    private static double entrada;
+    private static ArrayList<Animal> nascimentos = new ArrayList<>(200);
+    private static ArrayList<Animal> obituario = new ArrayList<>(200);
+    private static HashMap<Animal,Instalacao> semiLivres = new HashMap<Animal,Instalacao>(200);
+    private static ArrayList<Instalacao> instalacoes = new ArrayList<>(200);
+    private static ArrayList<Empregado> empregados = new ArrayList<>(200);
+    private static ArrayList<Cliente>clientes = new ArrayList<>(200);
+    private static double entrada = 20;
 
     private Zoo(){}    
     

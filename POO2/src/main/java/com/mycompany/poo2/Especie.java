@@ -34,8 +34,6 @@ public class Especie implements Gravavel,Registo<Especie> {
     
     public Especie(FormatedString fstr) throws RepresentacaoInvalidaDoTipo {
         
-        System.out.println(fstr);
-        
         if ( !fstr.getTipo().equals("Especie") ) 
             throw new RepresentacaoInvalidaDoTipo("A FormatedString : " + fstr + " não representa uma Especie.");
         

@@ -11,6 +11,8 @@ public enum Acontecimentos {
  
     OBITO("Óbito"),
     NASCIMENTO("Nascimento"),
+    ANIMALDOETE("Animal doente"),
+    ANIMCURADO("Animal curado"),
     CONSTUCAO("Construção"),
     DESTRUICAO("Destruição"),
     DESPESA("Despesa"),

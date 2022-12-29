@@ -234,13 +234,21 @@ public class Instalacao implements Gravavel {
     public String toString(){
         
         String text="";
-        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+ getVacancia() +" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+entrevaloLimiteManutencao+"\n Animais:\n";
-        for (Animal animal:animais.get("Doentes")) {
-            text+= animal+"\n";
-        }
-        for (Animal animal:animais.get("Saudaveis")) {
-            text+= animal+"\n";
-        }
+        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+ getVacancia() +" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+entrevaloLimiteManutencao+"\n";
+        
+        if (this.getOcupacao() != 0) {
+            
+            text += "Animais:\n";
+            for (Animal animal : animais.get("Doentes")) {
+                text += animal + "\n";
+            }
+            for (Animal animal : animais.get("Saudaveis")) {
+                text+= animal+"\n";
+            }
+            
+        }else
+            text += "Animais:Não Tem";
+        
         return text;
     }
     

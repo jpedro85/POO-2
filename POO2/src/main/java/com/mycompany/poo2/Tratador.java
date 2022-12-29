@@ -53,19 +53,25 @@ public class Tratador extends Empregado implements Registo<Tratador>{
             mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
             desconto = this.getExperiencia() * 0.2;
             desconto = desconto > 20 ? 20 : desconto;
+            Simulador.simuladorMensagem(mesg);
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA, mesg, dia, mes, ano, Gerador.gerarNumero(20 - desconto, 40 - desconto));
+        
         } else if (dieta.equals(Dieta.OMNIVORO.toString())) {
 
             mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
             desconto = this.getExperiencia() * 0.2;
             desconto = desconto > 40 ? 40 : desconto;
+            Simulador.simuladorMensagem(mesg);
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA, mesg, dia, mes, ano, Gerador.gerarNumero(40 - desconto, 80 - desconto));
+        
         } else {
 
             mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
             desconto = this.getExperiencia() * 0.2;
             desconto = desconto > 30 ? 30 : desconto;
+            Simulador.simuladorMensagem(mesg);
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA, mesg, dia, mes, ano, Gerador.gerarNumero(30 - desconto, 65 - desconto));
+        
         }
     }
     
@@ -89,6 +95,11 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
 
         return fstr;
+    }
+
+    @Override
+    public String toString() {
+        return "Tratador: " + super.toString();
     }
     
     public static int getQuantidade() {

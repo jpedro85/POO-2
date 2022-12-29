@@ -11,28 +11,29 @@ package com.mycompany.poo2;
 public class MenuSimulador extends Menu{
     
     private static final int MAXOPTN = 5 ; 
-    
-  
+
+    public MenuSimulador(Menu menu) {
+        super(menu);
+    }
     
     @Override
     public void mostrarOpcoes(){
         
         String str_optn = """
-                         (1) -> Simular Proximo Dia
-                         (2) -> Simular Proximos Dias
-                         (3) -> Simular Até Ao Final Do Mês Atual
-                         (4) -> Simular Até Ao Final Do Mês Tal 
-                         (5) -> Simular um Ano
+                            (1) -> Simular Proximo Dia
+                            (2) -> Simular Proximos Dias
+                            (3) -> Simular Até Ao Final Do Mês Atual
+                            (4) -> Simular Até Ao Final Do Mês Tal 
+                            (5) -> Simular um Ano
                          
-                         (0) -> Voltar Atraz
-                      """;
+                            (0) -> Voltar Atraz
+                          """;
         super.mostrarOpcoes("======================================== Simulador =======================================",str_optn);
-        
+
     }
       
     @Override
-    public void excutarOpcaoPedida(){
-        this.mostrarOpcoes();
+    public void executarOpcaoPedida(){
         this.executarOpcao(super.pedirOpcao(MAXOPTN));
     }
     
@@ -46,18 +47,23 @@ public class MenuSimulador extends Menu{
                 break;
             case 1:
                 Simulador.simularDia();
+                this.pedirContinuar();
                 break;
             case 2:
                 this.simularDias(pedirNumero("Introduza o número de dias de 1 a 365 !", 1, 365));
+                this.pedirContinuar();
                 break;
             case 3:
                 this.simularMes();
+                this.pedirContinuar();
                 break;
             case 4:
                 this.simularMeses(pedirMes());
+                this.pedirContinuar();
                 break;
             case 5:
                 this.simularAnos();
+                this.pedirContinuar();
                 break;
         }
         
@@ -80,28 +86,16 @@ public class MenuSimulador extends Menu{
     
     private void simularMeses(Meses mesFinal){
         
-        while(true){
-            if (mesFinal.ordinal() > Simulador.getMesCorrente().ordinal()) {
-
-                while (Simulador.getMesCorrente().equals(mesFinal)) {
-                    Simulador.simularDia();
-                }
-                System.out.println();
-
-                break;
-
-            }else{
-
-                System.out.println("Tem de ser um mês aseguir ao mês " + Simulador.getMesCorrente());
-                mesFinal = this.pedirMes();
-            }
+        while(mesFinal.ordinal() > Simulador.getMesCorrente().ordinal()){
+            Simulador.simularDia();
         }
     }
     
     private void simularAnos(){
         
         Meses atualUmAnoAtraz = Simulador.getMesCorrente();
-        while(Simulador.getAnoCorrente() !=  Simulador.getAnoCorrente() && Simulador.getMesCorrente() == atualUmAnoAtraz ){
+        int ano = Simulador.getAnoCorrente();
+        while(ano ==  Simulador.getAnoCorrente()){
             Simulador.simularDia();
         }
     }

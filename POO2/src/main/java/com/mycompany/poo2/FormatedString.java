@@ -165,7 +165,9 @@ public class FormatedString {
 
             count++;
         }
-
+        
+        if(count == 1) temp+=",]";
+        
         return temp;
     }
     
@@ -186,7 +188,7 @@ public class FormatedString {
     * @throws RepresentacaoInvalidaDoTipo se strArray não estiver formatado corretamente
     */
     public static <Tipo> ArrayList<Tipo> converterFormatedArray(Class<Tipo> cclass, String strArray, int capadidaeInicial) throws RepresentacaoInvalidaDoTipo{
-
+        
         ArrayList<Tipo> novoArray = new ArrayList<>(capadidaeInicial);
         return convert(cclass, strArray, novoArray);
         
@@ -216,9 +218,10 @@ public class FormatedString {
     }
 
     private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> cclass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
-
+        
         int end = 0;
         FormatedString fstr;
+        String str = "";
         strArray = strArray.substring(1);
         while (true) {
 
@@ -226,8 +229,15 @@ public class FormatedString {
             if (end < 0) {
                 break;
             }
-
-            fstr = new FormatedString(strArray.substring(0, end));
+            
+            str = strArray.substring(0, end);
+            if (str.equals("")){
+                strArray = strArray.substring(end + 1);
+                continue;
+            }
+            
+            fstr = new FormatedString(str);
+            
             array.add((Tipo) novaInstancia(cclass, fstr));
             strArray = strArray.substring(end + 1);
 

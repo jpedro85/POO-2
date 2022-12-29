@@ -6,15 +6,37 @@ package com.mycompany.poo2;
 
 /**
  *
- * @author Francisco MSI
+ *  Main Class
  */
 public class POO2 {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        
+     /*   Instalacao a = new Instalacao("teste1",5,Ambiente.DESERTICO,120,200,6);
+        
+        System.out.println(a);
+        System.out.println(a.toFormatedString());
+        
+        try{
+            Instalacao b = new Instalacao(a.toFormatedString());
+            System.out.println(b);
+        }
+        catch(RepresentacaoInvalidaDoTipo e){
+            System.out.println(e);
+        }*/
+        
+        Carregador.carregarFicheiros();
+        
+        MenuGeral menuMenuGeral = new MenuGeral();
+        menuMenuGeral.mostrarOpcoes();
+        menuMenuGeral.executarOpcaoPedida();
+     
+       // MenuSimulador m = new MenuSimulador(null);
+       // m.mostrarOpcoes();
+       // m.executarOpcaoPedida();
+        
     }
     
 }

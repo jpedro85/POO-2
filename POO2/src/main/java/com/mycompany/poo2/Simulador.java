@@ -12,10 +12,10 @@ import java.util.ArrayList;
  */
 public final class Simulador {
     
-    private static int anoCorrente = 0;
-    private static int diaCorrente = 0;
+    private static int anoCorrente = 1;
+    private static int diaCorrente = 1;
     private static Meses mesCorrente = Meses.JANEIRO;
-    private static boolean jumangi;
+    private static boolean jumangi = false;
     
     private Simulador(){}
     
@@ -23,15 +23,18 @@ public final class Simulador {
      * Retotna se esta ativo o efeito jomangi Ativo no meno
      * @return 
      */
-    public static boolean isJumangi() {
+    public static boolean estaJumangi() {
         return jumangi;
     }
-    
     
     public static void setJumangi(boolean jumangi) {
         Simulador.jumangi = jumangi;
     }
-
+    
+    public static void simuladorMensagem(String mesg){
+        System.out.println("Simulador -> " + mesg);
+    }
+    
     public static void setAnoCorrente(int anoCorrente) {
         Simulador.anoCorrente = anoCorrente;
     }
@@ -58,34 +61,53 @@ public final class Simulador {
     
     public static void simularDia() {
         
-        simularDiaIstalacao();
-        simularDiaFuncionarios();
-        simularDiaClientes();
-        atualizarData();
         
+        if(!Zoo.getAllInstalacoes().isEmpty()){
+            
+            simularDiaIstalacao();
+        
+            if(!Zoo.getAllEmpregados().isEmpty())
+                simularDiaFuncionarios();
+            else
+                simuladorMensagem("O Zoo não tem empregados para simular.");
+            
+            simularDiaClientes();
+            
+        }else
+             simuladorMensagem("O Zoo não tem Instalações para simular");
+        
+        
+        atualizarData();
+    
     }
      
     private static void atualizarData(){
-         if(diaCorrente == mesCorrente.getDias()){
+        
+        if(diaCorrente == mesCorrente.getDias()){
             
-            diaCorrente = 0;
+            diaCorrente = 1;
             
             if ( mesCorrente == Meses.DEZEMBRO ) {
                 mesCorrente=Meses.JANEIRO;
-                
+                anoCorrente++;
                 pagarEmpregados();
                 periodoComtabilistico(false);
             }else
                 mesCorrente = Meses.values()[mesCorrente.ordinal()+1] ;
             
+            
         }else
             diaCorrente++;
+         
+        simuladorMensagem("fim do dia: " + diaCorrente + "-" + mesCorrente+"-"+ anoCorrente + " !");
+
     }
     
     private static void simularDiaIstalacao(){ // ainmais e instalacao
         
         ArrayList<Instalacao> instalacoes = Zoo.getAllInstalacoes();
         ArrayList<Animal> todosAnimais;
+        String mesg = "";
         
         for (Instalacao inst : instalacoes) {
             
@@ -102,14 +124,19 @@ public final class Simulador {
                     
                     inst.ocoreuMorte();
                     Zoo.getAllObitos().add(animalSuadavel);
-                    Historico.adicionarAcontecimento(Acontecimentos.OBITO, "O Animal:" + animalSuadavel + "morreu de " + morte + ".", diaCorrente, mesCorrente, anoCorrente);
-                
+                    mesg = "O Animal:" + animalSuadavel + " Morreu de " + morte + ".";
+                    Historico.adicionarAcontecimento(Acontecimentos.OBITO, mesg, diaCorrente, mesCorrente, anoCorrente);
+                    simuladorMensagem(mesg);
+                    
                 } else {
                     
                     //ver se fica doente
                     if( animalSuadavel.ficaDoente(inst)){
                         inst.getAnimaisSaudaveis().remove(animalSuadavel);
                         inst.getAnimaisDoentes().add(animalSuadavel);
+                        mesg = "O Animal:" + animalSuadavel + " Ficou doente." ;
+                        Historico.adicionarAcontecimento(Acontecimentos.ANIMALDOETE, mesg, diaCorrente, mesCorrente, anoCorrente);
+                        simuladorMensagem(mesg);
                     }
                     
                     //ver se foge
@@ -118,7 +145,10 @@ public final class Simulador {
                         inst.ocoreuFuga();
                         inst.getAnimaisSaudaveis().remove(animalSuadavel);
                         Zoo.getAllSemiLivres().put(animalSuadavel,inst);
-                        Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, "O Animal:" + animalSuadavel + "Fugio da instalacao " + inst + ".", diaCorrente, mesCorrente, anoCorrente);
+                        mesg = "O Animal:" + animalSuadavel + " Fugio da instalacao " + inst + ".";
+                        Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, mesg, diaCorrente, mesCorrente, anoCorrente);
+                        simuladorMensagem(mesg);
+                        
 
                     }else{
                         
@@ -142,11 +172,14 @@ public final class Simulador {
 
                         if (novo != null){
                             Zoo.getAllNascimentos().add(novo);
-                            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, "O Animal:" + novo + "nasceu.", diaCorrente, mesCorrente, anoCorrente);
+                            mesg = "O Animal:" + novo + " nasceu. Foi adicionado aos Nascimenntos á espera de ser realocado !";
+                            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO,mesg , diaCorrente, mesCorrente, anoCorrente);
+                            simuladorMensagem(mesg);
                         }
                         
                         //envelhecer
                         animalSuadavel.envelhecer();
+                        simuladorMensagem("O Animal:" + animalSuadavel + " envelheceu");
                     }
                 }
             }
@@ -164,8 +197,9 @@ public final class Simulador {
                     
                     inst.ocoreuMorte();
                     Zoo.getAllObitos().add(animalDoente);
-                    Historico.adicionarAcontecimento(Acontecimentos.OBITO, "O Animal:" + animalDoente + "morreu de " + morte + "." , diaCorrente, mesCorrente, anoCorrente);
-                
+                    mesg = "O Animal:" + animalDoente + " Morreu de " + morte + ".";
+                    Historico.adicionarAcontecimento(Acontecimentos.OBITO, mesg, diaCorrente, mesCorrente, anoCorrente);
+                    simuladorMensagem(mesg);
                 } else {
                     
                     //ver se foge
@@ -174,8 +208,10 @@ public final class Simulador {
                         inst.ocoreuFuga();
                         inst.getAnimaisDoentes().remove(animalDoente);
                         Zoo.getAllSemiLivres().put(animalDoente,inst);
-                        Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, "O Animal:" + animalDoente + "Fugio da instalacao " + inst + ".", diaCorrente, mesCorrente, anoCorrente);
-
+                        mesg = "O Animal:" + animalDoente + " Fugio da instalacao " + inst + ".";
+                        Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, mesg, diaCorrente, mesCorrente, anoCorrente);
+                        simuladorMensagem(mesg);
+                        
                     }else{
                         
                         //ver se repruduz
@@ -197,13 +233,16 @@ public final class Simulador {
 
                         if (novo != null){
                             Zoo.getAllNascimentos().add(novo);
-                            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, "O Animal:" + novo + "nasceu.", diaCorrente, mesCorrente, anoCorrente);
+                            mesg = "O Animal:" + novo + " nasceu. Foi adicionado aos Nascimenntos á espera de ser realocado !";
+                            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO,mesg , diaCorrente, mesCorrente, anoCorrente);
+                            simuladorMensagem(mesg);
                         }
                         
                     }
                     
                     //envelhecer
                     animalDoente.envelhecer();
+                    simuladorMensagem("O Animal:" + animalDoente + " envelheceu");
                 }
             }
             
@@ -288,15 +327,19 @@ public final class Simulador {
         for (Cliente cliente: clientes) {
             
             if(cliente.pagar(Zoo.getEntrada())){
+                
                 Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "Entrada paga cliente " + cliente , diaCorrente, mesCorrente, anoCorrente ,Zoo.getEntrada());
+                Simulador.simuladorMensagem("O Cliente:" + cliente + " pagou a entrada");
                 
                 for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
                 
                     for (Animal animal: instalacao.getAnimaisTodos()) {
 
                         dinheiroOferecido = cliente.oferecerDinheiro(animal);
-                        if (dinheiroOferecido == 0) 
+                        if (dinheiroOferecido == 0){
                             Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "O cliente " + cliente + " ofereceu dinheiro ao animal " + animal, diaCorrente, mesCorrente, anoCorrente);
+                            Simulador.simuladorMensagem("O Cliente:" + cliente + " ofereceu dinheiro.");
+                        }
                     }
                 }
             
@@ -319,7 +362,7 @@ public final class Simulador {
         
         for (int i = 0; i < nClienets; i++) {
             
-            nome = Gerador.getNomes().get(Gerador.gerarNumero(0,Gerador.getNomes().size() ));
+            nome = Gerador.getPessoas().get(Gerador.gerarNumero(0,Gerador.getPessoas().size() ));
             nif = Gerador.gerarNIF();
             idade = Gerador.gerarNumero(1, 120);
             generozidade = Gerador.gerarNumero(0, 99);
@@ -339,7 +382,8 @@ public final class Simulador {
         double salario;
         for( Empregado empregado:Zoo.getAllEmpregados()){
             salario = empregado.getSalario();
-            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, "O empregado " + empregado + "foi pago", diaCorrente, mesCorrente, anoCorrente,salario);
+            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, "O empregado " + empregado + " foi pago.", diaCorrente, mesCorrente, anoCorrente,salario);
+            Simulador.simuladorMensagem("O empregado " + empregado + " foi pago.");
         }
     }
     
@@ -361,10 +405,13 @@ public final class Simulador {
             }
                  
         }
-
-        Historico.adicionarAcontecimento(Acontecimentos.INFO, "Peridodo de contas lucro: " + lucro + "despesas: " + custo + "balanço: " + (lucro-custo), diaCorrente, mesCorrente, anoCorrente);
+        
         if(manual)
-            System.out.println("Peridodo de contas lucro: " + lucro + "despesas: " + custo + "balanço: " + (lucro-custo) );
+            System.out.println("Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro-custo) );
+        else{
+            Simulador.simuladorMensagem("Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro - custo));
+            Historico.adicionarAcontecimento(Acontecimentos.INFO, "Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro - custo), diaCorrente, mesCorrente, anoCorrente);
+        }
     }
     
 }

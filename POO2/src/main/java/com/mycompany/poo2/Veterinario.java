@@ -34,9 +34,11 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
                 
                 if(animalDoente.ficaCorado(this)){
                     String mesg = "O animal o animal " + animalDoente + "foi curado pelo veterinário " + this;
+                    Simulador.simuladorMensagem(mesg);
                     Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,Gerador.gerarNumero(50, 150));
                 } else {
                     String mesg = "Tentativa de curar o animal " + animalDoente + " pelo veterinário " + this;
+                    Simulador.simuladorMensagem(mesg);
                     Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,Gerador.gerarNumero(25, 50));
                 }
             }           
@@ -66,6 +68,11 @@ public class Veterinario extends Empregado implements Registo<Veterinario>{
         fstr.addAtributo("TotalTarefas", this.getTotalTarefas());
 
         return fstr;
+    }
+    
+    @Override
+    public String toString() {
+        return "Veterinário: " + super.toString();
     }
     
     public static int getQuantidade() {
