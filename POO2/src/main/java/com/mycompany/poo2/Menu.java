@@ -608,7 +608,7 @@ public abstract class Menu {
     public void listarAnimais(boolean mutados){
         
         if (Zoo.getAllInstalacoes().isEmpty()) {
-            System.out.println("O Zoo não tem Animis !");
+            System.out.println("O Zoo não tem Animais !");
 
         } else {
             

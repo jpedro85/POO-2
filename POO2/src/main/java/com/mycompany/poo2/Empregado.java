@@ -118,6 +118,6 @@ public abstract class Empregado extends Pessoa {
 
     @Override
     public String toString() {
-        return "empregado :" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas + " Salário base: " + this.getSalarioBase() + " Salário: " + this.getSalario();
+        return super.toString() + " Bunos por tarefa:" + this.bonusTarefa + " Experiência:" + this.experiencia + " Max Tarefas:" + this.maxTarefas + " Total de Tarefas:" + this.totalTarefas + " Salário base:" + this.getSalarioBase() + " Salário:" + this.getSalario();
     }
 }

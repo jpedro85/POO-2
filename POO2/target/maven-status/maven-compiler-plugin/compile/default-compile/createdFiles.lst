@@ -5,6 +5,7 @@ com\mycompany\poo2\Empregado.class
 com\mycompany\poo2\Acontecimentos.class
 com\mycompany\poo2\Zoo.class
 com\mycompany\poo2\CararcteristicasEspecificas.class
+com\mycompany\poo2\Empreiteira.class
 com\mycompany\poo2\Registo.class
 com\mycompany\poo2\Zelador.class
 com\mycompany\poo2\MenuSimulador.class
@@ -46,4 +47,5 @@ com\mycompany\poo2\Pessoa.class
 com\mycompany\poo2\Gerador.class
 com\mycompany\poo2\Gravador.class
 com\mycompany\poo2\Historico$Acontecimento.class
+com\mycompany\poo2\MenuEventos.class
 com\mycompany\poo2\GeneSexo.class

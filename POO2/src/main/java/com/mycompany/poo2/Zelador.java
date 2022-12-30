@@ -34,14 +34,14 @@ public class Zelador extends Empregado implements Registo<Zelador>{
 
         if (instalacao.precisaLimpeza()) {
             instalacao.limpar();
-            String mesg = "Limpeza da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome();
+            String mesg = "Limpeza da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome() + " pelo " + this;
             Simulador.simuladorMensagem(mesg);
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,instalacao.getCustoLimpeza());
         }
         
         if (instalacao.precisaManutencao() && Gerador.gerarProbabilidade() < this.getExperiencia()) {
             instalacao.reparar();
-            String mesg = "Manutenção da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome();
+            String mesg = "Manutenção da instalacao id " +  instalacao.getId() + " nome:" + instalacao.getNome() + " pelo " + this;
             Simulador.simuladorMensagem(mesg);
             Historico.adicionarAcontecimento(Acontecimentos.DESPESA,mesg, dia, mes, ano,instalacao.getCustoManutencao());
         }        
@@ -74,7 +74,7 @@ public class Zelador extends Empregado implements Registo<Zelador>{
     
     @Override
     public String toString() {
-        return "Zelador: " + super.toString();
+        return "Zelador{" + super.toString() +"}";
     }
     
     public static ArrayList<Zelador> getAllInstances(){

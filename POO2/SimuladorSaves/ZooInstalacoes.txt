@@ -1,1 +1,0 @@
-Instalacao(Nome:Instalacao_80070;Id:1;Capacidade:45;CustoLimpeza:2088.0722109482444;CustoManutencao:3497.335951636705;UltimaManutencao:0;EntrevaloLimiteManutencao:21;Sujidade:0;Condicao:100;Ambiente:floresta;Saudaveis:[,];Doentes:[,];)

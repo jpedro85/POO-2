@@ -8,7 +8,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;

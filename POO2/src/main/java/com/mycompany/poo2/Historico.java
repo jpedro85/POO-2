@@ -207,7 +207,7 @@ public final class Historico {
         
         @Override
         public String toString() {
-            return "Dia:" + this.getDia() + " Mês:" + this.getMes() + " Ano:" + this.getAno() + " Acontecimento: " + Acontecimentos.DESPESA + " " + this.valor + "\n\t"+"desscricao: " + this.getDesscricao() + "\n";
+            return "Dia:" + this.getDia() + " Mês:" + this.getMes() + " Ano:" + this.getAno() + " Acontecimento: " + this.getTipo() + " " + this.valor + "\n\t"+"desscricao: " + this.getDesscricao() + "\n";
         }
         
         @Override

@@ -50,7 +50,7 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         
         if (dieta.equals(Dieta.VEGETARIANO.toString())) {
 
-            mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
+            mesg = "O animal " + animalDoente + " foi alimentado pelo " + this;
             desconto = this.getExperiencia() * 0.2;
             desconto = desconto > 20 ? 20 : desconto;
             Simulador.simuladorMensagem(mesg);
@@ -58,7 +58,7 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         
         } else if (dieta.equals(Dieta.OMNIVORO.toString())) {
 
-            mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
+            mesg = "O animal " + animalDoente + " foi alimentado pelo " + this;
             desconto = this.getExperiencia() * 0.2;
             desconto = desconto > 40 ? 40 : desconto;
             Simulador.simuladorMensagem(mesg);
@@ -66,7 +66,7 @@ public class Tratador extends Empregado implements Registo<Tratador>{
         
         } else {
 
-            mesg = "O animal " + animalDoente + " foi alimentado pelo tratador " + this;
+            mesg = "O animal " + animalDoente + " foi alimentado pelo " + this;
             desconto = this.getExperiencia() * 0.2;
             desconto = desconto > 30 ? 30 : desconto;
             Simulador.simuladorMensagem(mesg);
@@ -99,7 +99,7 @@ public class Tratador extends Empregado implements Registo<Tratador>{
 
     @Override
     public String toString() {
-        return "Tratador: " + super.toString();
+        return "Tratador{" + super.toString() +"}";
     }
     
     public static int getQuantidade() {

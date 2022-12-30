@@ -34,15 +34,17 @@ public class FormatedString {
     public FormatedString(String str) throws RepresentacaoInvalidaDoTipo {
         
         this.atributos = new LinkedHashMap<>();
-        
+        //int contador = 0;
+        //String campo = "",valor = "",temp="";
         try{
             
-            int contador = 0;
+           // int contador = 0;
             int end = str.indexOf('(');
             this.tipo = str.substring(0, end);
             
             String campo = "",valor = "",temp="";
             while(true){
+                //contador++;
                 
                 str = str.substring( end+1 );
                 end = str.indexOf(":");
@@ -75,6 +77,7 @@ public class FormatedString {
             }
             
         } catch(Exception e ) {
+            //System.out.println("exeção :" + e.getMessage() + ":" + campo + ":" + valor + ":" + contador);
             throw new RepresentacaoInvalidaDoTipo("A string " + str + " não está fromatada corretamente." );          
         }
         

@@ -413,6 +413,7 @@ public final class Simulador {
             if(evento.getTipo() == Acontecimentos.DESPESA){
             
                 System.out.println(evento);
+                System.out.println(evento.getClass().getSimpleName());
                 custo += ((Historico.AcontecimentoMonetario)evento).getValor();
             }
                  

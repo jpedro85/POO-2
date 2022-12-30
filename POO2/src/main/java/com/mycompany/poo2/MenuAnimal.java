@@ -47,6 +47,7 @@ public final class MenuAnimal extends Menu {
                 break;
             case 2:
                 this.listarAnimais(true);
+                this.pedirContinuar();
                 break;
             case 3:
                 this.listarAnimaisComGene();
@@ -84,7 +85,7 @@ public final class MenuAnimal extends Menu {
         animalGerado = animais.get(this.pedirOpcao(contador-1) );
         Zoo.getAllNascimentos().add(animalGerado);
         System.out.println("O Animal: " + animalGerado + "Foi comprado !");
-        Historico.adicionarAcontecimento(Acontecimentos.DESPESA, "O Animal: " + animalGerado.getNomeArtistico() + " id: "+ animalGerado.getId() + " Foi comprado", Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
+        Historico.adicionarAcontecimento(Acontecimentos.DESPESA, "O Animal: " + animalGerado.getNomeArtistico() + " id: "+ animalGerado.getId() + " Foi comprado", Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente(),Gerador.gerarValorAnimal(animalGerado) );
         
         this.pedirContinuar();
     }
@@ -92,7 +93,7 @@ public final class MenuAnimal extends Menu {
     private void listarAnimaisComGene(){
         
         if (Zoo.getAllInstalacoes().isEmpty()) {
-            System.out.println("O Zoo não tem Animis !");
+            System.out.println("O Zoo não tem Animais !");
             this.pedirContinuar();
         } else {
             
@@ -117,7 +118,7 @@ public final class MenuAnimal extends Menu {
                 }
 
                 if (!temAnimais) {
-                    System.out.println("O Zoo não tem Animis !");
+                    System.out.println("O Zoo não tem Animais !");
                 }
 
             }
@@ -418,6 +419,8 @@ public final class MenuAnimal extends Menu {
                     Historico.adicionarAcontecimento(Acontecimentos.INFO,"O Animal " + realocar.getNomeArtistico() + " id: " + realocar.getId() + " foi realocado para " + instRealocar.getNome()  , Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
 
                 }
+                
+                this.pedirContinuar();
             }
             
         } else {
@@ -439,29 +442,36 @@ public final class MenuAnimal extends Menu {
                
                 Instalacao instRealocar = this.pedirInstalacao();
                     
-                if (instRealocar.getVacancia() == 0) {
+                if (instRealocar != null) {
+                  
+                    if (instRealocar.getVacancia() == 0) {
 
-                    if(realocar.estaDoente())
-                        instRealocar.getAnimaisDoentes().set(Gerador.gerarNumero(0, instRealocar.getCapacidade()-1), realocar);
-                    else
-                        instRealocar.getAnimaisSaudaveis().set(Gerador.gerarNumero(0, instRealocar.getCapacidade()-1), realocar);
+                        if (realocar.estaDoente()) {
+                            instRealocar.getAnimaisDoentes().set(Gerador.gerarNumero(0, instRealocar.getCapacidade() - 1), realocar);
+                        } else {
+                            instRealocar.getAnimaisSaudaveis().set(Gerador.gerarNumero(0, instRealocar.getCapacidade() - 1), realocar);
+                        }
 
-                }else{
+                    } else {
 
-                    if(realocar.estaDoente())
-                        instRealocar.getAnimaisDoentes().add( realocar);
-                    else
-                        instRealocar.getAnimaisSaudaveis().add(realocar);
+                        if (realocar.estaDoente()) {
+                            instRealocar.getAnimaisDoentes().add(realocar);
+                        } else {
+                            instRealocar.getAnimaisSaudaveis().add(realocar);
+                        }
 
+                    }
+
+                    System.out.println("O Animal " + realocar + " foi ralocado para" + instRealocar.getNome());
+                    Historico.adicionarAcontecimento(Acontecimentos.INFO, "O Animal " + realocar.getNomeArtistico() + " id: " + realocar.getId() + " foi realocado para " + instRealocar.getNome(), Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
+                    
+                    this.pedirContinuar();
+                    
                 }
-
-                System.out.println("O Animal " + realocar + " foi ralocado para" + instRealocar.getNome() );
-                Historico.adicionarAcontecimento(Acontecimentos.INFO,"O Animal " + realocar.getNomeArtistico() + " id: " + realocar.getId() + " foi realocado para " + instRealocar.getNome()  , Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
-
             }
         }
             
-        this.pedirContinuar();
+   
         
     }
 

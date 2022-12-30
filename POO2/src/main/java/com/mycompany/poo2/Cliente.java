@@ -112,7 +112,7 @@ public class Cliente extends Pessoa {
     
     @Override
     public String toString() {
-        return "O Cliente tem:\n\t"+super.toString()+" Saldo:"+this.saldo+" Generosidade:"+this.generosidade+" Interece:"+this.interece;
+        return "Cliente{"+super.toString()+" Saldo:"+this.saldo+" Generosidade:"+this.generosidade+" Interece:"+this.interece+"}";
     }
     
 }

@@ -38,7 +38,7 @@ public class Animal implements Gravavel {
         this.doente = false;
         this.tratado = true;
         this.ultimaTratacao = 0 ;
-        this.nomeArtistico = this.genoma.getEspecie().getNome() + "_animal_ " + this.id ;
+        this.nomeArtistico = this.genoma.getEspecie().getNome() + "_animal_" + this.id ;
         
     }
     
@@ -69,9 +69,9 @@ public class Animal implements Gravavel {
         if( !fstr.getTipo().equals( className ) ) throw  new RepresentacaoInvalidaDoTipo("FormatedString fsrt não representa um : " + Instalacao.class.getSimpleName() );
         
         this.nomeArtistico = fstr.getAtributo("NomeArtistico",className);
-        this.nomeArtisticoPai = fstr.getAtributo("NomePai",className);
-        this.nomeArtisticoMae = fstr.getAtributo("NomeMae",className);
-        this.genoma = new Genoma(  new FormatedString(fstr.getAtributo("NomeArtistico",className)) );
+        this.nomeArtisticoPai = fstr.getAtributo("NomeArtisticoPai",className);
+        this.nomeArtisticoMae = fstr.getAtributo("NomeArtisticoMae",className);
+        this.genoma = new Genoma(  new FormatedString(fstr.getAtributo("Genoma",className)) );
         this.id = Integer.parseInt(fstr.getAtributo("Id",className));
         this.idade = Integer.parseInt(fstr.getAtributo("Idade",className));
         this.atratividadeBase = Integer.parseInt(fstr.getAtributo("AtratividadeBase",className));
