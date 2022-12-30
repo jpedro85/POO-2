@@ -159,7 +159,7 @@ public final class Historico {
         
         @Override
         public String toString() {
-            return "Ano:" + dia + " Mês:" + mes + " Ano:" + ano + " Acontecimento:" + this.tipo + "\n\t"+"desscricao: " + this.desscricao +"\n";
+            return "Dia:" + dia + " Mês:" + mes + " Ano:" + ano + " Acontecimento:" + this.tipo + "\n\t"+"desscricao: " + this.desscricao +"\n";
         }
 
         @Override

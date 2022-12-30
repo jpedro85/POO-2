@@ -42,7 +42,7 @@ public class FormatedString {
             int end = str.indexOf('(');
             this.tipo = str.substring(0, end);
             
-            String campo = "",valor = "",temp="";
+            String campo = "",valor = "";
             while(true){
                 //contador++;
                 
@@ -253,7 +253,7 @@ public class FormatedString {
     }
 
     private static <Tipo> Object novaInstancia(Class<Tipo> cclass , FormatedString fstr) throws RepresentacaoInvalidaDoTipo{
-
+        
         switch (cclass.getSimpleName()) {
 
             case "GeneAtratividade":

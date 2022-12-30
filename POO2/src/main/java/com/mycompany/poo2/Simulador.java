@@ -104,11 +104,11 @@ public final class Simulador {
             if ( mesCorrente == Meses.DEZEMBRO ) {
                 mesCorrente=Meses.JANEIRO;
                 anoCorrente++;
+            }else{
+                mesCorrente = Meses.values()[mesCorrente.ordinal()+1] ;
                 pagarEmpregados();
                 periodoComtabilistico(false);
-            }else
-                mesCorrente = Meses.values()[mesCorrente.ordinal()+1] ;
-            
+            }
             
         }else
             diaCorrente++;
@@ -118,147 +118,163 @@ public final class Simulador {
     private static void simularDiaIstalacao(){ // ainmais e instalacao
         
         ArrayList<Instalacao> instalacoes = Zoo.getAllInstalacoes();
-        ArrayList<Animal> todosAnimais;
         String mesg = "";
         
         for (Instalacao inst : instalacoes) {
-            
-            todosAnimais = inst.getAnimaisSaudaveis();
-            
-            for (Animal animalSuadavel : todosAnimais) {
+ 
+            if (!inst.getAnimaisSaudaveis().isEmpty()) {
                 
-                //ficar com fome
-                animalSuadavel.ressetTratado();
+                ArrayList<Animal> novoArray = new ArrayList<>();
+                novoArray.addAll(inst.getAnimaisSaudaveis());
                 
-                //ver se moorre
-                TipoMorte morte = animalSuadavel.morre();
-                if( morte != null){
-                    
-                    inst.ocoreuMorte();
-                    Zoo.getAllObitos().add(animalSuadavel);
-                    mesg = "O Animal:" + animalSuadavel + " Morreu de " + morte + ".";
-                    Historico.adicionarAcontecimento(Acontecimentos.OBITO, mesg, diaCorrente, mesCorrente, anoCorrente);
-                    simuladorMensagem(mesg);
-                    
-                } else {
-                    
-                    //ver se fica doente
-                    if( animalSuadavel.ficaDoente(inst)){
-                        inst.getAnimaisSaudaveis().remove(animalSuadavel);
-                        inst.getAnimaisDoentes().add(animalSuadavel);
-                        mesg = "O Animal:" + animalSuadavel + " Ficou doente." ;
-                        Historico.adicionarAcontecimento(Acontecimentos.ANIMALDOETE, mesg, diaCorrente, mesCorrente, anoCorrente);
-                        simuladorMensagem(mesg);
-                    }
-                    
-                    //ver se foge
-                    if(animalSuadavel.foge(inst,jumangi)){
-                        
-                        inst.ocoreuFuga();
-                        inst.getAnimaisSaudaveis().remove(animalSuadavel);
-                        Zoo.getAllSemiLivres().put(animalSuadavel,inst);
-                        mesg = "O Animal:" + animalSuadavel + " Fugio da instalacao " + inst + ".";
-                        Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, mesg, diaCorrente, mesCorrente, anoCorrente);
-                        simuladorMensagem(mesg);
-                        
+                for (Animal animalSuadavel : novoArray) {
 
-                    }else{
-                        
-                        //ver se repruduz
-                        Animal novo = null;
-                        for (Animal animal : inst.getAnimaisSaudaveis() ) {
+                    //ficar com fome
+                    animalSuadavel.ressetTratado();
 
-                            novo = animalSuadavel.reproduzir(animal);
-                            if(novo != null) break;
+                    //ver se moorre
+                    TipoMorte morte = animalSuadavel.morre();
+                    if (morte != null) {
+
+                        inst.ocoreuMorte();
+                        Zoo.getAllObitos().add(animalSuadavel);
+                        mesg = "O Animal:" + animalSuadavel + " Morreu de " + morte + ".";
+                        Historico.adicionarAcontecimento(Acontecimentos.OBITO, mesg, diaCorrente, mesCorrente, anoCorrente);
+                        simuladorMensagem(mesg);
+
+                    } else {
+
+                        //ver se fica doente
+                        if (animalSuadavel.ficaDoente(inst)) {
+                            inst.getAnimaisSaudaveis().remove(animalSuadavel);
+                            inst.getAnimaisDoentes().add(animalSuadavel);
+                            mesg = "O Animal:" + animalSuadavel + " Ficou doente.";
+                            Historico.adicionarAcontecimento(Acontecimentos.ANIMALDOETE, mesg, diaCorrente, mesCorrente, anoCorrente);
+                            simuladorMensagem(mesg);
                         }
 
-                        if ( novo == null) {
+                        //ver se foge
+                        if (animalSuadavel.foge(inst, jumangi)) {
 
-                            for (Animal animal : inst.getAnimaisDoentes() ) {
+                            inst.ocoreuFuga();
+                            inst.getAnimaisSaudaveis().remove(animalSuadavel);
+                            Zoo.getAllSemiLivres().put(animalSuadavel, inst);
+                            mesg = "O Animal:" + animalSuadavel + " Fugio da instalacao " + inst + ".";
+                            Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, mesg, diaCorrente, mesCorrente, anoCorrente);
+                            simuladorMensagem(mesg);
+
+                        } else {
+
+                            //ver se repruduz
+                            Animal novo = null;
+                            for (Animal animal : inst.getAnimaisSaudaveis()) {
 
                                 novo = animalSuadavel.reproduzir(animal);
-                                if(novo != null) break;
-
+                                if (novo != null) {
+                                    break;
+                                }
                             }
-                        }
 
-                        if (novo != null){
-                            Zoo.getAllNascimentos().add(novo);
-                            mesg = "O Animal:" + novo + " nasceu. Foi adicionado aos Nascimenntos á espera de ser realocado !";
-                            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO,mesg , diaCorrente, mesCorrente, anoCorrente);
-                            simuladorMensagem(mesg);
+                            if (novo == null) {
+
+                                for (Animal animal : inst.getAnimaisDoentes()) {
+
+                                    novo = animalSuadavel.reproduzir(animal);
+                                    if (novo != null) {
+                                        break;
+                                    }
+
+                                }
+                            }
+
+                            if (novo != null) {
+                                Zoo.getAllNascimentos().add(novo);
+                                mesg = "O Animal:" + novo + " nasceu. Foi adicionado aos Nascimenntos á espera de ser realocado !";
+                                Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, mesg, diaCorrente, mesCorrente, anoCorrente);
+                                simuladorMensagem(mesg);
+                            }
+
+                            //envelhecer
+                            animalSuadavel.envelhecer();
+                            simuladorMensagem("O Animal:" + animalSuadavel + " envelheceu");
                         }
-                        
-                        //envelhecer
-                        animalSuadavel.envelhecer();
-                        simuladorMensagem("O Animal:" + animalSuadavel + " envelheceu");
                     }
                 }
+                
             }
             
-            todosAnimais = inst.getAnimaisDoentes();
-            
-            for (Animal animalDoente : todosAnimais) {
+            if (!inst.getAnimaisDoentes().isEmpty()){
                 
-                //ficar com fome
-                animalDoente.ressetTratado();
-                
-                //ver se moorre
-                TipoMorte morte = animalDoente.morre();
-                if( morte != null){
-                    
-                    inst.ocoreuMorte();
-                    Zoo.getAllObitos().add(animalDoente);
-                    mesg = "O Animal:" + animalDoente + " Morreu de " + morte + ".";
-                    Historico.adicionarAcontecimento(Acontecimentos.OBITO, mesg, diaCorrente, mesCorrente, anoCorrente);
-                    simuladorMensagem(mesg);
-                } else {
-                    
-                    //ver se foge
-                    if(animalDoente.foge(inst,jumangi)){
-                        
-                        inst.ocoreuFuga();
-                        inst.getAnimaisDoentes().remove(animalDoente);
-                        Zoo.getAllSemiLivres().put(animalDoente,inst);
-                        mesg = "O Animal:" + animalDoente + " Fugio da instalacao " + inst + ".";
-                        Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, mesg, diaCorrente, mesCorrente, anoCorrente);
+                ArrayList<Animal> novoArrayq = new ArrayList<>();
+                novoArrayq.addAll(inst.getAnimaisDoentes());
+
+                for (Animal animalDoente : novoArrayq) {
+
+                    //ficar com fome
+                    animalDoente.ressetTratado();
+
+                    //ver se moorre
+                    TipoMorte morte = animalDoente.morre();
+                    if (morte != null) {
+
+                        inst.ocoreuMorte();
+                        Zoo.getAllObitos().add(animalDoente);
+                        mesg = "O Animal:" + animalDoente + " Morreu de " + morte + ".";
+                        Historico.adicionarAcontecimento(Acontecimentos.OBITO, mesg, diaCorrente, mesCorrente, anoCorrente);
                         simuladorMensagem(mesg);
-                        
-                    }else{
-                        
-                        //ver se repruduz
-                        Animal novo = null;
-                        for (Animal animal : inst.getAnimaisSaudaveis() ) {
+                    } else {
 
-                            novo = animalDoente.reproduzir(animal);
-                            if(novo != null) break;
-                        }
+                        //ver se foge
+                        if (animalDoente.foge(inst, jumangi)) {
 
-                        if ( novo == null) {
+                            inst.ocoreuFuga();
+                            inst.getAnimaisDoentes().remove(animalDoente);
+                            Zoo.getAllSemiLivres().put(animalDoente, inst);
+                            mesg = "O Animal:" + animalDoente + " Fugio da instalacao " + inst + ".";
+                            Historico.adicionarAcontecimento(Acontecimentos.FUGAANIMAL, mesg, diaCorrente, mesCorrente, anoCorrente);
+                            simuladorMensagem(mesg);
 
-                            for (Animal animal : inst.getAnimaisDoentes() ) {
+                        } else {
+
+                            //ver se repruduz
+                            Animal novo = null;
+                            for (Animal animal : inst.getAnimaisSaudaveis()) {
 
                                 novo = animalDoente.reproduzir(animal);
-                                if(novo != null) break;
-                            } 
+                                if (novo != null) {
+                                    break;
+                                }
+                            }
+
+                            if (novo == null) {
+
+                                for (Animal animal : inst.getAnimaisDoentes()) {
+
+                                    novo = animalDoente.reproduzir(animal);
+                                    if (novo != null) {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (novo != null) {
+                                Zoo.getAllNascimentos().add(novo);
+                                mesg = "O Animal:" + novo + " nasceu. Foi adicionado aos Nascimenntos á espera de ser realocado !";
+                                Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO, mesg, diaCorrente, mesCorrente, anoCorrente);
+                                simuladorMensagem(mesg);
+                            }
+
                         }
 
-                        if (novo != null){
-                            Zoo.getAllNascimentos().add(novo);
-                            mesg = "O Animal:" + novo + " nasceu. Foi adicionado aos Nascimenntos á espera de ser realocado !";
-                            Historico.adicionarAcontecimento(Acontecimentos.NASCIMENTO,mesg , diaCorrente, mesCorrente, anoCorrente);
-                            simuladorMensagem(mesg);
-                        }
-                        
+                        //envelhecer
+                        animalDoente.envelhecer();
+                        simuladorMensagem("O Animal:" + animalDoente + " envelheceu");
                     }
-                    
-                    //envelhecer
-                    animalDoente.envelhecer();
-                    simuladorMensagem("O Animal:" + animalDoente + " envelheceu");
                 }
-            }
             
-            inst.desgaste();    
+            }
+            inst.desgaste(); 
+            
         }
     }
     
@@ -351,8 +367,8 @@ public final class Simulador {
                     for (Animal animal: instalacao.getAnimaisTodos()) {
 
                         dinheiroOferecido = cliente.oferecerDinheiro(animal);
-                        if (dinheiroOferecido == 0){
-                            Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "O cliente " + cliente + " ofereceu dinheiro ao animal " + animal, diaCorrente, mesCorrente, anoCorrente);
+                        if (dinheiroOferecido != 0){
+                            Historico.adicionarAcontecimento(Acontecimentos.LUCRO, "O cliente " + cliente + " ofereceu dinheiro ao animal " + animal, diaCorrente, mesCorrente, anoCorrente,dinheiroOferecido);
                             Simulador.simuladorMensagem("O Cliente:" + cliente + " ofereceu dinheiro.");
                         }
                     }
@@ -408,15 +424,12 @@ public final class Simulador {
         for (Historico.Acontecimento evento : Historico.getAcontecimentos()) {
             
             if(evento.getTipo() == Acontecimentos.LUCRO){
-            
-                System.out.println(evento);
+                
                 lucro += ((Historico.AcontecimentoMonetario)evento).getValor();
             }
             
             if(evento.getTipo() == Acontecimentos.DESPESA){
             
-                System.out.println(evento);
-                System.out.println(evento.getClass().getSimpleName());
                 custo += ((Historico.AcontecimentoMonetario)evento).getValor();
             }
                  
@@ -426,7 +439,7 @@ public final class Simulador {
             System.out.println("Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro-custo) );
         else{
             Simulador.simuladorMensagem("Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro - custo));
-            Historico.adicionarAcontecimento(Acontecimentos.INFO, "Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro - custo), diaCorrente, mesCorrente, anoCorrente);
+            Historico.adicionarAcontecimento(Acontecimentos.CONTAS, "Peridodo de contas lucro: " + lucro + " despesas: " + custo + " balanço: " + (lucro - custo), diaCorrente, mesCorrente, anoCorrente);
         }
     }
     

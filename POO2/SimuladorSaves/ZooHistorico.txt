@@ -9,3 +9,4 @@ Acontecimento(Tipo:Informação;Descrição:O Animal Dragão_animal_12 id: 12 fo
 Acontecimento(Tipo:Contratação;Descrição:For Contratado o Tratador{Nome: Guilherme NIF: 72253808 Idade:42 Bunos por tarefa:19 Experiência:16 Max Tarefas:35 Total de Tarefas:0 Salário base:1652.1352368972898 Salário:2750.8051694339874};Dia:1;Mês:janeiro;Ano:1;)
 Acontecimento(Tipo:Contratação;Descrição:For Contratado o Veterinário{Nome: Emanuel NIF: 26038017 Idade:42 Bunos por tarefa:187 Experiência:37 Max Tarefas:3 Total de Tarefas:0 Salário base:3313.1765694115165 Salário:5171.868624851378};Dia:1;Mês:janeiro;Ano:1;)
 Acontecimento(Tipo:Contratação;Descrição:For Contratado o Zelador{Nome: Yuri NIF: 39499068 Idade:65 Bunos por tarefa:38 Experiência:13 Max Tarefas:3 Total de Tarefas:0 Salário base:1049.8686611110131 Salário:1169.5536884776686};Dia:1;Mês:janeiro;Ano:1;)
+Acontecimento(Tipo:Construção;Descrição:Foi Construida a instalação Instalacao_57346 id:3;Dia:1;Mês:janeiro;Ano:1;)

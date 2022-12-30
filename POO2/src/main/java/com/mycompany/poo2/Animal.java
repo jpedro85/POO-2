@@ -72,13 +72,17 @@ public class Animal implements Gravavel {
         this.nomeArtisticoPai = fstr.getAtributo("NomeArtisticoPai",className);
         this.nomeArtisticoMae = fstr.getAtributo("NomeArtisticoMae",className);
         this.genoma = new Genoma(  new FormatedString(fstr.getAtributo("Genoma",className)) );
-        this.id = Integer.parseInt(fstr.getAtributo("Id",className));
-        this.idade = Integer.parseInt(fstr.getAtributo("Idade",className));
-        this.atratividadeBase = Integer.parseInt(fstr.getAtributo("AtratividadeBase",className));
-        this.doente = Boolean.parseBoolean(fstr.getAtributo("Doente",className));
-        this.tratado = Boolean.parseBoolean(fstr.getAtributo("Tratado",className));
-        this.ultimaTratacao = Integer.parseInt(fstr.getAtributo("UltimaTratacao",className));
         
+        try{
+            this.id = Integer.parseInt(fstr.getAtributo("Id",className));
+            this.idade = Integer.parseInt(fstr.getAtributo("Idade",className));
+            this.atratividadeBase = Integer.parseInt(fstr.getAtributo("AtratividadeBase",className));
+            this.doente = Boolean.parseBoolean(fstr.getAtributo("Doente",className));
+            this.tratado = Boolean.parseBoolean(fstr.getAtributo("Tratado",className));
+            this.ultimaTratacao = Integer.parseInt(fstr.getAtributo("UltimaTratacao",className));
+        }catch(NumberFormatException e){
+            throw new RepresentacaoInvalidaDoTipo("numero mal formatado");
+        }
         if (lastId < this.id) {
             lastId = this.id;
         }
