@@ -10,7 +10,7 @@ package com.mycompany.poo2;
  */
 public final class MenuGeral extends Menu {
 
-    private final int MAXOPTN = 11;
+    private final int MAXOPTN = 12;
 
     public MenuGeral() {
         super(null);
@@ -31,6 +31,7 @@ public final class MenuGeral extends Menu {
                     (9) -> Historico do Tipo
                    (10) -> Caregar Zoo
                    (11) -> Gravar Zoo
+                   (12) -> Listar Retrato De Familia
 
                     (0) -> Sair""";
         this.mostrarOpcoes("======================================= Menu Geral =======================================",optn);
@@ -82,54 +83,94 @@ public final class MenuGeral extends Menu {
                 break;
             case 7:
                 MenuEventos m7 = new MenuEventos(this);
-                //m7.mostrarOpcoes();
+                m7.mostrarOpcoes();
+                m7.executarOpcaoPedida();
                 break;
             case 8:
                 historico();
+                this.pedirContinuar();
                 break;
             case 9:
-                historicoDoTipo(pedirAcontecimento());
+                historicoDoTipo();
                 break;
             case 10:
-                //carregar
+                Carregador.carregarZoo();
+                Carregador.carregarFicheiros();
+                this.pedirContinuar();
                 break;
             case 11:
-                //gravar
+                Gravador.gravarZoo();
+                Gravador.gravarBaseDados();
+                this.pedirContinuar();
+                break;
+            case 12:
+                this.listarRetratoFamilia();
                 break;
         }
         
     }
     
+     private void listarRetratoFamilia(){
+        
+        this.historico();
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        
+        System.out.println("\nInstalações: \n");
+        if(Zoo.getAllInstalacoes().isEmpty()){
+            System.out.println("Não existe Instalações.");
+ 
+        }
+        else{
+            for (Instalacao inst:Zoo.getAllInstalacoes()) {
+                System.out.println("\t"+inst+"\n");
+            }
+        }
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        
+        System.out.println("\nAnimais: \n");
+        this.listarAnimais(false);
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        
+        System.out.println("\nEmpregados: \n");
+        if(Zoo.getAllEmpregados().isEmpty()){
+            System.out.println("Não existe Empregados.");
+ 
+        }
+        else{
+            for (Empregado emp:Zoo.getAllEmpregados()) {
+                System.out.println("\t"+emp+"\n");
+            }
+        }
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        
+        this.pedirContinuar();
+    }
+    
     private void historico(){
         if(Historico.getAcontecimentos().isEmpty()){
-            System.out.println("Não existe um Zoo carregado");
-            this.mostrarOpcoes();
-            this.executarOpcaoPedida();
+            System.out.println("Não existe acontecimentos no histórico.");
+ 
         }
         else{
             System.out.println("Historico:");
             for (Historico.Acontecimento acontecimento:Historico.getAcontecimentos()) {
                 System.out.println("\t"+acontecimento);
             }
-            this.mostrarOpcoes();
-            this.executarOpcaoPedida();
         }
     }
     
-    private void historicoDoTipo(Acontecimentos a){
+    private void historicoDoTipo(){
         if(Historico.getAcontecimentos().isEmpty()){
-            System.out.println("Não existe um Zoo carregado");
-            this.mostrarOpcoes();
-            this.executarOpcaoPedida();
+            System.out.println("Não existe acontecimentos no histórico.");
         }
         else{
             System.out.println("Historico:");
+            Acontecimentos acont = this.pedirAcontecimento();
             for (Historico.Acontecimento acontecimento:Historico.getAcontecimentos()) {
-                if(acontecimento.getTipo()==a)
-                System.out.println("\t"+acontecimento);
+                if(acontecimento.getTipo()==acont)
+                    System.out.println("\t"+acontecimento);
             }
-            this.mostrarOpcoes();
-            this.executarOpcaoPedida();
         }
+        this.pedirContinuar();
     }
 }

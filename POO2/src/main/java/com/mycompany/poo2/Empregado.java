@@ -103,7 +103,7 @@ public abstract class Empregado extends Pessoa {
     public abstract void trabalhar(Instalacao instalacao, int dia, Meses mes ,int ano);
 
     public double getSalario() {
-        return salarioBase + salarioBase * bonusTarefa * maxTarefas / 100;
+        return salarioBase + (salarioBase * bonusTarefa * maxTarefas) / 1000;
     }
 
     public static int getQuantidade() {
@@ -118,6 +118,6 @@ public abstract class Empregado extends Pessoa {
 
     @Override
     public String toString() {
-        return "empregado :\n\t" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas;
+        return "empregado :" + super.toString() + " Tarefas Bonus: " + this.bonusTarefa + " Experiencia: " + this.experiencia + " Max Tarefas: " + this.maxTarefas + " Total de Tarefas: " + this.totalTarefas + " Salário base: " + this.getSalarioBase() + " Salário: " + this.getSalario();
     }
 }

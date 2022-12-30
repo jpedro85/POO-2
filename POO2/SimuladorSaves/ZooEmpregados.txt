@@ -1,0 +1,6 @@
+Tratador(Nome:Matheus;Nif:77747891;Idade:29;SalarioBase:1660.891475830349;BonusTarefa:24;Experiencia:10;MaxTarefas:34;TotalTarefas:0;)
+Veterinario(Nome:Théo;Nif:21263570;Idade:58;SalarioBase:2843.2421823880204;BonusTarefa:141;Experiencia:36;MaxTarefas:4;TotalTarefas:0;)
+Zelador(Nome:Carlos Eduardo;Nif:81599786;Idade:27;SalarioBase:1329.1327544703565;BonusTarefa:59;Experiencia:20;MaxTarefas:2;TotalTarefas:0;)
+Tratador(Nome:Marina;Nif:47316329;Idade:37;SalarioBase:2309.061830313124;BonusTarefa:38;Experiencia:7;MaxTarefas:21;TotalTarefas:0;)
+Zelador(Nome:Enzo Gabriel;Nif:39307623;Idade:81;SalarioBase:1378.6431785115544;BonusTarefa:78;Experiencia:15;MaxTarefas:3;TotalTarefas:0;)
+Veterinario(Nome:Letícia;Nif:62236108;Idade:62;SalarioBase:3047.9373584421364;BonusTarefa:186;Experiencia:30;MaxTarefas:2;TotalTarefas:0;)

@@ -72,8 +72,8 @@ public final class MenuInstalacao extends Menu {
         Empreiteira emp = this.pedirEmpreiteira(novaInstalacao);
         
         System.out.println("Foi Construida a Isntalação:");
-        Historico.adicionarAcontecimento(Acontecimentos.DESPESA, "Contrato de construcao da instalação " + novaInstalacao, Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente(), emp.getPreco());
-        Historico.adicionarAcontecimento(Acontecimentos.CONSTUCAO, "Foi Construida a instalação " + novaInstalacao, Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
+        Historico.adicionarAcontecimento(Acontecimentos.DESPESA, "Contrato de construcao da instalação " + novaInstalacao.getNome() + " id:" + novaInstalacao.getId(), Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente(), emp.getPreco());
+        Historico.adicionarAcontecimento(Acontecimentos.CONSTUCAO, "Foi Construida a instalação " + novaInstalacao.getNome() + " id:" + novaInstalacao.getId(), Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
         System.out.println(novaInstalacao);
         
         this.pedirContinuar();        
@@ -95,8 +95,8 @@ public final class MenuInstalacao extends Menu {
         Empreiteira emp = this.pedirEmpreiteira(novaInstalacao);
         
         System.out.println("Foi Construida a Isntalação:");
-        Historico.adicionarAcontecimento(Acontecimentos.DESPESA, "Contrato de construcao da instalação " + novaInstalacao, Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente(), emp.getPreco());
-        Historico.adicionarAcontecimento(Acontecimentos.CONSTUCAO, "Foi Construida a instalação " + novaInstalacao, Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
+        Historico.adicionarAcontecimento(Acontecimentos.DESPESA, "Contrato de construcao da instalação " + novaInstalacao.getNome() + " id:" + novaInstalacao.getId(), Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente(), emp.getPreco());
+        Historico.adicionarAcontecimento(Acontecimentos.CONSTUCAO, "Foi Construida a instalação " + novaInstalacao.getNome() + " id:" + novaInstalacao.getId(), Simulador.getDiaCorrente(),Simulador.getMesCorrente(),Simulador.getAnoCorrente());
         System.out.println(novaInstalacao);
         
         this.pedirContinuar();        
@@ -112,14 +112,14 @@ public final class MenuInstalacao extends Menu {
             if (instalacao.getOcupacao() != 0 && this.pedirBooleano("Os Animais da Instalação vão ser realocados para a \"arrecadação\". Deseja continuar ?")) {
                 Zoo.getAllInstalacoes().remove(instalacao);
                 System.out.println("A Instalação foi destruida !");
-                Historico.adicionarAcontecimento(Acontecimentos.DESTRUICAO, "A instalação foi destruida.",Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
+                Historico.adicionarAcontecimento(Acontecimentos.DESTRUICAO, "A instalação "+ instalacao.getNome() + " id:" + instalacao.getId() + " foi destruida.",Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
                 
                 this.pedirContinuar();
             }else{
                 
                 Zoo.getAllInstalacoes().remove(instalacao);
                 System.out.println("A Instalação foi destruida !");
-                Historico.adicionarAcontecimento(Acontecimentos.DESTRUICAO, "A instalação foi destruida.",Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
+                Historico.adicionarAcontecimento(Acontecimentos.DESTRUICAO, "A instalação "+ instalacao.getNome() + " id:" + instalacao.getId() + " foi destruida.",Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
                 
                 this.pedirContinuar();
             }

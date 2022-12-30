@@ -63,7 +63,7 @@ public final class Gerador {
 
     public static double gerarValorAnimal(Animal animal){
         
-        return 200;
+        return animal.getAtratividade()*100;
     }
     
     public static Empreiteira gerarEmpreiteira(Instalacao inst){

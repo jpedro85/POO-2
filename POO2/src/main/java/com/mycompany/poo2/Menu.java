@@ -5,6 +5,7 @@
 package com.mycompany.poo2;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -186,7 +187,7 @@ public abstract class Menu {
     
     public boolean pedirBooleano(String message){
         
-        System.out.println(message+"\n<-:");
+        System.out.println("Menu -> " +message);
         System.out.println(" (0) -> Não");
         System.out.println(" (1) -> Sim");
         
@@ -394,4 +395,285 @@ public abstract class Menu {
         this.mostrarOpcoes();
         this.executarOpcaoPedida();
     }
+    
+    public Class<? extends Gene> pedirUmTipoDegene(){
+    
+        System.out.println("Menu -> " + "Escolha um Tipo de gene" );
+        System.out.println("""
+                              (0) GeneAmbiente
+                              (1) GeneAtratividade
+                              (2) GeneDieta
+                              (3) GeneEspecie
+                              (4) GeneEspecifico
+                              (5) GeneLongividade
+                              (6) GeneRepoducao
+                              (7) GeneSexo
+                           
+                             """);
+        
+        switch(this.pedirOpcao(7)){
+            
+            case 0:
+                return GeneAmbiente.class;
+            case 1:
+                return GeneAtratividade.class;
+            case 2:
+                return GeneDieta.class;
+            case 3:
+                return GeneEspecie.class;
+            case 4:
+                return GeneEspecifico.class;
+            case 5:
+                return GeneLongividade.class;
+            case 6:
+                return GeneRepoducao.class; 
+            case 7:
+                return GeneSexo.class;
+            default:
+                throw new AssertionError();
+        }
+        
+    }       
+    
+    public Gene pedirGene(){
+    
+        switch (this.pedirUmTipoDegene().getSimpleName()) {
+            
+            case "GeneAmbiente":
+                return this.pedirGeneAmbiente();
+            case "GeneAtratividade":
+                return this.pedirGeneAtratividade();
+            case "GeneDieta":
+                return this.pedirGeneDieta();
+            case "GeneEspecie":
+                return this.pedirGeneEspecie();
+            case "GeneEspecifico":
+                return this.pedirGeneEspecie();
+            case "GeneLongividade":
+                return this.pedirGeneLongividade();
+            case "GeneRepoducao":
+                return this.pedirGeneRepoducao();
+            case "GeneSexo":
+                return this.pedirGeneSexo();
+            default:
+                return null;
+        }
+    }
+    
+    public GeneEspecie pedirGeneEspecies(){
+        if (!GeneEspecie.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneEspecie allInstance : GeneEspecie.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneEspecie.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    
+    public Especie pedirEspecies(){
+        if (!Especie.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (Especie allInstance : Especie.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return Especie.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneEspecifico pedirGeneEspecifico(){
+        if (!GeneEspecifico.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneEspecifico allInstance : GeneEspecifico.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneEspecifico.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneDieta pedirGeneDieta(){
+        if (!GeneDieta.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneDieta allInstance : GeneDieta.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneDieta.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneSexo pedirGeneSexo(){
+        if (!GeneSexo.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneSexo allInstance : GeneSexo.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneSexo.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneRepoducao pedirGeneRepoducao(){
+        if (!GeneRepoducao.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneRepoducao allInstance : GeneRepoducao.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneRepoducao.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneLongividade pedirGeneLongividade(){
+        if (!GeneLongividade.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneLongividade allInstance : GeneLongividade.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneLongividade.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneAmbiente pedirGeneAmbiente(){
+        if (!GeneAmbiente.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneAmbiente allInstance : GeneAmbiente.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneAmbiente.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public GeneAtratividade pedirGeneAtratividade(){
+        if (!GeneAtratividade.getAllInstances().isEmpty()) {
+            int contador = 0;
+            for (GeneAtratividade allInstance : GeneAtratividade.getAllInstances()) {
+                System.out.println(" ("+contador+") " + allInstance);
+                contador++;
+            }
+            
+            return GeneAtratividade.getAllInstances().get(contador-1);
+
+        } else {
+            System.out.println("Não possui Genes de Especies ainda!");
+            return null;
+        }
+    }
+    
+    public void listarAnimais(boolean mutados){
+        
+        if (Zoo.getAllInstalacoes().isEmpty()) {
+            System.out.println("O Zoo não tem Animis !");
+
+        } else {
+            
+            System.out.println("\n Nas Instalações: \n");
+            boolean temAnimais = false;
+            for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
+                
+                if (instalacao.getOcupacao() != 0) {
+                    
+                    temAnimais = true;
+                    
+                    for (Animal animal : instalacao.getAnimaisTodos()) {
+                        if(!mutados)
+                            System.out.println(animal+"\n");
+                        else if (animal.getGenoma().isMutado())
+                            System.out.println(animal+"\n");
+                    }
+                }
+                
+            }
+            
+            if(!temAnimais)
+                System.out.println("Não tem Animais !");
+            
+            temAnimais = false;
+            System.out.println("\n Nos Nascimentos: \n");
+            for (Animal animal : Zoo.getAllNascimentos()) {
+                if (!mutados) {
+                    System.out.println(animal + "\n");
+                } else if (animal.getGenoma().isMutado()) {
+                    System.out.println(animal + "\n");
+                }
+            }
+            
+            if(!temAnimais)
+                System.out.println("Não tem Animais !");
+            
+            
+            temAnimais = false;
+            System.out.println("\n Nos obidos: \n");
+            for (Animal animal : Zoo.getAllObitos()) {
+                if (!mutados) {
+                    System.out.println(animal + "\n");
+                } else if (animal.getGenoma().isMutado()) {
+                    System.out.println(animal + "\n");
+                }
+            }
+            
+            if(!temAnimais)
+                System.out.println("Não tem Animais !");
+            
+            temAnimais = false;
+            System.out.println("\n Nos SmiLivres: \n");
+            for(Map.Entry<Animal,Instalacao> entry : Zoo.getAllSemiLivres().entrySet() ) {
+                if (!mutados) {
+                    System.out.println(entry.getKey() + "\n");
+                } else if (entry.getKey().getGenoma().isMutado()) {
+                    System.out.println(entry.getKey() + "\n");
+                }
+            }
+            
+            if(!temAnimais)
+                System.out.println("Não tem Animais !");
+            
+        }
+    }
+ 
 }

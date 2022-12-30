@@ -15,7 +15,7 @@ public final class Zoo {
     
     private static ArrayList<Animal> nascimentos = new ArrayList<>(200);
     private static ArrayList<Animal> obituario = new ArrayList<>(200);
-    private static HashMap<Animal,Instalacao> semiLivres = new HashMap<Animal,Instalacao>(200);
+    private static HashMap<Animal,Instalacao> semiLivres = new HashMap<>(200);
     private static ArrayList<Instalacao> instalacoes = new ArrayList<>(200);
     private static ArrayList<Empregado> empregados = new ArrayList<>(200);
     private static ArrayList<Cliente>clientes = new ArrayList<>(200);

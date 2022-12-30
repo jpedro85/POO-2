@@ -132,6 +132,40 @@ public class Genoma implements Gravavel{
         if (!this.repoducao.estaMutado())return false;
         return this.atratividade.estaMutado();
     }
+    
+    public boolean contemGene(Gene gene){
+        
+        switch (gene.getClass().getSimpleName()) {
+            
+            case "GeneAmbiente":
+                return this.ambiete.getNome().equals(gene.getNome());
+            case "GeneAtratividade":
+                return this.atratividade.getNome().equals(gene.getNome());
+            case "GeneDieta":
+                return this.dieta.getNome().equals(gene.getNome());
+            case "GeneEspecie":
+                for (GeneEspecie geneespecie : this.especie.getGenes()) {
+                    if(geneespecie.getNome().equals(gene.getNome()))
+                        return true;
+                }
+                return false;
+            case "GeneEspecifico":
+                for (GeneEspecifico geneespecifico : this.especificos) {
+                    if(geneespecifico.getNome().equals(gene.getNome()))
+                        return true;
+                }
+                return false;
+            case "GeneLongividade":
+                return this.logitividade.getNome().equals(gene.getNome());
+            case "GeneRepoducao":
+                return this.repoducao.getNome().equals(gene.getNome());
+            case "GeneSexo":
+                return this.sexo.getNome().equals(gene.getNome());
+            default:
+                return false;
+        }
+        
+    }
         
     public static Genoma comabinarGenomas (Genoma genoma1 , Genoma genoma2){
             
@@ -145,7 +179,7 @@ public class Genoma implements Gravavel{
             
             for (GeneEspecifico gene_por: genoma2.getGenesEspecificos()) {
                 
-                if (!gene_por.equals(gene_presente)) espedificos.add(gene_por);
+                if (!gene_por.getTipo().equals(gene_presente.getTipo())) espedificos.add(gene_por);
             }  
         }
         

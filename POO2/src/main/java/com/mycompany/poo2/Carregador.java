@@ -14,36 +14,39 @@ import java.util.ArrayList;
  */
 public final class Carregador {
 
-    private static boolean zooCarregado = false; //fica true quando no metodo carregar zoo
-    private static final String FICHEIRO_GENES_ESPECIE = "SimuladorSaves/TodosGenesDeEspecie.txt";
-    private static final String FICHEIRO_ESPECIES = "SimuladorSaves/TodosAsEspecies.txt";   
-    private static final String FICHEIRO_GENES_AMBIENTE = "SimuladorSaves/TodosGenesDeAmbiente.txt";
-    private static final String FICHEIRO_GENES_ATRATIVIDADE = "SimuladorSaves/TodosGenesDeAtratividade.txt";
-    private static final String FICHEIRO_GENES_DIETA = "SimuladorSaves/TodosGenesDeDieta.txt";
-    private static final String FICHEIRO_GENES_ESPECIFICOS = "SimuladorSaves/TodosGenesDeEspecifico.txt";
-    private static final String FICHEIRO_GENES_LONGITIVIDADE = "SimuladorSaves/TodosGenesDeLongitividade.txt";
-    private static final String FICHEIRO_GENES_REPRODUCAO = "SimuladorSaves/TodosGenesDeReproducao.txt";
-    private static final String FICHEIRO_GENES_SEXO = "SimuladorSaves/TodosGenesDeSexo.txt";
-    private static final String FICHEIRO_PESSOAS = "SimuladorSaves/Pessoas.txt";
-    private static final String FICHEIRO_ANIMAIS = "SimuladorSaves/Animais.txt";
-    private static final String FICHEIRO_EMPRESAS = "SimuladorSaves/Empresas.txt";
+    public static final String FICHEIRO_GENES_ESPECIE = "SimuladorSaves/TodosGenesDeEspecie.txt";
+    public static final String FICHEIRO_ESPECIES = "SimuladorSaves/TodosAsEspecies.txt";   
+    public static final String FICHEIRO_GENES_AMBIENTE = "SimuladorSaves/TodosGenesDeAmbiente.txt";
+    public static final String FICHEIRO_GENES_ATRATIVIDADE = "SimuladorSaves/TodosGenesDeAtratividade.txt";
+    public static final String FICHEIRO_GENES_DIETA = "SimuladorSaves/TodosGenesDeDieta.txt";
+    public static final String FICHEIRO_GENES_ESPECIFICOS = "SimuladorSaves/TodosGenesDeEspecifico.txt";
+    public static final String FICHEIRO_GENES_LONGITIVIDADE = "SimuladorSaves/TodosGenesDeLongitividade.txt";
+    public static final String FICHEIRO_GENES_REPRODUCAO = "SimuladorSaves/TodosGenesDeReproducao.txt";
+    public static final String FICHEIRO_GENES_SEXO = "SimuladorSaves/TodosGenesDeSexo.txt";
+    public static final String FICHEIRO_PESSOAS = "SimuladorSaves/Pessoas.txt";
+    public static final String FICHEIRO_ANIMAIS = "SimuladorSaves/Animais.txt";
+    public static final String FICHEIRO_EMPRESAS = "SimuladorSaves/Empresas.txt";
+    
+    //ficheiros do zoo.
+    public static final String FICHEIRO_ZOONASCIDOS = "SimuladorSaves/ZooNascidos.txt";
+    public static final String FICHEIRO_ZOOEMPREGADOS = "SimuladorSaves/ZooEmpregados.txt";
+    public static final String FICHEIRO_ZOOSMILIVRES = "SimuladorSaves/ZooSmiLivres.txt";
+    public static final String FICHEIRO_ZOOOBITUS = "SimuladorSaves/ZooObitus.txt";
+    public static final String FICHEIRO_ZOOINSTALACOES = "SimuladorSaves/ZooInstalacoes.txt";
+    public static final String FICHEIRO_ZOOHISTORICO = "SimuladorSaves/ZooHistorico.txt";
+    
     private Carregador() {
     }
     
-    public static boolean estaZooCarregado() {
-        return zooCarregado;
-    }
-    
     public static <T> void carrega(Class<T> cclass, String ficheiro) {
-        
+                
         System.out.println("A carregar o ficheiro: " + ficheiro);
         int errors=0;
         try {
             
             FileReader rW = new FileReader(ficheiro);
             BufferedReader bW = new BufferedReader(rW);
-            String linha="";
-            linha=bW.readLine();
+            String linha = bW.readLine();
             int contador=0;
             
             while(linha!=null) {
@@ -66,16 +69,18 @@ public final class Carregador {
             bW.close();
             rW.close();
             
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+        
         } catch (IOException e) {
             System.out.println("Não foi possivel abrir o ficheiro: "+ficheiro);
             errors++;
         }
-        System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
     }
     
-    //carregar Strings carregar zoo
-    
     public static void carregarStringS(String ficheiro,ArrayList<String> array){
+        
+        if (array.isEmpty()) 
+            array.clear();
         
         System.out.println("A carregar o ficheiro: " + ficheiro);
         int errors=0;
@@ -83,8 +88,7 @@ public final class Carregador {
             
             FileReader rW = new FileReader(ficheiro);
             BufferedReader bW = new BufferedReader(rW);
-            String linha="";
-            linha=bW.readLine();
+            String linha = bW.readLine();
 
             while(linha!=null) {
                 
@@ -94,28 +98,340 @@ public final class Carregador {
             bW.close();
             rW.close();
             
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
         } catch (IOException e) {
             System.out.println("Não foi possivel abrir o ficheiro: "+ficheiro);
             errors++;
         }
-        System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
     }
     
     public static void carregarFicheiros(){
-    
-        Carregador.carrega(GeneEspecie.class, Carregador.FICHEIRO_GENES_ESPECIE); 
+        
+        if(!Especie.getAllInstances().isEmpty())
+            Especie.getAllInstances().clear();
         Carregador.carrega(Especie.class, Carregador.FICHEIRO_ESPECIES);
+        
+        if(!GeneEspecie.getAllInstances().isEmpty())
+            GeneEspecie.getAllInstances().clear();
+        Carregador.carrega(GeneEspecie.class, Carregador.FICHEIRO_GENES_ESPECIE); 
+        
+        if(!GeneAmbiente.getAllInstances().isEmpty())
+            GeneAmbiente.getAllInstances().clear();
         Carregador.carrega(GeneAmbiente.class, FICHEIRO_GENES_AMBIENTE);
+        
+        if(!GeneAtratividade.getAllInstances().isEmpty())
+            GeneAtratividade.getAllInstances().clear();
         Carregador.carrega(GeneAtratividade.class, FICHEIRO_GENES_ATRATIVIDADE);
+        
+        if(!GeneDieta.getAllInstances().isEmpty())
+            GeneDieta.getAllInstances().clear();
         Carregador.carrega(GeneDieta.class, FICHEIRO_GENES_DIETA); 
+        
+        if(!GeneEspecifico.getAllInstances().isEmpty())
+            GeneEspecifico.getAllInstances().clear();
         Carregador.carrega(GeneEspecifico.class, FICHEIRO_GENES_ESPECIFICOS);
+        
+        if(!GeneLongividade.getAllInstances().isEmpty())
+            GeneLongividade.getAllInstances().clear();
         Carregador.carrega(GeneLongividade.class, FICHEIRO_GENES_LONGITIVIDADE);
+        
+        if(!GeneRepoducao.getAllInstances().isEmpty())
+            GeneRepoducao.getAllInstances().clear();
         Carregador.carrega(GeneRepoducao.class, FICHEIRO_GENES_REPRODUCAO);
+        
+        if(!GeneSexo.getAllInstances().isEmpty())
+            GeneSexo.getAllInstances().clear();
         Carregador.carrega(GeneSexo.class, FICHEIRO_GENES_SEXO);
         
         carregarStringS(Carregador.FICHEIRO_PESSOAS,Gerador.getPessoas());
         carregarStringS(Carregador.FICHEIRO_ANIMAIS,Gerador.getNomesArtisticos());
         carregarStringS(Carregador.FICHEIRO_EMPRESAS,Gerador.getEmpreiteiras());
         
+    }
+    
+    public static void carregarZoo(){
+        
+        carregarHistorico();
+        carregarInstalações();
+        carregarNascidos();
+        carregarSmilivres();
+        carregarObitus();
+        carregarEmpregados();
+        
+        if (!Historico.getAcontecimentos().isEmpty()){
+            Historico.Acontecimento acont = null;
+            for (Historico.Acontecimento acontecimento : Historico.getAcontecimentos()) {
+                
+                if (acontecimento.getTipo() == Acontecimentos.INFO && acontecimento.getDesscricao().indexOf("fim do dia:") > 0) {
+                    acont = acontecimento;
+                }
+            }
+            
+            if (acont != null) {
+               
+                Simulador.setDiaCorrente(acont.getDia());
+                Simulador.setAnoCorrente(acont.getAno());
+                Simulador.setMesCorrente(acont.getMes());
+            }
+        } 
+            
+    }
+    
+    private static void carregarHistorico(){
+        
+        if (!Historico.getAcontecimentos().isEmpty()) 
+            Historico.getAcontecimentos().clear();
+        
+        System.out.println("A carregar o ficheiro: " + FICHEIRO_ZOOHISTORICO);
+        int errors=0;
+        try {
+            
+            FileReader rW = new FileReader(FICHEIRO_ZOOHISTORICO);
+            BufferedReader bW = new BufferedReader(rW);
+            
+            String linha = bW.readLine();
+            
+            FormatedString fstr;
+            while(linha!=null) {
+
+                try {
+                    fstr = new FormatedString(linha);
+                    Historico.adicionarAcontecimento(fstr);
+                    
+                }catch(RepresentacaoInvalidaDoTipo e){
+                    System.out.println(e.getMessage());
+                    errors++;
+                }
+                
+                linha = bW.readLine();
+            }
+            bW.close();
+            rW.close();
+            
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
+        } catch (IOException e) {
+            System.out.println("Não foi possivel abrir o ficheiro: "+ FICHEIRO_ZOOHISTORICO +"\n");
+            errors++;
+        }
+    } 
+    
+    
+    private static void carregarInstalações(){
+        
+        if (!Zoo.getAllInstalacoes().isEmpty()) 
+            Zoo.getAllInstalacoes().clear();
+        
+        System.out.println("A carregar o ficheiro: " + FICHEIRO_ZOOINSTALACOES);
+        int errors=0;
+        try {
+            
+            FileReader rW = new FileReader(FICHEIRO_ZOOINSTALACOES);
+            BufferedReader bW = new BufferedReader(rW);
+            
+            String linha = bW.readLine();
+            
+            FormatedString fstr;
+            Instalacao instalacao;
+            while(linha!=null) {
+                
+                try {
+                    fstr = new FormatedString(linha);
+                    instalacao = new Instalacao(fstr);
+                    Zoo.getAllInstalacoes().add(instalacao);
+                   
+                }catch(RepresentacaoInvalidaDoTipo e){
+                    System.out.println(e.getMessage());
+                    errors++;
+                }
+                
+                linha = bW.readLine();
+            }
+            bW.close();
+            rW.close();
+            
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
+        } catch (IOException e) {
+            System.out.println("Não foi possivel abrir o ficheiro: "+ FICHEIRO_ZOOINSTALACOES +"\n");
+            errors++;
+        }
+    }
+    
+    private static void carregarNascidos(){
+        
+        if(!Zoo.getAllNascimentos().isEmpty())
+            Zoo.getAllNascimentos().clear();
+        
+        System.out.println("A carregar o ficheiro: " + FICHEIRO_ZOONASCIDOS);
+        int errors=0;
+        try {
+            
+            FileReader rW = new FileReader(FICHEIRO_ZOONASCIDOS);
+            BufferedReader bW = new BufferedReader(rW);
+            
+            String linha = bW.readLine();
+            
+            FormatedString fstr;
+            Animal animal;
+            while(linha!=null) {
+                
+                try {
+                    fstr = new FormatedString(linha);
+                    animal = new Animal(fstr);
+                    Zoo.getAllNascimentos().add(animal);
+                   
+                }catch(RepresentacaoInvalidaDoTipo e){
+                    System.out.println(e.getMessage());
+                    errors++;
+                }
+                
+                linha = bW.readLine();
+            }
+            bW.close();
+            rW.close();
+            
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
+        } catch (IOException e) {
+            System.out.println("Não foi possivel abrir o ficheiro: "+ FICHEIRO_ZOONASCIDOS+"\n");
+            errors++;
+        }
+    }
+    
+    private static void carregarSmilivres(){
+        
+        if(!Zoo.getAllSemiLivres().isEmpty())
+            Zoo.getAllSemiLivres().clear();
+        
+        System.out.println("A carregar o ficheiro: " + FICHEIRO_ZOOSMILIVRES);
+        int errors=0;
+        try {
+            
+            FileReader rW = new FileReader(FICHEIRO_ZOOSMILIVRES);
+            BufferedReader bW = new BufferedReader(rW);
+            
+            String linha = bW.readLine();
+            
+            FormatedString fstr;
+            Animal animal;
+            Instalacao inst;
+            while(linha!=null) {
+                
+                try {
+                    
+                    
+                    fstr = new FormatedString(linha.substring(0,linha.indexOf("|")));
+                    animal = new Animal(fstr);
+                    fstr = new FormatedString(linha.substring(linha.indexOf("|")+1));
+                    inst = new Instalacao(fstr);
+                    Zoo.getAllSemiLivres().put(animal,inst);
+                   
+                }catch(RepresentacaoInvalidaDoTipo e){
+                    System.out.println(e.getMessage());
+                    errors++;
+                }
+                
+                linha = bW.readLine();
+            }
+            bW.close();
+            rW.close();
+            
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
+        } catch (IOException e) {
+            System.out.println("Não foi possivel abrir o ficheiro: "+ FICHEIRO_ZOOSMILIVRES+"\n");
+            errors++;
+        }
+    }
+    
+    private static void carregarObitus(){
+        
+        if(!Zoo.getAllObitos().isEmpty())
+            Zoo.getAllObitos().clear();
+        
+        System.out.println("A carregar o ficheiro: " + FICHEIRO_ZOOOBITUS);
+        int errors=0;
+        try {
+            
+            FileReader rW = new FileReader(FICHEIRO_ZOOOBITUS);
+            BufferedReader bW = new BufferedReader(rW);
+            String linha = bW.readLine();
+            
+            FormatedString fstr;
+            Animal animal;
+            while(linha!=null) {
+                
+                try {
+                    fstr = new FormatedString(linha);
+                    animal = new Animal(fstr);
+                    Zoo.getAllObitos().add(animal);
+                   
+                }catch(RepresentacaoInvalidaDoTipo e){
+                    System.out.println(e.getMessage());
+                    errors++;
+                }
+                
+                linha = bW.readLine();
+            }
+            bW.close();
+            rW.close();
+            
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
+        } catch (IOException e) {
+            System.out.println("Não foi possivel abrir o ficheiro: "+ FICHEIRO_ZOOOBITUS+"\n");
+            errors++;
+        }
+    }
+    
+    private static void carregarEmpregados(){
+        
+        if (!Zoo.getAllEmpregados().isEmpty()) 
+            Zoo.getAllEmpregados().clear();
+        
+        System.out.println("A carregar o ficheiro: " + FICHEIRO_ZOOEMPREGADOS);
+        int errors=0;
+        try {
+            
+            FileReader rW = new FileReader(FICHEIRO_ZOOEMPREGADOS);
+            BufferedReader bW = new BufferedReader(rW);
+            String linha = bW.readLine();
+            
+            FormatedString fstr;
+            Empregado empregado;
+            while(linha!=null) {
+                
+                try {
+                    fstr = new FormatedString(linha);
+                    
+                    if(fstr.getTipo().equals(Tratador.class.getSimpleName()))
+                        empregado = new Tratador(fstr);
+                    else if(fstr.getTipo().equals(Zelador.class.getSimpleName()))
+                        empregado = new Zelador(fstr);
+                    else if (fstr.getTipo().equals(Veterinario.class.getSimpleName())) 
+                        empregado = new Veterinario(fstr);
+                    else
+                        throw new RepresentacaoInvalidaDoTipo(fstr + "não representa nehum tipo de empregado.");
+                            
+                    Zoo.getAllEmpregados().add(empregado);
+                   
+                }catch(RepresentacaoInvalidaDoTipo e){
+                    System.out.println(e.getMessage());
+                    errors++;
+                }
+                
+                linha = bW.readLine();
+            }
+            bW.close();
+            rW.close();
+            
+            System.out.println("O ficheiro foi carregado com " + errors + " erros !\n");
+            
+        } catch (IOException e) {
+            System.out.println("Não foi possivel abrir o ficheiro: "+ FICHEIRO_ZOOEMPREGADOS+"\n");
+            errors++;
+        }
     }
 }

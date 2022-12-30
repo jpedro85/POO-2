@@ -16,7 +16,7 @@ public final class MenuEmpregado extends Menu{
         super(menu);
     }
     
-    private final int MAXOPTN = 3;
+    private final int MAXOPTN = 4;
 
     public void mostrarOpcoes() {
         String optn = "";
@@ -79,6 +79,8 @@ public final class MenuEmpregado extends Menu{
         if(emp != null){
         
             Zoo.getAllEmpregados().remove(emp);
+            System.out.println("Foi Despedido o :" + emp);
+            Historico.adicionarAcontecimento(Acontecimentos.DESPEDIMENTO, "For Despedido o " + emp, Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
         }
         
         this.pedirContinuar();
@@ -114,6 +116,7 @@ public final class MenuEmpregado extends Menu{
         
         Empregado b = empregados.get(this.pedirOpcao(contador-1));
         System.out.println("Foi Contratado o :" + b );
+        Historico.adicionarAcontecimento(Acontecimentos.CONTRATACAO, "For Contratado o " + b, Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
         Zoo.getAllEmpregados().add(b);
         
         this.pedirContinuar();
@@ -130,6 +133,7 @@ public final class MenuEmpregado extends Menu{
             emp.setSalarioBase(salario);
             
             System.out.println("O : " + emp +"\nRecebe agora :" + salario);
+            Historico.adicionarAcontecimento(Acontecimentos.INFO, "O : " + emp +" Recebe agora :" + salario, Simulador.getDiaCorrente(), Simulador.getMesCorrente(), Simulador.getAnoCorrente());
             
             this.pedirContinuar();
         }

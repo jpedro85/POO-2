@@ -64,17 +64,28 @@ public final class Simulador {
         
         if(!Zoo.getAllInstalacoes().isEmpty()){
             
-            simularDiaIstalacao();
-        
-            if(!Zoo.getAllEmpregados().isEmpty())
-                simularDiaFuncionarios();
-            else
-                simuladorMensagem("O Zoo não tem empregados para simular.");
+            boolean temAnimias = false;
+            for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
+                if(instalacao.getOcupacao() == 0 )
+                    temAnimias= true;
+            }
             
-            simularDiaClientes();
+            if(!temAnimias){
+            
+                simularDiaIstalacao();
+
+                if(!Zoo.getAllEmpregados().isEmpty())
+                    simularDiaFuncionarios();
+                else
+                    simuladorMensagem("O Zoo não tem empregados para simular.");
+
+                simularDiaClientes();
+            
+            }else
+                simuladorMensagem("O Zoo não tem Animais. Não há razão para abrir neste dia!");
             
         }else
-             simuladorMensagem("O Zoo não tem Instalações para simular");
+             simuladorMensagem("O Zoo não tem Instalações. Não há razão para abrir neste dia! ");
         
         
         atualizarData();
@@ -82,6 +93,9 @@ public final class Simulador {
     }
      
     private static void atualizarData(){
+         
+        simuladorMensagem("fim do dia:" + diaCorrente + "-" + mesCorrente+"-"+ anoCorrente + " !");
+        Historico.adicionarAcontecimento(Acontecimentos.INFO,"fim do dia: " + diaCorrente + "-" + mesCorrente+"-"+ anoCorrente + " !",diaCorrente,mesCorrente,anoCorrente);
         
         if(diaCorrente == mesCorrente.getDias()){
             
@@ -98,8 +112,6 @@ public final class Simulador {
             
         }else
             diaCorrente++;
-         
-        simuladorMensagem("fim do dia: " + diaCorrente + "-" + mesCorrente+"-"+ anoCorrente + " !");
 
     }
     

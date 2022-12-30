@@ -44,4 +44,20 @@ public enum Meses {
         return nome;
     }
     
+    /**
+     * Retorn o Mes representado numa String
+     * @param str
+     * @return null se str não representa um mes
+     */
+    public static Meses representa(String str){
+        
+        for (Meses mes : Meses.values()) {
+            
+            if( str.equals(mes.toString()) )
+                return mes;
+        }
+
+        return null;
+    }
+    
 }

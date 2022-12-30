@@ -49,12 +49,14 @@ public class FormatedString {
                 if(end < 0) break;
                 
                 campo = str.substring(0,end );
+                
                 str = str.substring( end+1 );
                 
                 if ( str.charAt(0) == '[' ){ //se um array
                 
                     end = encontratIndiceDoFecho(str,'[',']');
                     valor = str.substring(0, end+1 );
+                    end++;
                     
                 } else if( str.indexOf("(") > 0 && ( str.indexOf("(") < str.indexOf(";") ) ){//se um tipo
                 
