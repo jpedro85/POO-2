@@ -131,7 +131,7 @@ public abstract class Menu {
 
             int valor = Integer.parseInt(str_number);
             
-            if (limitSup <= 0) {
+            if (limitSup < 0) {
                 if (valor >= limitInf ) {
                     return valor;
                 } else {
@@ -336,9 +336,7 @@ public abstract class Menu {
     public Instalacao pedirInstalacao(){
         
         System.out.println("Menu -> " + "Escolha uma Istalação" );
-        
-        String temanimais = "(terão de ser realocados ou serão libertados)";
-        
+                
         if (Zoo.getAllInstalacoes().isEmpty()) {
             
             System.out.println("O Zoo não tem Instalações !");
@@ -350,12 +348,7 @@ public abstract class Menu {
             int contador = 0;
             for(Instalacao s: Zoo.getAllInstalacoes()){
 
-                if (s.getOcupacao()!= 0) 
-                    temanimais = " Animais: " + s.getOcupacao() + temanimais;
-                else
-                    temanimais = " Não tem animais";
-
-                System.out.println(" ("+ contador +") -> " + s.getNome() + " Id: " + s.getId() + "Ambiente:" + s.getAmbiente() + temanimais);
+                System.out.println(" ("+ contador +") -> " + s.getNome() + " Id: " + s.getId() + " Ambiente:" + s.getAmbiente() );
                 contador++;
             }        
 
@@ -389,7 +382,7 @@ public abstract class Menu {
     
     public void pedirContinuar(){
         
-        System.out.println("-> " + "Presione uma tecla para continuar !" );
+        System.out.println("Menu -> " + "Presione uma Enter para continuar !" );
         
         getScanner().nextLine();
         this.mostrarOpcoes();
@@ -407,9 +400,7 @@ public abstract class Menu {
                               (4) GeneEspecifico
                               (5) GeneLongividade
                               (6) GeneRepoducao
-                              (7) GeneSexo
-                           
-                             """);
+                              (7) GeneSexo""");
         
         switch(this.pedirOpcao(7)){
             
@@ -468,7 +459,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneEspecie.getAllInstances().get(contador-1);
+            return GeneEspecie.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -485,7 +476,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return Especie.getAllInstances().get(contador-1);
+            return Especie.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -501,7 +492,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneEspecifico.getAllInstances().get(contador-1);
+            return GeneEspecifico.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -517,7 +508,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneDieta.getAllInstances().get(contador-1);
+            return GeneDieta.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -533,7 +524,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneSexo.getAllInstances().get(contador-1);
+            return GeneSexo.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -549,7 +540,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneRepoducao.getAllInstances().get(contador-1);
+            return GeneRepoducao.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -565,7 +556,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneLongividade.getAllInstances().get(contador-1);
+            return GeneLongividade.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -581,7 +572,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneAmbiente.getAllInstances().get(contador-1);
+            return GeneAmbiente.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -597,7 +588,7 @@ public abstract class Menu {
                 contador++;
             }
             
-            return GeneAtratividade.getAllInstances().get(contador-1);
+            return GeneAtratividade.getAllInstances().get(this.pedirOpcao(contador-1));
 
         } else {
             System.out.println("Não possui Genes de Especies ainda!");
@@ -607,34 +598,11 @@ public abstract class Menu {
     
     public void listarAnimais(boolean mutados){
         
-        if (Zoo.getAllInstalacoes().isEmpty()) {
-            System.out.println("O Zoo não tem Animais !");
-
-        } else {
-            
-            System.out.println("\n Nas Instalações: \n");
-            boolean temAnimais = false;
-            for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
-                
-                if (instalacao.getOcupacao() != 0) {
-                    
-                    temAnimais = true;
-                    
-                    for (Animal animal : instalacao.getAnimaisTodos()) {
-                        if(!mutados)
-                            System.out.println(animal+"\n");
-                        else if (animal.getGenoma().isMutado())
-                            System.out.println(animal+"\n");
-                    }
-                }
-                
-            }
-            
-            if(!temAnimais)
-                System.out.println("Não tem Animais !");
-            
-            temAnimais = false;
-            System.out.println("\n Nos Nascimentos: \n");
+        System.out.println("\nNos Nascimentos: \n");
+        if(Zoo.getAllNascimentos().isEmpty()){
+            System.out.println(" Não tem Animais !");
+        }else{
+        
             for (Animal animal : Zoo.getAllNascimentos()) {
                 if (!mutados) {
                     System.out.println(animal + "\n");
@@ -643,12 +611,13 @@ public abstract class Menu {
                 }
             }
             
-            if(!temAnimais)
-                System.out.println("Não tem Animais !");
-            
-            
-            temAnimais = false;
-            System.out.println("\n Nos obidos: \n");
+        }
+        
+        System.out.println("\nNos Obitos: \n");
+        if(Zoo.getAllObitos().isEmpty()){
+            System.out.println(" Não tem Animais !");
+        }else{
+        
             for (Animal animal : Zoo.getAllObitos()) {
                 if (!mutados) {
                     System.out.println(animal + "\n");
@@ -657,23 +626,46 @@ public abstract class Menu {
                 }
             }
             
-            if(!temAnimais)
-                System.out.println("Não tem Animais !");
-            
-            temAnimais = false;
-            System.out.println("\n Nos SmiLivres: \n");
-            for(Map.Entry<Animal,Instalacao> entry : Zoo.getAllSemiLivres().entrySet() ) {
+        }
+        
+        System.out.println("\nNos Smilivre: \n");
+        if(Zoo.getAllSemiLivres().isEmpty()){
+            System.out.println(" Não tem Animais !");
+        }else{
+        
+            for (Map.Entry<Animal,Instalacao> e : Zoo.getAllSemiLivres().entrySet() ) {
                 if (!mutados) {
-                    System.out.println(entry.getKey() + "\n");
-                } else if (entry.getKey().getGenoma().isMutado()) {
-                    System.out.println(entry.getKey() + "\n");
+                    System.out.println(e.getKey() + "\n");
+                } else if (e.getKey().getGenoma().isMutado()) {
+                    System.out.println(e.getKey() + "\n");
                 }
             }
             
-            if(!temAnimais)
-                System.out.println("Não tem Animais !");
-            
         }
+
+        if (Zoo.getAllInstalacoes().isEmpty()) {
+            System.out.println("\nO Zoo não tem Instalações!");
+
+        } else {
+            
+            System.out.println("\n Nas Instalações: \n");
+
+            for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
+                
+                if (instalacao.getOcupacao() != 0) {
+                    for (Animal animal : instalacao.getAnimaisTodos()) {
+                        if(!mutados)
+                            System.out.println(animal+"\n");
+                        else if (animal.getGenoma().isMutado())
+                            System.out.println(animal+"\n");
+                    }
+                }else
+                    System.out.println("A Instalação: "+ instalacao.getNome() + " não tem animais.");
+                
+            }
+      
+        }   
+           
     }
  
 }

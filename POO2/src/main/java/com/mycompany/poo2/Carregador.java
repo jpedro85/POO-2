@@ -161,11 +161,14 @@ public final class Carregador {
         
         if (!Historico.getAcontecimentos().isEmpty()){
             Historico.Acontecimento acont = null;
+            int count = 0;
+            int size = Historico.getAcontecimentos().size();
             for (Historico.Acontecimento acontecimento : Historico.getAcontecimentos()) {
                 
-                if (acontecimento.getTipo() == Acontecimentos.INFO && acontecimento.getDesscricao().indexOf("fim do dia:") > 0) {
+                if (count == size-1) {
                     acont = acontecimento;
                 }
+                count++;
             }
             
             if (acont != null) {
@@ -174,7 +177,7 @@ public final class Carregador {
                 Simulador.setAnoCorrente(acont.getAno());
                 Simulador.setMesCorrente(acont.getMes());
             }
-        } 
+        }
             
     }
     

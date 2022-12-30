@@ -66,11 +66,11 @@ public final class Simulador {
             
             boolean temAnimias = false;
             for (Instalacao instalacao : Zoo.getAllInstalacoes()) {
-                if(instalacao.getOcupacao() == 0 )
+                if(instalacao.getOcupacao() != 0 )
                     temAnimias= true;
             }
             
-            if(!temAnimias){
+            if(temAnimias){
             
                 simularDiaIstalacao();
 
@@ -295,21 +295,24 @@ public final class Simulador {
     private static void simularDiaFuncionarios(){
     
         int tarefasPorZelador;
-        if ( (Zoo.getAllInstalacoes().size() / Zelador.getQuantidade())%1.0 == 0){ 
-            tarefasPorZelador = Zoo.getAllInstalacoes().size() / Zelador.getQuantidade();
+        int b = Zelador.getQuantidade() == 0 ? 1 : Zelador.getQuantidade(); 
+        if ( (Zoo.getAllInstalacoes().size() / b)%1.0 == 0){ 
+            tarefasPorZelador = Zoo.getAllInstalacoes().size() / b;
         }else{
-            tarefasPorZelador = (Zoo.getAllInstalacoes().size() / Zelador.getQuantidade()) + 1;
+            tarefasPorZelador = (Zoo.getAllInstalacoes().size() / b) + 1;
         }
         
+       
         int totalDoentes= 0,tarefasPorVeterinario = 0;
         for (Instalacao instalacao : Zoo.getAllInstalacoes()) {  
             totalDoentes += instalacao.getAnimaisDoentes().size();
         }
         
-        if ( (totalDoentes / Veterinario.getQuantidade())%1.0 == 0){ 
-            tarefasPorVeterinario = totalDoentes / Veterinario.getQuantidade();
+        int a = Veterinario.getQuantidade() == 0 ? 1 : Veterinario.getQuantidade(); 
+        if ( (totalDoentes / a)%1.0 == 0){ 
+            tarefasPorVeterinario = totalDoentes / a;
         }else{
-            tarefasPorVeterinario = (totalDoentes / Veterinario.getQuantidade()) + 1;
+            tarefasPorVeterinario = (totalDoentes / a) + 1;
         }
         
         int ultimaManunecao=0 ,ultimaTrtacao=0, ultimaCura=0;

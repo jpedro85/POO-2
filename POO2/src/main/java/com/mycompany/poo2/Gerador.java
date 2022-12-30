@@ -124,6 +124,38 @@ public final class Gerador {
         
     }
     
+    public static Animal gerarAnimal(GeneEspecifico gene) {
+        
+        Especie especieAleatoria = Especie.getAllInstances().get(gerarNumero(0, Especie.getAllInstances().size()));
+        GeneSexo geneSexo = GeneSexo.getAllInstances().get(gerarNumero(0, GeneSexo.getAllInstances().size()));
+        GeneDieta geneDieta = GeneDieta.getAllInstances().get(gerarNumero(0, GeneDieta.getAllInstances().size()));
+        GeneAtratividade geneAtratividade = GeneAtratividade.getAllInstances().get(gerarNumero(0, GeneAtratividade.getAllInstances().size()));
+        GeneLongividade geneLongividade = GeneLongividade.getAllInstances().get(gerarNumero(0, GeneLongividade.getAllInstances().size()));
+        GeneRepoducao geneRepoducao = GeneRepoducao.getAllInstances().get(gerarNumero(0, GeneRepoducao.getAllInstances().size()));
+        GeneAmbiente geneAmbiente = GeneAmbiente.getAllInstances().get(gerarNumero(0, GeneAmbiente.getAllInstances().size()));
+        ArrayList<GeneEspecifico> geneEspecificos = new ArrayList<>();
+        
+        geneEspecificos.add(gene);
+        
+        for (int i = 0; i < gerarNumero(1, CararcteristicasEspecificas.values().length); i++) {
+            
+            GeneEspecifico geneEspecifico = GeneEspecifico.getAllInstances().get(gerarNumero(0, GeneEspecifico.getAllInstances().size()));
+           
+            while (geneEspecificos.contains(geneEspecifico)) {
+                geneEspecifico = GeneEspecifico.getAllInstances().get(gerarNumero(0, GeneEspecifico.getAllInstances().size()));
+            }
+            
+            geneEspecificos.add(geneEspecifico);
+        }
+        
+        
+        Genoma genoma = new Genoma(especieAleatoria, geneSexo, geneDieta, geneAtratividade, geneLongividade, geneRepoducao, geneAmbiente, geneEspecificos);
+        String nomeArtisticoPai = getNomesArtisticos().get(gerarNumero(0, getNomesArtisticos().size()));
+        String nomeArtisticoMae = getNomesArtisticos().get(gerarNumero(0, getNomesArtisticos().size()));
+
+        return new Animal(nomeArtisticoPai, nomeArtisticoMae, gerarBoolean(), genoma, gerarNumero(0, 20));
+    }
+    
     public static Animal gerarAnimal() {
         
         Especie especieAleatoria = Especie.getAllInstances().get(gerarNumero(0, Especie.getAllInstances().size()));

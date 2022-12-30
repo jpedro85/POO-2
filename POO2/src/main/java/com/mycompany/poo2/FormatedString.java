@@ -223,7 +223,7 @@ public class FormatedString {
     }
 
     private static <Tipo> ArrayList<Tipo> convert(Class<Tipo> cclass, String strArray, ArrayList<Tipo> array) throws RepresentacaoInvalidaDoTipo{
-        
+                            
         int end = 0;
         FormatedString fstr;
         String str = "";

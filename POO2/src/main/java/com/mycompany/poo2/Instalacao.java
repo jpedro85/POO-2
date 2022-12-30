@@ -234,7 +234,7 @@ public class Instalacao implements Gravavel {
     public String toString(){
         
         String text="";
-        text+= "nome: "+nome+" ID: "+id+" capapacidade: "+capacidade+" vacancia: "+ getVacancia() +" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+entrevaloLimiteManutencao+"\n\t";
+        text+= "nome: "+nome+" ID: "+id+ " ambinete: "+ this.ambiente +" capapacidade: "+capacidade+" vacancia: "+ getVacancia() +" sujidade: "+sujidade+" condicao: "+condicao+" Custo de manutencao: "+custoManutencao+" Tempo medio manutencao: "+entrevaloLimiteManutencao+"\n\t";
         
         if (this.getOcupacao() != 0) {
             

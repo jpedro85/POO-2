@@ -166,10 +166,18 @@ public final class MenuGeral extends Menu {
         else{
             System.out.println("Historico:");
             Acontecimentos acont = this.pedirAcontecimento();
+            boolean tem = false;
             for (Historico.Acontecimento acontecimento:Historico.getAcontecimentos()) {
-                if(acontecimento.getTipo()==acont)
+                if(acontecimento.getTipo()==acont){
                     System.out.println("\t"+acontecimento);
+                    tem=true;
+                }
             }
+            
+            if (!tem) {
+                System.out.println("Não existe acontecimentos no histórico do Tipo: " + acont );
+            }
+            
         }
         this.pedirContinuar();
     }

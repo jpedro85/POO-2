@@ -22,8 +22,7 @@ public enum Acontecimentos {
     LUCRO("Lucro"),
     INFO("Informação"),
     FUGAANIMAL("Fuga"),
-    ENCONTRADO("Encontrado"),
-    CONTAS("Contas");
+    ENCONTRADO("Encontrado");
     
     private String name;
     

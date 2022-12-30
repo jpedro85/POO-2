@@ -1,0 +1,3 @@
+Tratador(Nome:Guilherme;Nif:72253808;Idade:42;SalarioBase:1652.1352368972898;BonusTarefa:19;Experiencia:16;MaxTarefas:35;TotalTarefas:0;)
+Veterinario(Nome:Emanuel;Nif:26038017;Idade:42;SalarioBase:3313.1765694115165;BonusTarefa:187;Experiencia:37;MaxTarefas:3;TotalTarefas:0;)
+Zelador(Nome:Yuri;Nif:39499068;Idade:65;SalarioBase:1049.8686611110131;BonusTarefa:38;Experiencia:13;MaxTarefas:3;TotalTarefas:0;)

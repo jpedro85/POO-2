@@ -123,7 +123,7 @@ public final class Gravador {
         gravarGravavel(Zoo.getAllNascimentos(), Carregador.FICHEIRO_ZOONASCIDOS);
         gravarGravavel(Zoo.getAllObitos(), Carregador.FICHEIRO_ZOOOBITUS);
         gravarHasMap(Zoo.getAllSemiLivres(), Carregador.FICHEIRO_ZOOSMILIVRES);
-        gravarlinkedHasSet(Historico.getAcontecimentos(), Carregador.FICHEIRO_ZOOHISTORICO);
+        gravarHistorico();
      
     }
     
@@ -136,7 +136,9 @@ public final class Gravador {
             PrintWriter pw = new PrintWriter(bW);
 
             for (T e : array) {
+                
                 pw.println(((Gravavel)e).toFormatedString());
+                System.out.println(((Gravavel)e).toFormatedString());
             }
             
             pw.close();
@@ -173,16 +175,21 @@ public final class Gravador {
         } 
     }
     
-    public static <T> void gravarlinkedHasSet( LinkedHashSet<T> hasSet,String ficheiro){
+    public static void gravarHistorico(){
+
         
-        System.out.println("A gravar no ficheiro " + ficheiro );
+        System.out.println("A gravar no ficheiro " + Carregador.FICHEIRO_ZOOHISTORICO );
         try {
-            FileWriter fW = new FileWriter(ficheiro);
+            FileWriter fW = new FileWriter(Carregador.FICHEIRO_ZOOHISTORICO);
             BufferedWriter bW = new BufferedWriter(fW);
             PrintWriter pw = new PrintWriter(bW);
 
-            for (T e : hasSet) {
-                pw.println(((Gravavel)e).toFormatedString());
+            for (Historico.Acontecimento e : Historico.getAcontecimentos()) {
+                
+                if ( e.getClass().getSimpleName().equals(Historico.AcontecimentoMonetario.class.getSimpleName()) ) {
+                    ((Historico.AcontecimentoMonetario)e).toFormatedString();
+                }else
+                    pw.println(e.toFormatedString());
             }
             
             pw.close();
